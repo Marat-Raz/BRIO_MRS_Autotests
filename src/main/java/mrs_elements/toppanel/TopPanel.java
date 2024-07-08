@@ -15,7 +15,11 @@ public class TopPanel {
     public static void clickOnSynchronization() {
         driver.findElement(SYNCHRONIZATION_BUTTON).click();
     }
-    @Step("Нажимаем на кнопку «Уведомления»")
+    @Step("Нажимаем на кнопку «Меню»")
+    public static void clickOnMainMenu() {
+        driver.findElement(MENU_BUTTON).click();
+    }
+/*    @Step("Нажимаем на кнопку «Уведомления»")
     public static void clickOnNotifications() {
         driver.findElement().click();
     }
@@ -46,6 +50,6 @@ public class TopPanel {
     @Step("Нажимаем на кнопку «AMR»")
     public static void clickOnNotifications() {
         driver.findElement().click();
-    }
+    }*/
 
 }

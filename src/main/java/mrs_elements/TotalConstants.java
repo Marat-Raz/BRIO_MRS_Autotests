@@ -16,11 +16,11 @@ public class TotalConstants {
             "ContentPresenter/Button/Grid/Border/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
     public static final By NOTIFICATIONS_BUTTON = By.xpath("//NotificationPanelOpenActionView/Border/" +
             "ContentPresenter/Button/Grid/Border/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
+/*    public static final By _BUTTON = By.xpath("");
     public static final By _BUTTON = By.xpath("");
     public static final By _BUTTON = By.xpath("");
     public static final By _BUTTON = By.xpath("");
-    public static final By _BUTTON = By.xpath("");
-    public static final By _BUTTON = By.xpath("");
+    public static final By _BUTTON = By.xpath("");*/
 
 
 
