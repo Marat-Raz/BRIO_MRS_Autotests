@@ -16,11 +16,18 @@ public class TotalConstants {
             "ContentPresenter/Button/Grid/Border/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
     public static final By NOTIFICATIONS_BUTTON = By.xpath("//NotificationPanelOpenActionView/Border/" +
             "ContentPresenter/Button/Grid/Border/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
-/*    public static final By _BUTTON = By.xpath("");
-    public static final By _BUTTON = By.xpath("");
-    public static final By _BUTTON = By.xpath("");
-    public static final By _BUTTON = By.xpath("");
-    public static final By _BUTTON = By.xpath("");*/
+    public static final By AXES_BUTTON = By.xpath("//ToggleGridLabelsCommandView/Border/" +
+            "ContentPresenter/Button/Grid/Border/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
+    public static final By EXPLORER_BUTTON = By.xpath("//OpenExplorerContextActionView/Border/" +
+            "ContentPresenter/Button/Grid/Border/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
+    public static final By HIERARCHY_BUTTON = By.xpath("//ToggleHierarchyCommandView/Border/" +
+            "ContentPresenter/Button/Grid/Border/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
+    public static final By AR_BUTTON = By.xpath("//MixedRealityModeSwitchView/Border/ContentPresenter/" +
+            "Grid/RadioButton[1]/Border/DockPanel/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
+    public static final By MR_BUTTON = By.xpath("//MixedRealityModeSwitchView/Border/ContentPresenter/" +
+            "Grid/RadioButton[2]/Border/DockPanel/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
+    public static final By AMR_BUTTON = By.xpath("//MixedRealityModeSwitchView/Border/ContentPresenter/" +
+            "Grid/RadioButton[3]/Border/DockPanel/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
 
 
 

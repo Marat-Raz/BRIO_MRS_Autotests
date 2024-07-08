@@ -21,4 +21,16 @@ public class CloseMRSTest extends TestsStarter {
         //Thread.sleep(1000);
         System.out.println("Ok");
     }
+    @Test
+    @DisplayName("Закрыть приложение")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-746")
+    public void clickOnMenuButtonTest1() {
+        topPanel = new TopPanel(driver);
+        topPanel.clickOnMainMenu();
+        closeMRS = new CloseMRS(driver);
+        CloseMRS.clickOnCloseApplicationButton();
+        CloseMRS.clickOnNoButton();
+        //Thread.sleep(1000);
+        System.out.println("Ok");
+    }
 }
