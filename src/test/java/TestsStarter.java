@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class TestsStarter {
-    static AppiumDriver brioSession = null;
+    static AppiumDriver driver = null;
     @BeforeAll
     @Step("Запуск Allure и логгирования запросов по API")
     public static void globalSetUp() {
@@ -35,8 +35,8 @@ public class TestsStarter {
             caps.setCapability("appium:attachToTopLevelWindowClassName", "UnityWndClass");
             caps.setCapability("appium:forceMatchAppTitle", "BRIO MRS");
 
-            brioSession = new AppiumDriver(new URL("http://127.0.0.1:4723"), caps);
-            brioSession.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+            driver = new AppiumDriver(new URL("http://127.0.0.1:4723"), caps);
+            driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -44,8 +44,8 @@ public class TestsStarter {
     @AfterEach
     @Step
     public void closeBrioMRS() {
-        if(brioSession != null)
-            brioSession.quit();
+        if(driver != null)
+            driver.quit();
     }
     @AfterAll
     public static void tearDown(){
