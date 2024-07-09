@@ -13,15 +13,16 @@ import java.util.concurrent.TimeUnit;
 public class TestsStarter {
     static AppiumDriver driver = null;
     @BeforeAll
-    @Step("Запуск Allure и логгирования запросов по API")
-    public static void globalSetUp() {
+    @Step("Запуск Allure и логгирования запросов по API, запуск Appium + AltTesterDesktop + БРИО МРС")
+    public static void globalSetUp() throws IOException, InterruptedException {
         RestAssured.filters(
                 new RequestLoggingFilter(), new ResponseLoggingFilter(),
-                new AllureRestAssured());}
-    @BeforeEach
-        public void startNewMRS() throws InterruptedException, IOException {
+                new AllureRestAssured());
         AppiumStarter.startAppiumServerUsingCommandPrompt();
         AltTesterDesktopStartEnd.AltTesterDesktopStarter();
+        startNewMRS();
+    }
+    public static void startNewMRS() throws InterruptedException, IOException {
         TimeUnit.SECONDS.sleep(5);
         try {
             DesiredCapabilities caps = new DesiredCapabilities();
@@ -41,14 +42,12 @@ public class TestsStarter {
             throw new RuntimeException(e);
         }
     }
-    @AfterEach
-    @Step
-    public void closeBrioMRS() {
+
+    @AfterAll
+    @Step ("Закрытие ранее запущенных приложений")
+    public static void tearDown(){
         if(driver != null)
             driver.quit();
-    }
-    @AfterAll
-    public static void tearDown(){
         AltTesterDesktopStartEnd.AltTesterDesktopDestroy();
         AppiumStarter.stopAppiumServerUsingCommandPrompt();
     }

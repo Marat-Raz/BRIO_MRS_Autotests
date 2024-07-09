@@ -11,11 +11,6 @@ public class CloseMRS {
     public CloseMRS (AppiumDriver driver) {
         this.driver = driver;
     }
-
-    @Step("Нажимаем на кнопку «Закрыть приложение»")
-    public static void clickOnCloseApplicationButton() {
-        driver.findElement(CLOSE_APPLICATION_BUTTON).click();
-    }
     @Step("Нажимаем на кнопку «Да»")
     public static void clickOnYesButton() {
         driver.findElement(YES_BUTTON_CLOSE_APPLICATION).click();
