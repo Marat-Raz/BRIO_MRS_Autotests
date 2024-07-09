@@ -1,8 +1,5 @@
 import io.qameta.allure.Link;
-import mrs_elements.toppanel.MenuWindow;
-import mrs_elements.toppanel.NotificationsWindow;
-import mrs_elements.toppanel.SynchronizationWindow;
-import mrs_elements.toppanel.TopPanel;
+import mrs_elements.toppanel.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +13,7 @@ public class TopPanelTests extends TestsStarter{
     public void clickOnSynchronizationButtonTest() {
         topPanel.clickOnSynchronizationButton();
         SynchronizationWindow synchronizationWindow = new SynchronizationWindow(driver);
-            assertTrue(synchronizationWindow.SynchronizationDialogIsOpen());
+            assertTrue(synchronizationWindow.synchronizationDialogIsOpen());
         synchronizationWindow.clickOnXButton();
     }
     @Test
@@ -29,22 +26,23 @@ public class TopPanelTests extends TestsStarter{
         notificationsWindow.clickOnXButton();
     }
 /*    @Test
-    @DisplayName("Нажатие кнопки «Оси» открывает окно «Оси»")
+    @DisplayName("Нажатие кнопки «Оси» включает/выключает отображение осей на сцене")
     @Link(name = "Ссылка на тест-кейс отсуствует", url = " ")
     public void clickOnAxesButtonTest() {
         topPanel.clickOnAxesButton();
         MenuWindow menuWindow = new MenuWindow(driver);
         assertTrue(menuWindow.menuWindowIsOpen());
-    }
+    } */
     @Test
     @DisplayName("Нажатие кнопки «Проводник» открывает окно «Проводник»")
     @Link(name = "Ссылка на тест-кейс отсуствует", url = " ")
     public void clickOnExplorerButtonTest() {
+
         topPanel.clickOnExplorerButton();
-        MenuWindow menuWindow = new MenuWindow(driver);
-        assertTrue(menuWindow.menuWindowIsOpen());
+        ExplorerWindow explorerWindow = new ExplorerWindow(driver);
+        assertTrue(explorerWindow.explorerWindowIsOpen());
     }
-    @Test
+  /*  @Test
     @DisplayName("Нажатие кнопки «Уровни» открывает окно «Уровни»")
     @Link(name = "Ссылка на тест-кейс отсуствует", url = " ")
     public void clickOnHierarchyButtonTest() {
@@ -83,6 +81,6 @@ public class TopPanelTests extends TestsStarter{
         topPanel.clickOnAMR();
         MenuWindow menuWindow = new MenuWindow(driver);
         assertTrue(menuWindow.menuWindowIsOpen());
-    }*/
-
+    }
+*/
 }

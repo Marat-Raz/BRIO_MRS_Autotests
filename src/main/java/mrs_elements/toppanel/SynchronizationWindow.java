@@ -13,7 +13,7 @@ public class SynchronizationWindow {
     public SynchronizationWindow(AppiumDriver driver) {
         this.driver = driver;
     }
-    public boolean SynchronizationDialogIsOpen() {
+    public boolean synchronizationDialogIsOpen() {
         return driver.findElement(SYNCHRONIZATION_DIALOG).isDisplayed();
     }
     @Step("Нажимаем на кнопку «X»")
