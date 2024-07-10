@@ -16,8 +16,8 @@ public class ExplorerWindow {
     public boolean explorerWindowIsOpen() {
         return driver.findElement(EXPLORER_ITEMS).isDisplayed();
     }
-    @Step("Нажимаем на кнопку «>»")
-    public static void clickOnXButton() {
+    @Step("Нажимаем на кнопку «◄»")
+    public static void clickOnBackButton() {
         driver.findElement(EXPLORER_GO_BACK_BUTTON).click();
     }
 }

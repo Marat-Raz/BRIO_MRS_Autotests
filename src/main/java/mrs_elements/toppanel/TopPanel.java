@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 public class TopPanel {
     public static AppiumDriver driver;
     public static final By MENU_BUTTON = By.xpath("//OpenMenuActionView/Border/ContentPresenter/" +
-            "Button/Grid/Border/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
+            "Button"); //Grid/Border/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
     public static final By SYNCHRONIZATION_BUTTON = By.xpath("//ConnectionIndicatorView/Border/" +
             "ContentPresenter/Button/Grid/Border/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
     public static final By NOTIFICATIONS_BUTTON = By.xpath("//NotificationPanelOpenActionView/Border/" +

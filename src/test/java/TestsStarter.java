@@ -15,7 +15,7 @@ public class TestsStarter {
     @BeforeAll
     @Step("Запуск Allure и логгирования запросов по API, запуск Appium + AltTesterDesktop + БРИО МРС")
     public static void globalSetUp() throws IOException, InterruptedException {
-        RestAssured.filters(
+        RestAssured.replaceFiltersWith(
                 new RequestLoggingFilter(), new ResponseLoggingFilter(),
                 new AllureRestAssured());
         AppiumStarter.startAppiumServerUsingCommandPrompt();

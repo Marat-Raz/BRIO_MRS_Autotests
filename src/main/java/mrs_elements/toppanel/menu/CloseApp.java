@@ -1,4 +1,4 @@
-package mrs_elements.toppanel;
+package mrs_elements.toppanel.menu;
 
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
@@ -6,9 +6,9 @@ import io.qameta.allure.Step;
 import static mrs_elements.TotalConstants.*;
 import static mrs_elements.TotalConstants.NO_BUTTON_CLOSE_APPLICATION;
 
-public class CloseMRS {
+public class CloseApp {
     public static AppiumDriver driver;
-    public CloseMRS (AppiumDriver driver) {
+    public CloseApp(AppiumDriver driver) {
         this.driver = driver;
     }
     @Step("Нажимаем на кнопку «Да»")
