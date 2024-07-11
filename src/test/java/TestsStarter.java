@@ -45,10 +45,12 @@ public class TestsStarter {
 
     @AfterAll
     @Step ("Закрытие ранее запущенных приложений")
-    public static void tearDown(){
+    public static void tearDown() throws InterruptedException {
         if(driver != null)
             driver.quit();
         AltTesterDesktopStartEnd.AltTesterDesktopDestroy();
         AppiumStarter.stopAppiumServerUsingCommandPrompt();
+        TimeUnit.SECONDS.sleep(3);
+
     }
 }

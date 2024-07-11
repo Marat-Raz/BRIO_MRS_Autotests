@@ -4,7 +4,7 @@ import java.io.IOException;
 public class AltTesterDesktopStartEnd {
     static Process AltTesterDesktop = null;
     public static void AltTesterDesktopStarter() {
-    ProcessBuilder pb = new ProcessBuilder("C:\\Program Files\\AltTesterDesktop\\AltTesterDesktop.exe");
+    ProcessBuilder pb = new ProcessBuilder("C:\\Program Files\\AltTesterDesktop\\AltTesterDesktop.exe", "/min");
         pb.directory(new File("C:\\Program Files\\AltTesterDesktop\\"));
         try {
         AltTesterDesktop = pb.start();

@@ -15,6 +15,9 @@ public class DeveloperMode {
             "AnimatedContentControl/Border/Grid/ContentPresenter/Grid");
     public static final By DEVELOPER_MODE_GO_BACK = By.xpath("//SettingsView/Border/ContentPresenter/" +
             "AnimatedContentControl/Border/Grid/ContentPresenter/Grid/Button");
+    public void waitOpenDeveloperModeWindow() {
+        driver.findElement(DEVELOPER_MODE_WINDOW).isDisplayed();
+    }
     public boolean developerModeWindowIsOpen() {
         return driver.findElement(DEVELOPER_MODE_WINDOW).isDisplayed();
     }

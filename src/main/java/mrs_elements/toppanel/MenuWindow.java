@@ -25,6 +25,9 @@ public class MenuWindow {
     public MenuWindow(AppiumDriver driver) {
         this.driver = driver;
     }
+    public void waitOpenMenuWindow() {
+        driver.findElement(MENU_WINDOW).isDisplayed();
+    }
     public boolean menuWindowIsOpen() {
         return driver.findElement(MENU_WINDOW).isDisplayed();
     }
@@ -52,6 +55,7 @@ public class MenuWindow {
     }
     @Step("Нажимаем на кнопку «X»")
     public static void clickOnXButton() {
-        driver.findElement(CLOSE_APPLICATION_BUTTON).click();
+        driver.findElement(BUTTON_X).click();
     }
+
 }

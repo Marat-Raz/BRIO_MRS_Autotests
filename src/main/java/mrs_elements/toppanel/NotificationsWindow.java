@@ -15,6 +15,9 @@ public class NotificationsWindow {
     public NotificationsWindow(AppiumDriver driver) {
         this.driver = driver;
     }
+    public void waitOpenNotificationsWindow() {
+        driver.findElement(NOTIFICATIONS_WINDOW).isDisplayed();
+    }
     public boolean notificationsWindowIsOpen() {
         return driver.findElement(NOTIFICATIONS_WINDOW).isDisplayed();
     }
@@ -22,5 +25,6 @@ public class NotificationsWindow {
     public static void clickOnXButton() {
         driver.findElement(CLOSE_NOTIFICATIONS_BUTTON).click();
     }
+
 
 }

@@ -13,11 +13,9 @@ public class TopPanelTests extends TestsStarter{
     public void clickOnSynchronizationButtonTest() throws InterruptedException {
         topPanel.clickOnSynchronizationButton();
         SynchronizationWindow synchronizationWindow = new SynchronizationWindow(driver);
-        //Thread.sleep(300);
-        assertTrue(synchronizationWindow.synchronizationDialogIsOpen());
+        synchronizationWindow.waitOpenSynchronizationWindow();
+            assertTrue(synchronizationWindow.synchronizationDialogIsOpen());
         synchronizationWindow.clickOnXButton();
-        Thread.sleep(300);
-
     }
     @Test
     @DisplayName("Нажатие кнопки «Уведомления» открывает окно «Уведомления»")
@@ -25,10 +23,10 @@ public class TopPanelTests extends TestsStarter{
     public void clickOnNotificationsButtonTest() throws InterruptedException {
         topPanel.clickOnNotificationsButton();
         NotificationsWindow notificationsWindow = new NotificationsWindow(driver);
-        //Thread.sleep(300);
+        notificationsWindow.waitOpenNotificationsWindow();
             assertTrue(notificationsWindow.notificationsWindowIsOpen());
         notificationsWindow.clickOnXButton();
-        Thread.sleep(300);
+        //Thread.sleep(300);
 
     }
     // FIXME
@@ -68,10 +66,9 @@ public class TopPanelTests extends TestsStarter{
     public void clickOnMainMenuButtonTest() throws InterruptedException {
         topPanel.clickOnMainMenuButton();
         MenuWindow menuWindow = new MenuWindow(driver);
+        menuWindow.waitOpenMenuWindow();
             assertTrue(menuWindow.menuWindowIsOpen());
         menuWindow.clickOnXButton();
-        Thread.sleep(300);
-
     }
     // FIXME
     /*

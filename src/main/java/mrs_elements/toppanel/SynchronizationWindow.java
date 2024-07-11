@@ -13,6 +13,9 @@ public class SynchronizationWindow {
     public SynchronizationWindow(AppiumDriver driver) {
         this.driver = driver;
     }
+    public void waitOpenSynchronizationWindow() {
+        driver.findElement(SYNCHRONIZATION_DIALOG).isDisplayed();
+    }
     public boolean synchronizationDialogIsOpen() {
         return driver.findElement(SYNCHRONIZATION_DIALOG).isDisplayed();
     }
