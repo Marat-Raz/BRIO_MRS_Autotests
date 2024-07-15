@@ -10,7 +10,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import mrs_elements.toppanel.menu.CloseAppMassage;
 import mrs_elements.toppanel.TopPanel;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MenuWindowTest extends TestsStarter {
