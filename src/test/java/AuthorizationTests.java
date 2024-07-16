@@ -18,7 +18,10 @@ public class AuthorizationTests extends TestsStarter {
         menuWindow = new MenuWindow(driver);
         menuWindow.waitOpenMenuWindow();
         Thread.sleep(1000);
-        MenuWindowTest.menuWindow.clickOnMinimizeButton();
-        Thread.sleep(1000);
+        menuWindow.clickOnMinimizeButton();
+/*        Thread.sleep(1000);
+        driver.manage().window().fullscreen();
+        Thread.sleep(10000);*/
+
     }
 }

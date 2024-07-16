@@ -13,12 +13,15 @@ import mrs_elements.toppanel.TopPanel;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MenuWindowTest extends TestsStarter {
-    static MenuWindow menuWindow;
     static TopPanel topPanel;
     CloseAppMassage closeApp;
-    ProfileWindow profileWindow;
     DeveloperMode developerMode;
-    ScreenNumericKeyboard screenNumericKeyboard;
+    ScreenNumericKeyboard screenNumericKeyboard = new ScreenNumericKeyboard(driver);
+    Settings settings = new Settings(driver);
+    ProfileWindow profileWindow = new ProfileWindow(driver);
+    static MenuWindow menuWindow;
+    boolean result;
+
     @BeforeAll
     public static void clickOnMenuButton() {
         topPanel = new TopPanel(driver);
@@ -29,43 +32,42 @@ public class MenuWindowTest extends TestsStarter {
     @Step("Открытие окна «Профиль»")
     public void openProfileWindow() {
         menuWindow.clickOnSettingsButton();
-        Settings settings = new Settings(driver);
         settings.waitOpenSettingsWindow();
         settings.clickOnProfileButton();
-        profileWindow = new ProfileWindow(driver);
         profileWindow.waitOpenProfileWindow();
     }
 
     @Step("Возврат из окна «Профиль» в главное окно «Меню»")
     public void returnToMainMenuWindowFromProfile() {
         profileWindow.clickOnGoBackButton();
-        Settings settings = new Settings(driver);
         settings.waitOpenSettingsWindow();
         settings.clickOnBackButton();
-        menuWindow = new MenuWindow(driver);
         menuWindow.waitOpenMenuWindow();
     }
     @Step("Возврат из окна «Для разработчиков» в главное окно «Меню»")
     public void returnToMainMenuWindowFromDeveloperMode() {
         developerMode.clickOnBackButton();
-        Settings settings = new Settings(driver);
         settings.waitOpenSettingsWindow();
         settings.clickOnBackButton();
-        menuWindow = new MenuWindow(driver);
         menuWindow.waitOpenMenuWindow();
     }
-
+    /*    @Test
+        @Muted
+        @DisplayName("Нажать на «Свернуть окно»")
+        @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
+        public void clickOnMinimizeButtonTest() {
+            menuWindow.clickOnMinimizeButton();
+        }*/
     @Test
     @DisplayName("Нажать 5 раз на надпись с версией приложения")
     @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
     public void clickOnBRIO_MRSVersionTest() {
         menuWindow.clickFiveOnBrioMrsVersionButton();
         developerMode = new DeveloperMode(driver);
-        developerMode.waitOpenDeveloperModeWindow();
-
-            assertTrue(developerMode.developerModeWindowIsOpen());
-
+        result = developerMode.developerModeWindowIsOpen();
         returnToMainMenuWindowFromDeveloperMode();
+
+            assertTrue(result);
     }
     @Test
     @DisplayName("Нажать на «Закрыть приложение» и в запросе нажать на «Нет»")
@@ -73,31 +75,21 @@ public class MenuWindowTest extends TestsStarter {
     public void clickOnCloseApplicationButtonTest() {
         menuWindow.clickOnCloseApplicationButton();
         closeApp = new CloseAppMassage(driver);
-        closeApp.waitOpenCloseAppWindow();
         closeApp.clickOnNoButton();
+        result = menuWindow.menuWindowIsOpen();
 
-            assertTrue(menuWindow.menuWindowIsOpen());
+            assertTrue(result);
     }
     @Test
     @DisplayName("Нажать на «Настройки»")
     @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
-    public void clickOnSettingsButtonTest() {
+    public void clickOnSettingsButtonTest() throws InterruptedException {
         menuWindow.clickOnSettingsButton();
-        Settings settings = new Settings(driver);
-        settings.waitOpenSettingsWindow();
-
-            assertTrue(settings.settingsWindowIsOpen());
-
+        result = settings.settingsWindowIsOpen();
         settings.clickOnBackButton();
-    }
-/*    @Test
-    @Muted
-    @DisplayName("Нажать на «Свернуть окно»")
-    @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
-    public void clickOnMinimizeButtonTest() {
-        menuWindow.clickOnMinimizeButton();
-    }*/
 
+            assertTrue(result);
+    }
     @Test
     @DisplayName("Изменение значения поля «Время на устранение задачи по умолчанию, дней» нажатием на «-»")
     @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
@@ -108,10 +100,9 @@ public class MenuWindowTest extends TestsStarter {
         String changedText = profileWindow.getTextFromCounter();
         int origNumber = Integer.parseInt(originalText.trim());
         int changedNumber = Integer.parseInt(changedText.trim());
+        returnToMainMenuWindowFromProfile();
 
             assertEquals(origNumber - 1, changedNumber);
-
-        returnToMainMenuWindowFromProfile();
     }
     @Test
     @DisplayName("Изменение значения поля «Время на устранение задачи по умолчанию, дней» нажатием на «+»")
@@ -123,10 +114,9 @@ public class MenuWindowTest extends TestsStarter {
         String changedText = profileWindow.getTextFromCounter();
         int origNumber = Integer.parseInt(originalText.trim());
         int changedNumber = Integer.parseInt(changedText.trim());
+        returnToMainMenuWindowFromProfile();
 
             assertEquals(origNumber + 1, changedNumber);
-
-        returnToMainMenuWindowFromProfile();
     }
     @Test
     @DisplayName("Измененные значения поля «Время на устранение задачи по умолчанию, дней» сохраняются")
@@ -140,10 +130,9 @@ public class MenuWindowTest extends TestsStarter {
         openProfileWindow();
         String savedText = profileWindow.getTextFromCounter();
         int savedNumber = Integer.parseInt(savedText.trim());
+        returnToMainMenuWindowFromProfile();
 
             assertEquals(origNumber, savedNumber);
-
-        returnToMainMenuWindowFromProfile();
     }
     @Test
     @DisplayName("Нажатие на поле «Время на устранение задачи по умолчанию, дней» открывает экранную клавиатуру")
@@ -152,13 +141,12 @@ public class MenuWindowTest extends TestsStarter {
         openProfileWindow();
         profileWindow.clickOnCounter();
         screenNumericKeyboard = new ScreenNumericKeyboard(driver);
-        screenNumericKeyboard.waitOpenScreenNumericKeyboard();
-
-            assertTrue(screenNumericKeyboard.ScreenNumericKeyboardIsOpen());
-
+        result = screenNumericKeyboard.ScreenNumericKeyboardIsOpen();
         returnToMainMenuWindowFromProfile();
+
+            assertTrue(result);
     }
-// TODO Нажатие на кнопку "На главную" тестировать, "Свернуть окно", на надпись версии БРИО МРС
+
 
 
 

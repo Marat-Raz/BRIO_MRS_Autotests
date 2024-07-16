@@ -7,15 +7,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TopPanelTests extends TestsStarter{
     TopPanel topPanel = new TopPanel(driver);
+    boolean result;
     @Test
     @DisplayName("Нажатие кнопки «Синхронизация» открывает окно «Синхронизация»")
     @Link(name = "Ссылка на тест-кейс отсуствует", url = " ")
     public void clickOnSynchronizationButtonTest() throws InterruptedException {
         topPanel.clickOnSynchronizationButton();
         SynchronizationWindow synchronizationWindow = new SynchronizationWindow(driver);
-        synchronizationWindow.waitOpenSynchronizationWindow();
-            assertTrue(synchronizationWindow.synchronizationDialogIsOpen());
+        result = synchronizationWindow.synchronizationDialogIsOpen();
         synchronizationWindow.clickOnXButton();
+            assertTrue(result);
     }
     @Test
     @DisplayName("Нажатие кнопки «Уведомления» открывает окно «Уведомления»")
@@ -24,10 +25,9 @@ public class TopPanelTests extends TestsStarter{
         topPanel.clickOnNotificationsButton();
         NotificationsWindow notificationsWindow = new NotificationsWindow(driver);
         notificationsWindow.waitOpenNotificationsWindow();
-            assertTrue(notificationsWindow.notificationsWindowIsOpen());
+        result = notificationsWindow.notificationsWindowIsOpen();
         notificationsWindow.clickOnXButton();
-        //Thread.sleep(300);
-
+            assertTrue(result);
     }
     // FIXME
 
@@ -41,14 +41,16 @@ public class TopPanelTests extends TestsStarter{
     } */
     // FIXME
 
-    /*    @Test
+/*    @Test
     @DisplayName("Нажатие кнопки «Проводник» открывает окно «Проводник»")
     @Link(name = "Ссылка на тест-кейс отсуствует", url = " ")
     public void clickOnExplorerButtonTest() {
-
         topPanel.clickOnExplorerButton();
         ExplorerWindow explorerWindow = new ExplorerWindow(driver);
-        assertTrue(explorerWindow.explorerWindowIsOpen());
+        result = explorerWindow.explorerWindowIsOpen();
+        explorerWindow.clickOnBackButton();
+            assertTrue(result);
+
     }*/
     // FIXME
   /*  @Test
@@ -66,9 +68,9 @@ public class TopPanelTests extends TestsStarter{
     public void clickOnMainMenuButtonTest() throws InterruptedException {
         topPanel.clickOnMainMenuButton();
         MenuWindow menuWindow = new MenuWindow(driver);
-        menuWindow.waitOpenMenuWindow();
-            assertTrue(menuWindow.menuWindowIsOpen());
+        result = menuWindow.menuWindowIsOpen();
         menuWindow.clickOnXButton();
+            assertTrue(result);
     }
     // FIXME
     /*
