@@ -1,4 +1,4 @@
-package mrs_elements.toppanel.menu.settings;
+package mrs_elements.screenkeyboards;
 
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
@@ -15,7 +15,7 @@ public class ScreenNumericKeyboard {
         this.driver = driver;
     }
     public void waitOpenScreenNumericKeyboard() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(SCREEN_NUMERIC_KEYBOARD));
+        (new WebDriverWait(driver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(SCREEN_NUMERIC_KEYBOARD));
         driver.findElement(SCREEN_NUMERIC_KEYBOARD).isDisplayed();
     }
     public boolean ScreenNumericKeyboardIsOpen() {

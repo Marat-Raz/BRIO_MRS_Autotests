@@ -29,42 +29,43 @@ public class MenuWindow {
     public MenuWindow(AppiumDriver driver) {
         this.driver = driver;
     }
-    public void waitOpenMenuWindow() {
-        driver.findElement(MENU_WINDOW).isDisplayed();
+    public static void waitOpenMenuWindowOpen() {
+        (new WebDriverWait(driver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(MENU_WINDOW));
     }
     public boolean menuWindowIsOpen() {
+        waitOpenMenuWindowOpen();
         return driver.findElement(MENU_WINDOW).isDisplayed();
     }
         @Step("Нажимаем на кнопку «Настройки»")
     public static void clickOnSettingsButton() {
-            (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(MENU_WINDOW));
+            waitOpenMenuWindowOpen();
             driver.findElement(SETTINGS_BUTTON).click();
     }
     @Step("Нажимаем на кнопку «Наглавную»")
     public static void clickOnReturnToMainPageButton() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(MENU_WINDOW));
+        waitOpenMenuWindowOpen();
         driver.findElement(RETURN_TO_MAIN_PAGE_BUTTON).click();
     }
     @Step("Нажимаем на кнопку «Свернуть окно»")
     public static void clickOnMinimizeButton() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(MENU_WINDOW));
+        waitOpenMenuWindowOpen();
         driver.findElement(MINIMIZE_BUTTON).click();
     }
     @Step("Нажимаем на кнопку «Закрыть приложение»")
     public static void clickOnCloseApplicationButton() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(MENU_WINDOW));
+        waitOpenMenuWindowOpen();
         driver.findElement(CLOSE_APPLICATION_BUTTON).click();
     }
     @Step("Нажимаем на надписи с версией приложения")
     public static void clickFiveOnBrioMrsVersionButton() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(MENU_WINDOW));
+        waitOpenMenuWindowOpen();
         for (int i = 0; i < 5; i++){
             driver.findElement(BRIO_MRS_VERSION_BUTTON).click();
         }
     }
     @Step("Нажимаем на кнопку «X»")
     public static void clickOnXButton() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(MENU_WINDOW));
+        waitOpenMenuWindowOpen();
         driver.findElement(BUTTON_X).click();
     }
 

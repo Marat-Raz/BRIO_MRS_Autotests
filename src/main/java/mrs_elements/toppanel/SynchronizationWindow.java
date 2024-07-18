@@ -17,17 +17,16 @@ public class SynchronizationWindow {
     public SynchronizationWindow(AppiumDriver driver) {
         this.driver = driver;
     }
-    public void waitOpenSynchronizationWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(SYNCHRONIZATION_DIALOG));
-        driver.findElement(SYNCHRONIZATION_DIALOG).isDisplayed();
+    public static void waitOpenSynchronizationWindow() {
+        (new WebDriverWait(driver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(SYNCHRONIZATION_DIALOG));
     }
     public boolean synchronizationDialogIsOpen() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(SYNCHRONIZATION_DIALOG));
+        waitOpenSynchronizationWindow();
         return driver.findElement(SYNCHRONIZATION_DIALOG).isDisplayed();
     }
     @Step("Нажимаем на кнопку «X»")
     public static void clickOnXButton() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(SYNCHRONIZATION_DIALOG));
+        waitOpenSynchronizationWindow();
         driver.findElement(CLOSE_SYNCHRONIZATION_DIALOG_BUTTON).click();
     }
 }

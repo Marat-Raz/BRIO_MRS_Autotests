@@ -9,7 +9,6 @@ public class AltTesterDesktopStartEnd {
         try {
         AltTesterDesktop = pb.start();
     } catch ( IOException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
     }
         //TimeUnit.SECONDS.sleep(20);

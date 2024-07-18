@@ -21,7 +21,7 @@ public class CloseAppMassage {
             "Border/ContentPresenter/ContentControl/Border/ContentPresenter");
     @Step("Нажимаем на кнопку «Да»")
     public static void clickOnYesButton() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(NOTIFICATION_DIALOG_CLOSE_APPLICATION));
+        (new WebDriverWait(driver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(NOTIFICATION_DIALOG_CLOSE_APPLICATION));
         driver.findElement(YES_BUTTON_CLOSE_APPLICATION).click();
     }
     @Step("Нажимаем на кнопку «Нет»")

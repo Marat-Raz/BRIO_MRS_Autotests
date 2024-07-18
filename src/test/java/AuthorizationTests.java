@@ -1,5 +1,4 @@
 import io.qameta.allure.Link;
-import io.qameta.allure.Muted;
 import mrs_elements.toppanel.MenuWindow;
 import mrs_elements.toppanel.TopPanel;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +15,7 @@ public class AuthorizationTests extends TestsStarter {
         topPanel = new TopPanel(driver);
         topPanel.clickOnMainMenuButton();
         menuWindow = new MenuWindow(driver);
-        menuWindow.waitOpenMenuWindow();
+        menuWindow.waitOpenMenuWindowOpen();
         Thread.sleep(1000);
         menuWindow.clickOnMinimizeButton();
 /*        Thread.sleep(1000);

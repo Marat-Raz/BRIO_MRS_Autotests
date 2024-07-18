@@ -1,10 +1,12 @@
 import io.qameta.allure.Link;
 import io.qameta.allure.Step;
+import mrs_elements.login.LoginWindow;
+import mrs_elements.screenkeyboards.ScreenKeyboard;
 import mrs_elements.toppanel.MenuWindow;
 import mrs_elements.toppanel.menu.DeveloperMode;
 import mrs_elements.toppanel.menu.Settings;
 import mrs_elements.toppanel.menu.settings.ProfileWindow;
-import mrs_elements.toppanel.menu.settings.ScreenNumericKeyboard;
+import mrs_elements.screenkeyboards.ScreenNumericKeyboard;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +15,6 @@ import mrs_elements.toppanel.TopPanel;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MenuWindowTest extends TestsStarter {
-    static TopPanel topPanel;
     CloseAppMassage closeApp;
     DeveloperMode developerMode;
     ScreenNumericKeyboard screenNumericKeyboard = new ScreenNumericKeyboard(driver);
@@ -21,13 +22,14 @@ public class MenuWindowTest extends TestsStarter {
     ProfileWindow profileWindow = new ProfileWindow(driver);
     static MenuWindow menuWindow;
     boolean result;
-
+    static TopPanel topPanel;
+    ScreenKeyboard screenKeyboard;
     @BeforeAll
     public static void clickOnMenuButton() {
         topPanel = new TopPanel(driver);
         topPanel.clickOnMainMenuButton();
         menuWindow = new MenuWindow(driver);
-        menuWindow.waitOpenMenuWindow();
+        menuWindow.waitOpenMenuWindowOpen();
     }
     @Step("Открытие окна «Профиль»")
     public void openProfileWindow() {
@@ -42,14 +44,21 @@ public class MenuWindowTest extends TestsStarter {
         profileWindow.clickOnGoBackButton();
         settings.waitOpenSettingsWindow();
         settings.clickOnBackButton();
-        menuWindow.waitOpenMenuWindow();
+        menuWindow.waitOpenMenuWindowOpen();
     }
     @Step("Возврат из окна «Для разработчиков» в главное окно «Меню»")
     public void returnToMainMenuWindowFromDeveloperMode() {
         developerMode.clickOnBackButton();
         settings.waitOpenSettingsWindow();
         settings.clickOnBackButton();
-        menuWindow.waitOpenMenuWindow();
+        menuWindow.waitOpenMenuWindowOpen();
+    }
+    @Step("Открытие окна «Профиль»")
+    public void openInterfaceWindow() {
+        menuWindow.clickOnSettingsButton();
+        settings.waitOpenSettingsWindow();
+        settings.clickOnProfileButton();
+        profileWindow.waitOpenProfileWindow();
     }
     /*    @Test
         @Muted
@@ -82,13 +91,25 @@ public class MenuWindowTest extends TestsStarter {
     }
     @Test
     @DisplayName("Нажать на «Настройки»")
-    @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-558")
     public void clickOnSettingsButtonTest() throws InterruptedException {
         menuWindow.clickOnSettingsButton();
         result = settings.settingsWindowIsOpen();
         settings.clickOnBackButton();
 
             assertTrue(result);
+    }
+    @Test
+    @DisplayName("Страница настроек «Профиль» открыта?")
+    @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
+    public void profileWindowIsOpenTest() {
+        menuWindow.clickOnSettingsButton();
+        settings.waitOpenSettingsWindow();
+        settings.clickOnProfileButton();
+        result = profileWindow.profileWindowIsOpen();
+        returnToMainMenuWindowFromProfile();
+
+        assertTrue(result);
     }
     @Test
     @DisplayName("Изменение значения поля «Время на устранение задачи по умолчанию, дней» нажатием на «-»")
@@ -135,7 +156,7 @@ public class MenuWindowTest extends TestsStarter {
             assertEquals(origNumber, savedNumber);
     }
     @Test
-    @DisplayName("Нажатие на поле «Время на устранение задачи по умолчанию, дней» открывает экранную клавиатуру")
+    @DisplayName("Нажатие на поле «Время на устранение задачи по умолчанию, дней» открывает экранную цифровую клавиатуру")
     @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
     public void clickOnCounterOpenScreenKeyboardTest() {
         openProfileWindow();
@@ -146,7 +167,30 @@ public class MenuWindowTest extends TestsStarter {
 
             assertTrue(result);
     }
+    @Test
+    @DisplayName("Нажатие на кнопку «Выйти из акканта»")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-424")
+    public void clickOnLogOutAccountButtonAndLogInTest() {
+        openProfileWindow();
+        profileWindow.clickOnLogOutAccountButton();
+        LoginWindow loginWindow = new LoginWindow(driver);
+        result = loginWindow.loginWindowIsOpen();
 
+/*      loginWindow.enterTextInLoginInput("briocloud"); Не работает ввод непосредственно в эти поля ввода.
+Связано с тем, что экранная клавиатура перехватывает фокус
+        loginWindow.enterTextInPasswordInput("123");*/
+
+        loginWindow.clickLoginInput();
+        screenKeyboard = new ScreenKeyboard(driver);
+        screenKeyboard.enterTextToScreenKeyboardInput("briocloud");
+        loginWindow.clickPasswordInput();
+        screenKeyboard.enterTextToScreenKeyboardInput("123");
+        loginWindow.clickContinueButton();
+        topPanel.clickOnMainMenuButton();
+        menuWindow = new MenuWindow(driver);
+        menuWindow.waitOpenMenuWindowOpen();
+            assertTrue(result);
+    }
 
 
 

@@ -19,17 +19,17 @@ public class NotificationsWindow {
     public NotificationsWindow(AppiumDriver driver) {
         this.driver = driver;
     }
-    public void waitOpenNotificationsWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(NOTIFICATIONS_WINDOW));
+    public static void waitOpenNotificationsWindow() {
+        (new WebDriverWait(driver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(NOTIFICATIONS_WINDOW));
         driver.findElement(NOTIFICATIONS_WINDOW).isDisplayed();
     }
     public boolean notificationsWindowIsOpen() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(NOTIFICATIONS_WINDOW));
+        waitOpenNotificationsWindow();
         return driver.findElement(NOTIFICATIONS_WINDOW).isDisplayed();
     }
     @Step("Нажимаем на кнопку «X»")
     public static void clickOnXButton() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(NOTIFICATIONS_WINDOW));
+        waitOpenNotificationsWindow();
         driver.findElement(CLOSE_NOTIFICATIONS_BUTTON).click();
     }
 

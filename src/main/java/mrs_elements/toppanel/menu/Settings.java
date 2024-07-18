@@ -32,37 +32,40 @@ public class Settings {
     public static final By ABOUT_BUTTON = By.xpath("//SettingsView/Border/ContentPresenter/" +
             "AnimatedContentControl/Border/Grid/ContentPresenter/Grid/ScrollViewer/Border/Grid/" +
             "ScrollContentPresenter/ItemsControl/Border/ItemsPresenter/StackPanel/ContentPresenter[4]/Button");
+    public static void waitSettingsWindowOpen() {
+        (new WebDriverWait(driver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(SETTINGS_WINDOW));
+    }
     public boolean settingsWindowIsOpen() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(SETTINGS_WINDOW));
+        waitSettingsWindowOpen();
         return driver.findElement(SETTINGS_WINDOW).isDisplayed();
     }
     @Step("Нажимаем на кнопку «<Настройки»")
     public static void clickOnBackButton() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(SETTINGS_WINDOW));
+        waitSettingsWindowOpen();
         driver.findElement(SETTINGS_GO_BACK).click();
     }
     public void waitOpenSettingsWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(SETTINGS_WINDOW));
+        waitSettingsWindowOpen();
         driver.findElement(SETTINGS_GO_BACK).isDisplayed();
     }
     @Step("Нажимаем на кнопку «Профиль»")
     public static void clickOnProfileButton() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(SETTINGS_WINDOW));
+        waitSettingsWindowOpen();
         driver.findElement(PROFILE_BUTTON).click();
     }
     @Step("Нажимаем на кнопку «Интерфейс»")
     public static void clickOnInterfaceButton() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(SETTINGS_WINDOW));
+        waitSettingsWindowOpen();
         driver.findElement(INTERFACE_BUTTON).click();
     }
     @Step("Нажимаем на кнопку «Настройки CV»")
     public static void clickOnCVSettingsButton() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(SETTINGS_WINDOW));
+        waitSettingsWindowOpen();
         driver.findElement(CV_SETTINGS_BUTTON).click();
     }
     @Step("Нажимаем на кнопку «Настройки CV»")
     public static void clickOnAboutButton() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(SETTINGS_WINDOW));
+        waitSettingsWindowOpen();
         driver.findElement(ABOUT_BUTTON).click();
     }
 

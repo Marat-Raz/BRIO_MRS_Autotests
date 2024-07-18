@@ -22,43 +22,42 @@ public class ProfileWindow {
     public ProfileWindow(AppiumDriver driver) {
         this.driver = driver;
     }
-    public void waitOpenProfileWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(GO_BACK_PROFILE_BUTTON));
-        driver.findElement(GO_BACK_PROFILE_BUTTON).isDisplayed();
+    public static void waitOpenProfileWindow() {
+        (new WebDriverWait(driver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(GO_BACK_PROFILE_BUTTON));
     }
-    public boolean ProfileWindowIsOpen() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(GO_BACK_PROFILE_BUTTON));
+    public boolean profileWindowIsOpen() {
+        waitOpenProfileWindow();
         return driver.findElement(GO_BACK_PROFILE_BUTTON).isDisplayed();
     }
     @Step("Нажимаем на кнопку «<Профиль»")
     public static void clickOnGoBackButton() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(GO_BACK_PROFILE_BUTTON));
+        waitOpenProfileWindow();
         driver.findElement(GO_BACK_PROFILE_BUTTON).click();
     }
     @Step("Нажимаем на кнопку «+»")
     public static void clickOnPlusButton() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(GO_BACK_PROFILE_BUTTON));
+        waitOpenProfileWindow();
         driver.findElement(PLUS_BUTTON).click();
     }
     @Step("Нажимаем на кнопку «-»")
     public static void clickOnMinusButton() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(GO_BACK_PROFILE_BUTTON));
+        waitOpenProfileWindow();
         driver.findElement(MINUS_BUTTON).click();
     }
     @Step("Нажимаем на кнопку «Выйти из акканта»")
     public void clickOnLogOutAccountButton() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(GO_BACK_PROFILE_BUTTON));
+        waitOpenProfileWindow();
         driver.findElement(LOG_OUT_ACCOUNT_BUTTON).click();
     }
     @Step("Получаем значения из поля «Время на устранение задачи по умолчанию, дней»")
     public String getTextFromCounter() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(GO_BACK_PROFILE_BUTTON));
+        waitOpenProfileWindow();
         return driver.findElement(COUNTER_AS_INPUT).getText();
     }
     @Step("Нажимаем на поле «Время на устранение задачи по умолчанию, дней»")
     public void clickOnCounter() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(GO_BACK_PROFILE_BUTTON));
+        waitOpenProfileWindow();
         driver.findElement(COUNTER_AS_BUTTON).click();
     }
-
+// TODO Нужно добавить ввод в поле «Время на устранение задачи по умолчанию, дней» значений с цифровой клавиатуры
 }

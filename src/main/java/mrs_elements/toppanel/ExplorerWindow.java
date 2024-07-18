@@ -17,13 +17,16 @@ public class ExplorerWindow {
     public ExplorerWindow(AppiumDriver driver) {
         this.driver = driver;
     }
+    public static void waitExplorerWindowOpen() {
+        (new WebDriverWait(driver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(EXPLORER_ITEMS));
+    }
     public boolean explorerWindowIsOpen() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(EXPLORER_ITEMS));
+        waitExplorerWindowOpen();
         return driver.findElement(EXPLORER_ITEMS).isDisplayed();
     }
     @Step("Нажимаем на кнопку «◄»")
     public static void clickOnBackButton() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(EXPLORER_ITEMS));
+        waitExplorerWindowOpen();
         driver.findElement(EXPLORER_GO_BACK_BUTTON).click();
     }
 }

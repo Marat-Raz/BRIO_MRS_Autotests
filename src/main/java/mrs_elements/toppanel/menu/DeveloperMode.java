@@ -24,7 +24,7 @@ public class DeveloperMode {
         driver.findElement(DEVELOPER_MODE_WINDOW).isDisplayed();
     }
     public boolean developerModeWindowIsOpen() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(DEVELOPER_MODE_WINDOW));
+        (new WebDriverWait(driver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(DEVELOPER_MODE_WINDOW));
         return driver.findElement(DEVELOPER_MODE_WINDOW).isDisplayed();
     }
     @Step("Нажимаем на кнопку «◄»")
