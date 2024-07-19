@@ -5,6 +5,7 @@ import mrs_elements.screenkeyboards.ScreenKeyboard;
 import mrs_elements.toppanel.MenuWindow;
 import mrs_elements.toppanel.menu.DeveloperMode;
 import mrs_elements.toppanel.menu.Settings;
+import mrs_elements.toppanel.menu.settings.InterfaceWindow;
 import mrs_elements.toppanel.menu.settings.ProfileWindow;
 import mrs_elements.screenkeyboards.ScreenNumericKeyboard;
 import org.junit.jupiter.api.BeforeAll;
@@ -20,6 +21,7 @@ public class MenuWindowTest extends TestsStarter {
     ScreenNumericKeyboard screenNumericKeyboard = new ScreenNumericKeyboard(driver);
     Settings settings = new Settings(driver);
     ProfileWindow profileWindow = new ProfileWindow(driver);
+    InterfaceWindow interfaceWindow = new InterfaceWindow(driver);
     static MenuWindow menuWindow;
     boolean result;
     static TopPanel topPanel;
@@ -53,12 +55,19 @@ public class MenuWindowTest extends TestsStarter {
         settings.clickOnBackButton();
         menuWindow.waitOpenMenuWindowOpen();
     }
-    @Step("Открытие окна «Профиль»")
+    @Step("Открытие окна «Интерфейс»")
     public void openInterfaceWindow() {
         menuWindow.clickOnSettingsButton();
         settings.waitOpenSettingsWindow();
-        settings.clickOnProfileButton();
-        profileWindow.waitOpenProfileWindow();
+        settings.clickOnInterfaceButton();
+        interfaceWindow.waitOpenInterfaceWindow();
+    }
+    @Step("Возврат из окна «Для разработчиков» в главное окно «Меню»")
+    public void returnToMainMenuWindowFromInterfaceWindow() {
+        interfaceWindow.clickOnGoBackButton();
+        settings.waitOpenSettingsWindow();
+        settings.clickOnBackButton();
+        menuWindow.waitOpenMenuWindowOpen();
     }
     /*    @Test
         @Muted
@@ -191,7 +200,16 @@ public class MenuWindowTest extends TestsStarter {
         menuWindow.waitOpenMenuWindowOpen();
             assertTrue(result);
     }
-
-
+    @Test
+    @DisplayName("Включить и выключить переключатель «Показывать видовой куб»")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-663")
+    public void openInterfaceWindowTest() {
+        openInterfaceWindow();
+        interfaceWindow.clickOnShowViewCubeToggleButton();
+        //todo isSelected для элемента ToggleButton всегда возвращает false. Нужно чтобы Данил решил вопрос на своей стороне
+        result = interfaceWindow.showViewCubeToggleButtonIsEnabled();
+        returnToMainMenuWindowFromInterfaceWindow();
+            assertTrue(result);
+    }
 
 }
