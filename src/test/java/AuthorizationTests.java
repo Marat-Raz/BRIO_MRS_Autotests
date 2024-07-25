@@ -7,20 +7,5 @@ import org.junit.jupiter.api.Test;
 public class AuthorizationTests extends TestsStarter {
     MenuWindow menuWindow;
     TopPanel topPanel;
-    @Test
-    //@Muted
-    @DisplayName("Нажать на «Свернуть окно»")
-    @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
-    public void clickOnMinimizeButtonTest() throws InterruptedException {
-        topPanel = new TopPanel(driver);
-        topPanel.clickOnMainMenuButton();
-        menuWindow = new MenuWindow(driver);
-        menuWindow.waitOpenMenuWindowOpen();
-        Thread.sleep(1000);
-        menuWindow.clickOnMinimizeButton();
-/*        Thread.sleep(1000);
-        driver.manage().window().fullscreen();
-        Thread.sleep(10000);*/
 
-    }
 }

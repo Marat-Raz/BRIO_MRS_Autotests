@@ -21,7 +21,7 @@ public class LoggedMainPage {
         this.driver = driver;
     }
     public static void waitOpenLoggedMainPage() {
-        (new WebDriverWait(driver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated());
+        (new WebDriverWait(driver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(LOGGED_MAIN_PAGE));
     }
     public boolean LoggedMainPageIsOpen() {
         waitOpenLoggedMainPage();

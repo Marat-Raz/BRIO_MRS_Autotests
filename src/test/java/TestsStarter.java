@@ -34,7 +34,7 @@ public class TestsStarter {
             caps.setCapability("appium:altUnityHost", "127.0.0.1");
             caps.setCapability("appium:altUnityPort", "13000");
             caps.setCapability("appium:attachToTopLevelWindowClassName", "UnityWndClass");
-            caps.setCapability("appium:forceMatchAppTitle", "BRIO MRS");
+            //caps.setCapability("appium:forceMatchAppTitle", "BRIO MRS");
 
             driver = new AppiumDriver(new URL("http://127.0.0.1:4723"), caps);
             driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
