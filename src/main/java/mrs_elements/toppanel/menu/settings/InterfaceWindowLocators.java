@@ -5,14 +5,10 @@ import org.openqa.selenium.By;
 public class InterfaceWindowLocators {
     public static final By GO_BACK_INTERFACE_BUTTON =
             By.xpath("//Button[.//TextBlock[@Text='Интерфейс']]");
-   public static final By INTERFACE_LANGUAGE = By.xpath("//SettingsView/Border/ContentPresenter/" +
+    public static final By INTERFACE_LANGUAGE = By.xpath("//SettingsView/Border/ContentPresenter/" +
             "AnimatedContentControl/Border/Grid/ContentPresenter/Grid/ScrollViewer/Border/Grid/" +
             "ScrollContentPresenter/ItemsControl/Border/ItemsPresenter/StackPanel/ContentPresenter[1]/Grid/" +
             "ComboBox/Grid/ToggleButton");
-    public static final By LANGUAGE_TOGGLE_BUTTON_IN_RUSSIAN =
-            By.xpath("//TextBlock[@Text='Язык']/following-sibling::*");
-    public static final By LANGUAGE_TOGGLE_BUTTON_IN_ENGLISH =
-            By.xpath("//TextBlock[@Text='English (US)']/following-sibling::*");
     public static final By LANGUAGE_POPUP_ENGLISH =
             By.xpath("//Popup/descendant::TextBlock[@Text='English (US)']");
     public static final By LANGUAGE_POPUP_RUSSIAN =

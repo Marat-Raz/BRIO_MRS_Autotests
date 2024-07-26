@@ -5,6 +5,8 @@ import mrs_elements.screenkeyboards.ScreenKeyboard;
 import mrs_elements.toppanel.MenuWindow;
 import mrs_elements.toppanel.menu.DeveloperMode;
 import mrs_elements.toppanel.menu.Settings;
+import mrs_elements.toppanel.menu.settings.CVSettingsWindow;
+import mrs_elements.toppanel.menu.settings.DepthMapWindow;
 import mrs_elements.toppanel.menu.settings.InterfaceWindow;
 import mrs_elements.toppanel.menu.settings.ProfileWindow;
 import mrs_elements.screenkeyboards.ScreenNumericKeyboard;
@@ -23,6 +25,8 @@ public class MenuWindowTest extends TestsStarter {
     Settings settings = new Settings(driver);
     ProfileWindow profileWindow = new ProfileWindow(driver);
     InterfaceWindow interfaceWindow = new InterfaceWindow(driver);
+    CVSettingsWindow cVSettingsWindow = new CVSettingsWindow(driver);
+    DepthMapWindow depthMapWindow = new DepthMapWindow(driver);
     static MenuWindow menuWindow;
     ScreenKeyboard screenKeyboard;
     static TopPanel topPanel;
@@ -69,13 +73,40 @@ public class MenuWindowTest extends TestsStarter {
         settings.clickOnInterfaceButton();
         interfaceWindow.waitOpenInterfaceWindow();
     }
-    @Step("Возврат из окна «Для разработчиков» в главное окно «Меню»")
+    @Step("Возврат из окна «Интерфейс» в главное окно «Меню»")
     public void returnToMainMenuWindowFromInterfaceWindow() {
         interfaceWindow.clickOnGoBackButton();
         settings.waitOpenSettingsWindow();
         settings.clickOnBackButton();
         menuWindow.waitOpenMenuWindowOpen();
     }
+    @Step("Открытие окна «Настройки CV»")
+    public void openCVSettingsWindow() {
+        menuWindow.clickOnSettingsButton();
+        settings.waitOpenSettingsWindow();
+        settings.clickOnCVSettingsButton();
+        cVSettingsWindow.waitOpenCVSettingsWindow();
+    }
+    @Step("Возврат из окна «Настройки CV» в главное окно «Меню»")
+    public void returnToMainMenuWindowFromCVSettingsWindow() {
+        cVSettingsWindow.clickOnGoBackButton();
+        settings.waitOpenSettingsWindow();
+        settings.clickOnBackButton();
+        menuWindow.waitOpenMenuWindowOpen();
+    }
+    @Step("Открытие окна «Карта глубины»")
+    public void openDepthMapWindow() {
+        openCVSettingsWindow();
+        cVSettingsWindow.clickOnDepthMapButton();
+        depthMapWindow.waitOpenDepthMapWindow();
+    }
+    @Step("Возврат из окна «Карта глубины» в главное окно «Меню»")
+    public void returnToMainMenuWindowFromDepthMapWindow() {
+        depthMapWindow.clickOnGoBackButton();
+        returnToMainMenuWindowFromCVSettingsWindow();
+    }
+
+
     @Test
     @DisplayName("Нажать на «Свернуть окно»")
     @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
@@ -245,6 +276,7 @@ public class MenuWindowTest extends TestsStarter {
         oldResult = interfaceWindow.showViewCubeToggleButtonIsEnabled();
         interfaceWindow.clickOnShowViewCubeToggleButton();
         newResult = interfaceWindow.showViewCubeToggleButtonIsEnabled();
+        interfaceWindow.clickOnShowViewCubeToggleButton();
         //todo еще нужно проверять включение видового куба на сцене
         returnToMainMenuWindowFromInterfaceWindow();
             assertEquals(oldResult, !newResult);
@@ -257,6 +289,7 @@ public class MenuWindowTest extends TestsStarter {
         oldResult = interfaceWindow.showMinimapToggleButtonIsEnabled();
         interfaceWindow.clickOnShowMinimapToggleButton();
         newResult = interfaceWindow.showMinimapToggleButtonIsEnabled();
+        interfaceWindow.clickOnShowMinimapToggleButton();
         //todo еще нужно проверять включение миникарты на сцене
         returnToMainMenuWindowFromInterfaceWindow();
             assertEquals(oldResult, !newResult);
@@ -269,6 +302,7 @@ public class MenuWindowTest extends TestsStarter {
         oldResult = interfaceWindow.showLocationOnTheMapToggleButtonIsEnabled();
         interfaceWindow.clickOnShowLocationOnTheMapToggleButton();
         newResult = interfaceWindow.showLocationOnTheMapToggleButtonIsEnabled();
+        interfaceWindow.clickOnShowLocationOnTheMapToggleButton();
         //todo еще нужно проверять включение на сцене + Включить переключатель "Показывать миникарту"
         returnToMainMenuWindowFromInterfaceWindow();
             assertEquals(oldResult, !newResult);
@@ -281,6 +315,7 @@ public class MenuWindowTest extends TestsStarter {
         oldResult = interfaceWindow.selectCoincidentFeaturesToggleButtonIsEnabled();
         interfaceWindow.clickOnSelectCoincidentFeaturesToggleButton();
         newResult = interfaceWindow.selectCoincidentFeaturesToggleButtonIsEnabled();
+        interfaceWindow.clickOnSelectCoincidentFeaturesToggleButton();
         //по этому тесты можно только проверить вкл/выкл переключателя,
         // режим камеры не протестить на автотестах
         returnToMainMenuWindowFromInterfaceWindow();
@@ -294,6 +329,7 @@ public class MenuWindowTest extends TestsStarter {
         oldResult = interfaceWindow.stickingTapeMeasureToCornersOfModelToggleButtonIsEnabled();
         interfaceWindow.clickOnStickingTapeMeasureToCornersOfModelToggleButton();
         newResult = interfaceWindow.stickingTapeMeasureToCornersOfModelToggleButtonIsEnabled();
+        interfaceWindow.clickOnStickingTapeMeasureToCornersOfModelToggleButton();
         //по этому тесты можно только проверить вкл/выкл переключателя,
         // режим работы с моделями тапами не протестить на автотестах
         returnToMainMenuWindowFromInterfaceWindow();
@@ -344,6 +380,7 @@ public class MenuWindowTest extends TestsStarter {
         oldResult = interfaceWindow.displayTaskOutOfSightToggleButtonIsEnabled();
         interfaceWindow.clickOnDisplayTaskOutOfSightToggleButton();
         newResult = interfaceWindow.displayTaskOutOfSightToggleButtonIsEnabled();
+        interfaceWindow.clickOnDisplayTaskOutOfSightToggleButton();
         returnToMainMenuWindowFromInterfaceWindow();
             assertEquals(oldResult, !newResult);
         // todo рассмотреть возможность проверки работы этого переключателя с помощью модели
@@ -375,9 +412,120 @@ public class MenuWindowTest extends TestsStarter {
         oldResult = interfaceWindow.useDrawDistanceToggleButtonIsEnabled();
         interfaceWindow.clickOnUseDrawDistanceToggleButton();
         newResult = interfaceWindow.useDrawDistanceToggleButtonIsEnabled();
+        interfaceWindow.clickOnUseDrawDistanceToggleButton();
         //по этому тесты можно только проверить вкл/выкл переключателя,
         // режим работы с моделями пока не протестить на автотестах
         returnToMainMenuWindowFromInterfaceWindow();
-        assertEquals(oldResult, !newResult);
+            assertEquals(oldResult, !newResult);
+    }
+    @Test
+    @DisplayName("Открыть окно «Настройки CV»")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-677")
+    public void openCVSettingsWindowTest() {
+        openCVSettingsWindow();
+        result = cVSettingsWindow.CVSettingsWindowIsOpen();
+        returnToMainMenuWindowFromCVSettingsWindow();
+            assertTrue(result);
+    }
+    @Test
+    @DisplayName("Нажать на кнопку «Карта глубины»")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-678")
+    public void clickOnDepthMapButtonOpenDepthMapWindowTest() {
+        openDepthMapWindow();
+        result = depthMapWindow.depthMapWindowIsOpen();
+        returnToMainMenuWindowFromDepthMapWindow();
+            assertTrue(result);
+    }
+    @Test
+    @DisplayName("Переключить «Многомаркерное позиционирование»")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-674")
+    public void clickOnMultiMarkerPositioningToggleButtonCVSettingsWindowTest() {
+        openCVSettingsWindow();
+        oldResult = cVSettingsWindow.multiMarkerPositioningToggleButtonIsEnabled();
+        cVSettingsWindow.clickOnMultiMarkerPositioningToggleButton();
+        newResult = cVSettingsWindow.multiMarkerPositioningToggleButtonIsEnabled();
+        cVSettingsWindow.clickOnMultiMarkerPositioningToggleButton();
+        //по этому тесты можно только проверить вкл/выкл переключателя,
+        // режим работы с моделями пока не протестить на автотестах
+        returnToMainMenuWindowFromCVSettingsWindow();
+            assertEquals(oldResult, !newResult);
+    }
+    @Test
+    @DisplayName("Двигать ползунок «Прозрачность объекта пересечения»")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-675")
+    public void transparencyOfAnIntersectionObjectCVSettingsWindowTest() {
+        openCVSettingsWindow();
+        cVSettingsWindow.moveTransparencyOfAnIntersectionObjectSlider(50);
+        medValue = cVSettingsWindow.readValueOfTransparencyOfAnIntersectionObjectField();
+        cVSettingsWindow.moveTransparencyOfAnIntersectionObjectSlider(0);
+        minValue = cVSettingsWindow.readValueOfTransparencyOfAnIntersectionObjectField();
+        cVSettingsWindow.moveTransparencyOfAnIntersectionObjectSlider(100);
+        maxValue = cVSettingsWindow.readValueOfTransparencyOfAnIntersectionObjectField();
+        //по этому тесты можно только проверить движение ползунка,
+        // режим камеры не протестить на автотестах
+        returnToMainMenuWindowFromCVSettingsWindow();
+            assertEquals("50%", medValue, "Значение отличается от ожидаемого");
+            assertEquals("0%", minValue, "Значение отличается от ожидаемого");
+            assertEquals("100%", maxValue, "Значение отличается от ожидаемого");
+    }
+    @Test
+    @DisplayName("Двигать ползунок «Размер линии пересечения»")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-676")
+    public void intersectionLineSizeCVSettingsWindowTest() {
+        openCVSettingsWindow();
+        cVSettingsWindow.moveIntersectionLineSizeSlider(50);
+        medValue = cVSettingsWindow.readValueOfIntersectionLineSizeField();
+        cVSettingsWindow.moveIntersectionLineSizeSlider(0);
+        minValue = cVSettingsWindow.readValueOfIntersectionLineSizeField();
+        cVSettingsWindow.moveIntersectionLineSizeSlider(100);
+        maxValue = cVSettingsWindow.readValueOfIntersectionLineSizeField();
+        //по этому тесты можно только проверить движение ползунка,
+        // режим камеры не протестить на автотестах
+        returnToMainMenuWindowFromCVSettingsWindow();
+            assertEquals("11.000", medValue, "Значение отличается от ожидаемого");
+            assertEquals("2.000", minValue, "Значение отличается от ожидаемого");
+            assertEquals("20.000", maxValue, "Значение отличается от ожидаемого");
+    }
+    @Test
+    @DisplayName("Переключить «Аппаратная карта глубины»")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-678")
+    public void clickOnHardwareDepthMapToggleButtonDepthMapWindowTest() {
+        openDepthMapWindow();
+        oldResult = depthMapWindow.hardwareDepthMapToggleButtonIsEnabled();
+        depthMapWindow.clickOnHardwareDepthMapToggleButton();
+        newResult = depthMapWindow.hardwareDepthMapToggleButtonIsEnabled();
+        depthMapWindow.clickOnHardwareDepthMapToggleButton();
+        //по этому тесты можно только проверить вкл/выкл переключателя,
+        // режим работы с моделями пока не протестить на автотестах
+        returnToMainMenuWindowFromDepthMapWindow();
+            assertEquals(oldResult, !newResult);
+    }
+    @Test
+    @DisplayName("Переключить «Фильтрация»")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-678")
+    public void clickOnFiltrationToggleButtonDepthMapWindowTest() {
+        openDepthMapWindow();
+        oldResult = depthMapWindow.filtrationToggleButtonIsEnabled();
+        depthMapWindow.clickOnFiltrationToggleButton();
+        newResult = depthMapWindow.filtrationToggleButtonIsEnabled();
+        depthMapWindow.clickOnFiltrationToggleButton();
+        //по этому тесты можно только проверить вкл/выкл переключателя,
+        // режим работы с моделями пока не протестить на автотестах
+        returnToMainMenuWindowFromDepthMapWindow();
+            assertEquals(oldResult, !newResult);
+    }
+    @Test
+    @DisplayName("Переключить «Усреднение»")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-678")
+    public void clickOnAveragingToggleButtonDepthMapWindowTest() {
+        openDepthMapWindow();
+        oldResult = depthMapWindow.averagingToggleButtonIsEnabled();
+        depthMapWindow.clickOnAveragingToggleButton();
+        newResult = depthMapWindow.averagingToggleButtonIsEnabled();
+        depthMapWindow.clickOnAveragingToggleButton();
+        //по этому тесты можно только проверить вкл/выкл переключателя,
+        // режим работы с моделями пока не протестить на автотестах
+        returnToMainMenuWindowFromDepthMapWindow();
+            assertEquals(oldResult, !newResult);
     }
 }

@@ -6,7 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.interactions.Actions;
 
@@ -62,24 +61,11 @@ public class InterfaceWindow {
         driver.findElement(GO_BACK_INTERFACE_BUTTON).click();
     }
 
-    //Todo Нужно дождаться доработки кода получения структуры ui от Данила потом продолжить работу с выпадающими списками: Язык и Сторона Интерфейса
     @Step("Считываем язык системы")
     public String systemLanguageIs() {
         String systemLanguage = driver.findElement(INTERFACE_LANGUAGE).getText();
         return systemLanguage;
     }
-/*    @Step("Выбор элемента выпадающего списка «Язык»")
-    public void changeLanguage() {
-        if (systemLanguageIs().equals("Русский") ) {
-            driver.findElement(LANGUAGE_TOGGLE_BUTTON_IN_RUSSIAN).click();
-            //(new WebDriverWait(driver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(LANGUAGE_POPUP_ENGLISH));
-            driver.findElement(LANGUAGE_POPUP_ENGLISH).click();
-        } else {
-            driver.findElement(LANGUAGE_TOGGLE_BUTTON_IN_ENGLISH).click();
-            //(new WebDriverWait(driver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(LANGUAGE_POPUP_RUSSIAN));
-            driver.findElement(LANGUAGE_POPUP_RUSSIAN).click();
-        }
-    }*/
     @Step("Выбор элемента «Русский» выпадающего списка «Язык»")
     public void selectLanguageRussian() {
         driver.findElement(INTERFACE_LANGUAGE).click();
