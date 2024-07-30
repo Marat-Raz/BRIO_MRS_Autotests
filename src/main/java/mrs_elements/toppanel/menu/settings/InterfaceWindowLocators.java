@@ -8,14 +8,14 @@ public class InterfaceWindowLocators {
     public static final By INTERFACE_LANGUAGE = By.xpath("//SettingsView/Border/ContentPresenter/" +
             "AnimatedContentControl/Border/Grid/ContentPresenter/Grid/ScrollViewer/Border/Grid/" +
             "ScrollContentPresenter/ItemsControl/Border/ItemsPresenter/StackPanel/ContentPresenter[1]/Grid/" +
-            "ComboBox/Grid/ToggleButton");
+            "ComboBox/Grid/ToggleButton");  // todo By.name + нужно чтобы от языка системы не зависело
     public static final By LANGUAGE_POPUP_ENGLISH =
             By.xpath("//Popup/descendant::TextBlock[@Text='English (US)']");
     public static final By LANGUAGE_POPUP_RUSSIAN =
             By.xpath("//Popup/descendant::TextBlock[@Text='Русский']");
     public static final By INTERFACE_SIDE = By.xpath("//SettingsView/Border/ContentPresenter/" +
             "AnimatedContentControl/Border/Grid/ContentPresenter/Grid/ScrollViewer/Border/Grid/ScrollContentPresenter/" +
-            "ItemsControl/Border/ItemsPresenter/StackPanel/ContentPresenter[2]/Grid/ComboBox/Grid/ToggleButton");
+            "ItemsControl/Border/ItemsPresenter/StackPanel/ContentPresenter[2]/Grid/ComboBox/Grid/ToggleButton"); // todo By.name
     public static final By INTERFACE_SIDE_POPUP_RIGHT =
             By.xpath("//Popup/descendant::TextBlock[@Text='Правая']");
     public static final By INTERFACE_SIDE_POPUP_LEFT =
@@ -48,6 +48,6 @@ public class InterfaceWindowLocators {
             By.xpath("//TextBlock[@Text='Использовать ограничение дальности " +
                     "отрисовки меток задач на виде модели']/following-sibling::*");
     public static final By SCROLL_BAR = By.xpath("//SettingsView/Border/ContentPresenter/" +
-            "AnimatedContentControl/Border/Grid/ContentPresenter/Grid/ScrollViewer/Border/Grid/ScrollBar[2]");
+            "AnimatedContentControl/Border/Grid/ContentPresenter/Grid/ScrollViewer/Border/Grid/ScrollBar[2]"); // todo By.name
 
 }

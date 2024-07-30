@@ -16,20 +16,19 @@ public class DeveloperMode {
     }
 
     public static final By DEVELOPER_MODE_WINDOW = By.xpath("//SettingsView/Border/ContentPresenter/" +
-            "AnimatedContentControl/Border/Grid/ContentPresenter");
+            "AnimatedContentControl/Border/Grid/ContentPresenter"); // todo By.name
     public static final By DEVELOPER_MODE_GO_BACK = By.xpath("//SettingsView/Border/ContentPresenter/" +
-            "AnimatedContentControl/Border/Grid/ContentPresenter/Grid/Button");
-    public void waitOpenDeveloperModeWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(DEVELOPER_MODE_WINDOW));
-        driver.findElement(DEVELOPER_MODE_WINDOW).isDisplayed();
+            "AnimatedContentControl/Border/Grid/ContentPresenter/Grid/Button"); // todo By.name
+    public static void waitOpenDeveloperModeWindow() {
+        (new WebDriverWait(driver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(DEVELOPER_MODE_WINDOW));
     }
     public boolean developerModeWindowIsOpen() {
-        (new WebDriverWait(driver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(DEVELOPER_MODE_WINDOW));
+        waitOpenDeveloperModeWindow();
         return driver.findElement(DEVELOPER_MODE_WINDOW).isDisplayed();
     }
     @Step("Нажимаем на кнопку «◄»")
     public static void clickOnBackButton() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(DEVELOPER_MODE_WINDOW));
+        waitOpenDeveloperModeWindow();
         driver.findElement(DEVELOPER_MODE_GO_BACK).click();
     }
 }

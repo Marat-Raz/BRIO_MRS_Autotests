@@ -6,24 +6,15 @@ import org.openqa.selenium.By;
 
 public class TopPanel {
     public static AppiumDriver driver;
-    public static final By MENU_BUTTON = By.xpath("//OpenMenuActionView/Border/ContentPresenter/" +
-            "Button/Grid/Border/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
-    public static final By SYNCHRONIZATION_BUTTON = By.xpath("//ConnectionIndicatorView/Border/" +
-            "ContentPresenter/Button/Grid/Border/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
-    public static final By NOTIFICATIONS_BUTTON = By.xpath("//NotificationPanelOpenActionView/Border/" +
-            "ContentPresenter/Button/Grid/Border/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
-    public static final By AXES_BUTTON = By.xpath("//ToggleGridLabelsCommandView/Border/" +
-            "ContentPresenter/Button/Grid/Border/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
-    public static final By EXPLORER_BUTTON = By.xpath("//OpenExplorerContextActionView/Border/" +
-            "ContentPresenter/Button/Grid/Border/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
-    public static final By HIERARCHY_BUTTON = By.xpath("//ToggleHierarchyCommandView/Border/" +
-            "ContentPresenter/Button/Grid/Border/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
-    public static final By AR_BUTTON = By.xpath("//MixedRealityModeSwitchView/Border/ContentPresenter/" +
-            "Grid/RadioButton[1]/Border/DockPanel/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
-    public static final By MR_BUTTON = By.xpath("//MixedRealityModeSwitchView/Border/ContentPresenter/" +
-            "Grid/RadioButton[2]/Border/DockPanel/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
-    public static final By AMR_BUTTON = By.xpath("//MixedRealityModeSwitchView/Border/ContentPresenter/" +
-            "Grid/RadioButton[3]/Border/DockPanel/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
+    public static final By MENU_BUTTON = By.name("menuBtn");
+    public static final By SYNCHRONIZATION_BUTTON = By.name("syncBtn");
+    public static final By NOTIFICATIONS_BUTTON = By.name("notificationBtn");
+    public static final By AXES_BUTTON = By.name("toggleGridsBtn");
+    public static final By EXPLORER_BUTTON = By.name("explorerBtn");
+    public static final By HIERARCHY_BUTTON = By.name("hierarchyBtn");
+    public static final By AR_BUTTON = By.name("switchToARBtn");
+    public static final By MR_BUTTON = By.name("switchToMRBtn");
+    public static final By AMR_BUTTON = By.name("switchToAMRBtn");
     public TopPanel(AppiumDriver driver) {
         this.driver = driver;
     }

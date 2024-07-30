@@ -12,8 +12,8 @@ public class LoggedMainPage {
     public static final By LOGGED_MAIN_PAGE = By.className("LoggedMainPageView");
     public static final By SELECTED_PROJECT_SIDE_VIEW = By.className("SelectedProjectSideView");
     public static final By NOT_SELECTED_PROJECT_SIDE_VIEW = By.xpath("//LoggedMainPageView/Border/" +
-            "ContentPresenter/Grid/Decorator/Grid/AnimatedContentControl/Border/Grid/ContentPresenter/Decorator/Grid");
-    public static final By ACCOUNT_LOGIN = By.xpath("//TextBlock[@Text='BrioCloud']");
+            "ContentPresenter/Grid/Decorator/Grid/AnimatedContentControl/Border/Grid/ContentPresenter/Decorator/Grid"); // todo By.name
+    public static final By ACCOUNT_LOGIN = By.xpath("//TextBlock[@Text='BrioCloud']"); // todo By.name, здесь может быть другое имя пользователя, поэтому надо искать по name
     public static final By REFRESH_PROJECTS_LIST_BUTTON = By.xpath("//Button[@Text='Обновить список проектов']");
 //private static final By LOGIN_INPUT = By.xpath("//TextBox[.//TextBlock[@Text='Логин']]")
 

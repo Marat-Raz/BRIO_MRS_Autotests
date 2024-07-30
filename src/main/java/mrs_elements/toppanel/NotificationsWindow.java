@@ -10,18 +10,15 @@ import java.time.Duration;
 
 public class NotificationsWindow {
     public static AppiumDriver driver;
-    public static final By NOTIFICATIONS_WINDOW = By.xpath("//NotificationPanelView/Grid/" +
-            "ContentPresenter/Grid/ExpanderWithoutHeader/Grid/ScrollViewer/Border/Grid/ScrollContentPresenter/" +
-            "Border/ContentPresenter/Border/Grid");
-    public static final By CLOSE_NOTIFICATIONS_BUTTON = By.xpath("//NotificationPanelView/Grid/" +
-            "ContentPresenter/Grid/ExpanderWithoutHeader/Grid/ScrollViewer/Border/Grid/ScrollContentPresenter/" +
-            "Border/ContentPresenter/Border/Grid/Grid/Button");
+    public static final By NOTIFICATIONS_WINDOW = By.name("notificationPanelBorder");
+    public static final By CLOSE_NOTIFICATIONS_BUTTON = By.name("closeNotificationPanelBtn");
+    public static final By CLEAR_NOTIFICATIONS_WINDOW = By.name("clearNotificationsBtn");
+
     public NotificationsWindow(AppiumDriver driver) {
         this.driver = driver;
     }
     public static void waitOpenNotificationsWindow() {
         (new WebDriverWait(driver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(NOTIFICATIONS_WINDOW));
-        driver.findElement(NOTIFICATIONS_WINDOW).isDisplayed();
     }
     public boolean notificationsWindowIsOpen() {
         waitOpenNotificationsWindow();

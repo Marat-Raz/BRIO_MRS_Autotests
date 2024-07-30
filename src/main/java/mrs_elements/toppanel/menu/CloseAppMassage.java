@@ -14,11 +14,11 @@ public class CloseAppMassage {
         this.driver = driver;
     }
     public static final By YES_BUTTON_CLOSE_APPLICATION = By.xpath("//UniformGrid/ContentPresenter[1]/" +
-            "Button/Grid/ContentPresenter/TextBlock");
+            "Button/Grid/ContentPresenter/TextBlock"); // todo By.name
     public static final By NO_BUTTON_CLOSE_APPLICATION = By.xpath("//UniformGrid/ContentPresenter[2]/" +
-            "Button/Grid/ContentPresenter/TextBlock");
+            "Button/Grid/ContentPresenter/TextBlock"); // todo By.name
     public static final By NOTIFICATION_DIALOG_CLOSE_APPLICATION = By.xpath("//NotificationDialog/" +
-            "Border/ContentPresenter/ContentControl/Border/ContentPresenter");
+            "Border/ContentPresenter/ContentControl/Border/ContentPresenter"); // todo By.name
     @Step("Нажимаем на кнопку «Да»")
     public static void clickOnYesButton() {
         (new WebDriverWait(driver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(NOTIFICATION_DIALOG_CLOSE_APPLICATION));

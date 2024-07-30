@@ -12,8 +12,7 @@ public class ScreenKeyboard {
     public static AppiumDriver driver;
     private static final By SCREEN_KEYBOARD = By.xpath("//TextKeyboardWithMicView/Border/" +
             "ContentPresenter/Grid/Border[2]");
-    private static final By SCREEN_KEYBOARD_INPUT = By.xpath("//TextKeyboardWithMicView/Border/ContentPresenter/Grid/" +
-        "Border[2]/Grid/Decorator/Grid/TextBox");
+    private static final By SCREEN_KEYBOARD_INPUT = By.name("KeyboardTextBox");
 
     public ScreenKeyboard(AppiumDriver driver) {
         this.driver = driver;

@@ -76,7 +76,7 @@ public class CVSettingsWindow {
         waitOpenCVSettingsWindow();
         driver.findElement(DEPTH_MAP_BUTTON).click();
     }
-    @Step("Нажимаем на перключатель «Многомаркерное позиционирование»")
+    @Step("Нажимаем на переключатель «Многомаркерное позиционирование»")
     public static void clickOnMultiMarkerPositioningToggleButton() {
         waitOpenCVSettingsWindow();
         driver.findElement(MULTI_MARKER_POSITIONING_TOGGLE_BUTTON).click();

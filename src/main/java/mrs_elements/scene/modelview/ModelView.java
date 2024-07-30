@@ -9,11 +9,10 @@ import java.time.Duration;
 
 public class ModelView {
     public static AppiumDriver driver;
-    public static final By COMPASS_VIEW_IN_SCENE = By.xpath("//CompassView/Border/ContentPresenter/Grid");
+    public static final By COMPASS_VIEW_IN_SCENE = By.xpath("//CompassView/Border/ContentPresenter/Grid"); // todo By.name
 
 public static final By MODEL_VIEW = By.xpath("//BimViewerView/Border/ContentPresenter/Grid/" +
-        "SceneViewControl/Grid");
-
+        "SceneViewControl/Grid"); // todo By.name
 
     public ModelView(AppiumDriver driver) {
     this.driver = driver;

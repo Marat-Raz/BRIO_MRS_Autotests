@@ -12,8 +12,9 @@ public class ExplorerWindow {
     public static AppiumDriver driver;
     public static final By EXPLORER_ITEMS = By.xpath("//ExplorerItemsControl/Border/ScrollViewer/Border/" +
                     "Grid/ScrollContentPresenter/AdornerLayer");
-    public static final By EXPLORER_GO_BACK_BUTTON = By.xpath("//ExplorerGoBackActionView/Border/" +
-            "ContentPresenter/Button/Grid/Border/ContentPresenter/VectorIcon/Border/Viewbox/Decorator/Canvas/Path");
+    public static final By EXPLORER_GO_BACK_BUTTON = By.name("explorerGoBackBtn");
+    public static final By EXPLORER_SEARCH_BOX = By.name("searchTextBox");
+
     public ExplorerWindow(AppiumDriver driver) {
         this.driver = driver;
     }
@@ -25,7 +26,7 @@ public class ExplorerWindow {
         return driver.findElement(EXPLORER_ITEMS).isDisplayed();
     }
     @Step("Нажимаем на кнопку «◄»")
-    public static void clickOnBackButton() {
+    public static void clickOnGoBackButton() {
         waitExplorerWindowOpen();
         driver.findElement(EXPLORER_GO_BACK_BUTTON).click();
     }

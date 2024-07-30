@@ -11,17 +11,15 @@ import java.time.Duration;
 public class LoginWindow {
     public static AppiumDriver driver;
     private static final By LOGIN_WINDOW = By.xpath("//AnonymousMainPageView/Border/" +
-            "ContentPresenter/Grid");
-    private static final By LOGIN_WINDOW_HEADER = By.xpath("//AnonymousMainPageView/Border/" +
-            "ContentPresenter/Grid/Border/StackPanel/TextBlock");
+            "ContentPresenter/Grid"); // todo By.name
+    private static final By LOGIN_WINDOW_HEADER = By.name("loginPageTitle");
     private static final By LOGIN_INPUT = By.name("loginBox");
     //private static final By LOGIN_INPUT = By.xpath("//TextBox[.//TextBlock[@Text='Логин']]");
 
-    private static final By PASSWORD_INPUT = By.name("PART_TextBoxInputPassword");
+    private static final By PASSWORD_INPUT = By.name("passBox");
     //private static final By PASSWORD_INPUT = By.xpath("//TextBox[.//TextBlock[@Text='Пароль']]");
 
-    private static final By CONTINUE_BUTTON = By.xpath("//AnonymousMainPageView/Border/" +
-            "ContentPresenter/Grid/Border/StackPanel/Button");
+    private static final By CONTINUE_BUTTON = By.name("loginBtn");
     public LoginWindow(AppiumDriver driver) {
         this.driver = driver;
     }
