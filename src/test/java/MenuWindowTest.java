@@ -116,6 +116,7 @@ public class MenuWindowTest extends TestsStarter {
         driver.manage().window().maximize();
     }
 //TIP привет
+
     @Test
     @DisplayName("Нажать 5 раз на надпись с версией приложения")
     @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
@@ -139,7 +140,7 @@ public class MenuWindowTest extends TestsStarter {
     @Test
     @DisplayName("Нажать на «Настройки»")
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-558")
-    public void clickOnSettingsButtonTest() throws InterruptedException {
+    public void clickOnSettingsButtonTest() {
         menuWindow.clickOnSettingsButton();
         result = settings.settingsWindowIsOpen();
         settings.clickOnBackButton();
@@ -217,9 +218,9 @@ public class MenuWindowTest extends TestsStarter {
         LoginWindow loginWindow = new LoginWindow(driver);
         result = loginWindow.loginWindowIsOpen();
 
-/*      loginWindow.enterTextInLoginInput("briocloud"); Не работает ввод непосредственно в эти поля ввода.
-Связано с тем, что экранная клавиатура перехватывает фокус
-        loginWindow.enterTextInPasswordInput("123");*/
+/*     loginWindow.enterTextInLoginInput("briocloud"); Не работает ввод непосредственно в эти поля ввода.
+        Связано с тем, что экранная клавиатура перехватывает фокус
+        loginWindow.enterTextInPasswordInput("123"); */
 
         loginWindow.clickLoginInput();
         screenKeyboard = new ScreenKeyboard(driver);
@@ -317,7 +318,7 @@ public class MenuWindowTest extends TestsStarter {
         newResult = interfaceWindow.selectCoincidentFeaturesToggleButtonIsEnabled();
         interfaceWindow.clickOnSelectCoincidentFeaturesToggleButton();
         //по этому тесты можно только проверить вкл/выкл переключателя,
-        // режим камеры не протестить на автотестах
+        // режим камеры не протестить на автотестах.
         returnToMainMenuWindowFromInterfaceWindow();
             assertEquals(oldResult, !newResult);
     }
@@ -331,7 +332,7 @@ public class MenuWindowTest extends TestsStarter {
         newResult = interfaceWindow.stickingTapeMeasureToCornersOfModelToggleButtonIsEnabled();
         interfaceWindow.clickOnStickingTapeMeasureToCornersOfModelToggleButton();
         //по этому тесты можно только проверить вкл/выкл переключателя,
-        // режим работы с моделями тапами не протестить на автотестах
+        // режим работы с моделями тапами не протестить на автотестах.
         returnToMainMenuWindowFromInterfaceWindow();
             assertEquals(oldResult, !newResult);
     }
@@ -347,7 +348,7 @@ public class MenuWindowTest extends TestsStarter {
         interfaceWindow.moveSliderDistanceToCoincidentFeatures(100);
         maxValue = interfaceWindow.readValueOfDistanceToCoincidenceOfObjectsField();
         //по этому тесты можно только проверить движение ползунка,
-        // режим камеры не протестить на автотестах
+        // режим камеры не протестить на автотестах.
         returnToMainMenuWindowFromInterfaceWindow();
             assertEquals("10,0 см", medValue, "Значение отличается от ожидаемого");
             assertEquals("0,1 см", minValue, "Значение отличается от ожидаемого");
@@ -366,7 +367,7 @@ public class MenuWindowTest extends TestsStarter {
         interfaceWindow.moveSliderVisibilityRangeOfObjectsSlider(100);
         maxValue = interfaceWindow.readValueOfVisibilityRangeOfObjectsField();
         //по этому тесты можно только проверить движение ползунка,
-        // режим камеры не протестить на автотестах
+        // режим камеры не протестить на автотестах.
         returnToMainMenuWindowFromInterfaceWindow();
             assertNotNull(medValue, "Значение не считано");
             assertEquals("2,000 м", minValue, "Значение отличается от ожидаемого");
@@ -397,7 +398,7 @@ public class MenuWindowTest extends TestsStarter {
         interfaceWindow.moveMaximumRenderingDistanceLabelsSlider(100);
         maxValue = interfaceWindow.readValueOfMaximumRenderingDistanceLabelsField();
         //по этому тесты можно только проверить движение ползунка,
-        // режим камеры не протестить на автотестах
+        // режим камеры не протестить на автотестах.
         returnToMainMenuWindowFromInterfaceWindow();
             assertNotNull(medValue, "Значение не считано");
             assertEquals("1,0 м", minValue, "Значение отличается от ожидаемого");
@@ -414,7 +415,7 @@ public class MenuWindowTest extends TestsStarter {
         newResult = interfaceWindow.useDrawDistanceToggleButtonIsEnabled();
         interfaceWindow.clickOnUseDrawDistanceToggleButton();
         //по этому тесты можно только проверить вкл/выкл переключателя,
-        // режим работы с моделями пока не протестить на автотестах
+        // режим работы с моделями пока не протестить на автотестах.
         returnToMainMenuWindowFromInterfaceWindow();
             assertEquals(oldResult, !newResult);
     }
@@ -446,7 +447,7 @@ public class MenuWindowTest extends TestsStarter {
         newResult = cVSettingsWindow.multiMarkerPositioningToggleButtonIsEnabled();
         cVSettingsWindow.clickOnMultiMarkerPositioningToggleButton();
         //по этому тесты можно только проверить вкл/выкл переключателя,
-        // режим работы с моделями пока не протестить на автотестах
+        // режим работы с моделями пока не протестить на автотестах.
         returnToMainMenuWindowFromCVSettingsWindow();
             assertEquals(oldResult, !newResult);
     }
@@ -462,7 +463,7 @@ public class MenuWindowTest extends TestsStarter {
         cVSettingsWindow.moveTransparencyOfAnIntersectionObjectSlider(100);
         maxValue = cVSettingsWindow.readValueOfTransparencyOfAnIntersectionObjectField();
         //по этому тесты можно только проверить движение ползунка,
-        // режим камеры не протестить на автотестах
+        // режим камеры не протестить на автотестах.
         returnToMainMenuWindowFromCVSettingsWindow();
             assertEquals("50%", medValue, "Значение отличается от ожидаемого");
             assertEquals("0%", minValue, "Значение отличается от ожидаемого");
@@ -480,7 +481,7 @@ public class MenuWindowTest extends TestsStarter {
         cVSettingsWindow.moveIntersectionLineSizeSlider(100);
         maxValue = cVSettingsWindow.readValueOfIntersectionLineSizeField();
         //по этому тесты можно только проверить движение ползунка,
-        // режим камеры не протестить на автотестах
+        // режим камеры не протестить на автотестах.
         returnToMainMenuWindowFromCVSettingsWindow();
             assertEquals("11.000", medValue, "Значение отличается от ожидаемого");
             assertEquals("2.000", minValue, "Значение отличается от ожидаемого");
@@ -496,7 +497,7 @@ public class MenuWindowTest extends TestsStarter {
         newResult = depthMapWindow.hardwareDepthMapToggleButtonIsEnabled();
         depthMapWindow.clickOnHardwareDepthMapToggleButton();
         //по этому тесты можно только проверить вкл/выкл переключателя,
-        // режим работы с моделями пока не протестить на автотестах
+        // режим работы с моделями пока не протестить на автотестах.
         returnToMainMenuWindowFromDepthMapWindow();
             assertEquals(oldResult, !newResult);
     }
@@ -510,7 +511,7 @@ public class MenuWindowTest extends TestsStarter {
         newResult = depthMapWindow.filtrationToggleButtonIsEnabled();
         depthMapWindow.clickOnFiltrationToggleButton();
         //по этому тесты можно только проверить вкл/выкл переключателя,
-        // режим работы с моделями пока не протестить на автотестах
+        // режим работы с моделями пока не протестить на автотестах.
         returnToMainMenuWindowFromDepthMapWindow();
             assertEquals(oldResult, !newResult);
     }
@@ -524,8 +525,9 @@ public class MenuWindowTest extends TestsStarter {
         newResult = depthMapWindow.averagingToggleButtonIsEnabled();
         depthMapWindow.clickOnAveragingToggleButton();
         //по этому тесты можно только проверить вкл/выкл переключателя,
-        // режим работы с моделями пока не протестить на автотестах
+        // режим работы с моделями пока не протестить на автотестах.
         returnToMainMenuWindowFromDepthMapWindow();
             assertEquals(oldResult, !newResult);
     }
 }
+

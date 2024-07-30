@@ -13,7 +13,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <aspectj.version>1.9.7</aspectj.version>
-        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.3.0</maven-surefire-plugin.version>
         <allure-maven.version>2.10.0</allure-maven.version>
         <junit.jupiter.version>5.10.2</junit.jupiter.version>
     </properties>
@@ -28,10 +28,16 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.9.2</version>
+            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.10.3</version>
+        </dependency>
+        <dependency>
+            <!-- модуль взаимодействия Allure и Junit -->
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit5</artifactId>
             <version>2.27.0</version>
@@ -43,32 +49,42 @@
             <version>2.27.0</version>
         </dependency>
         <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.3</version>
+        </dependency>
+
+        <dependency>
+            <!-- модуль взаимодействия Allure и RestAssured -->
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-rest-assured</artifactId>
             <version>2.27.0</version>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
+                <!-- настройка плагина maven-surefire-plugin -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
+                    <forkCount>0</forkCount>
+                    <testFailureIgnore>false</testFailureIgnore>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
-                    <systemProperties>
+                    <systemPropertyVariables>
                         <property>
                             <name>junit.jupiter.extensions.autodetection.enabled</name>
                             <value>true</value>
                         </property>
                         <property>
+                            <!-- папка, в которую будут генерироваться отчёты Allure -->
                             <name>allure.results.directory</name>
                             <value>${project.build.directory}/allure-results</value>
                         </property>
-                    </systemProperties>
+                    </systemPropertyVariables>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -79,6 +95,7 @@
                 </dependencies>
             </plugin>
             <plugin>
+                <!-- подключение плагина allure-maven для вызова функций Allure с помощью Maven -->
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>2.10.0</version>

@@ -40,7 +40,7 @@ public class DepthMapWindow {
         waitOpenDepthMapWindow();
         driver.findElement(GO_BACK_DEPTH_MAP_BUTTON).click();
     }
-    @Step("Нажимаем на перключатель «Аппаратная карта глубины»")
+    @Step("Нажимаем на переключатель «Аппаратная карта глубины»")
     public static void clickOnHardwareDepthMapToggleButton() {
         waitOpenDepthMapWindow();
         driver.findElement(HARDWARE_DEPTH_MAP_TOGGLE_BUTTON).click();
@@ -49,7 +49,7 @@ public class DepthMapWindow {
     public boolean hardwareDepthMapToggleButtonIsEnabled() {
         return switchEnabled(HARDWARE_DEPTH_MAP_TOGGLE_BUTTON);
     }
-    @Step("Нажимаем на перключатель «Фильтрация»")
+    @Step("Нажимаем на переключатель «Фильтрация»")
     public static void clickOnFiltrationToggleButton() {
         waitOpenDepthMapWindow();
         driver.findElement(FILTRATION_TOGGLE_BUTTON).click();
@@ -58,7 +58,7 @@ public class DepthMapWindow {
     public boolean filtrationToggleButtonIsEnabled() {
         return switchEnabled(FILTRATION_TOGGLE_BUTTON);
     }
-    @Step("Нажимаем на перключатель «Усреднение»")
+    @Step("Нажимаем на переключатель «Усреднение»")
     public static void clickOnAveragingToggleButton() {
         waitOpenDepthMapWindow();
         driver.findElement(AVERAGING_TOGGLE_BUTTON).click();

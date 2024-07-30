@@ -22,7 +22,7 @@ public class TestsStarter {
         AltTesterDesktopStartEnd.AltTesterDesktopStarter();
         startNewMRS();
     }
-    public static void startNewMRS() throws InterruptedException, IOException {
+    public static void startNewMRS() throws InterruptedException {
         TimeUnit.SECONDS.sleep(5);
         try {
             DesiredCapabilities caps = new DesiredCapabilities();

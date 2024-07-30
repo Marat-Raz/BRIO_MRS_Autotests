@@ -11,7 +11,6 @@ public class AltTesterDesktopStartEnd {
     } catch ( IOException e) {
         e.printStackTrace();
     }
-        //TimeUnit.SECONDS.sleep(20);
 }
     public static void AltTesterDesktopDestroy() {
         AltTesterDesktop.destroy();

@@ -1,7 +1,7 @@
 import java.io.IOException;
 
 public class AppiumStarter {
-    public static void startAppiumServerUsingCommandPrompt() throws IOException {
+    public static void startAppiumServerUsingCommandPrompt() {
         Runtime runtime = Runtime.getRuntime();
         try {
             Process appiumServer = runtime.exec("cmd.exe /c start cmd.exe /k appium");

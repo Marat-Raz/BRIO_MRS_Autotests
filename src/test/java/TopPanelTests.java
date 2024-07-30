@@ -10,8 +10,8 @@ public class TopPanelTests extends TestsStarter{
     boolean result;
     @Test
     @DisplayName("Нажатие кнопки «Синхронизация» открывает окно «Синхронизация»")
-    @Link(name = "Ссылка на тест-кейс отсуствует", url = " ")
-    public void clickOnSynchronizationButtonTest() throws InterruptedException {
+    @Link(name = "Ссылка на тест-кейс отсутствует", url = " ")
+    public void clickOnSynchronizationButtonTest() {
         topPanel.clickOnSynchronizationButton();
         SynchronizationWindow synchronizationWindow = new SynchronizationWindow(driver);
         result = synchronizationWindow.synchronizationDialogIsOpen();
@@ -20,8 +20,8 @@ public class TopPanelTests extends TestsStarter{
     }
     @Test
     @DisplayName("Нажатие кнопки «Уведомления» открывает окно «Уведомления»")
-    @Link(name = "Ссылка на тест-кейс отсуствует", url = " ")
-    public void clickOnNotificationsButtonTest() throws InterruptedException {
+    @Link(name = "Ссылка на тест-кейс отсутствует", url = " ")
+    public void clickOnNotificationsButtonTest() {
         topPanel.clickOnNotificationsButton();
         NotificationsWindow notificationsWindow = new NotificationsWindow(driver);
         notificationsWindow.waitOpenNotificationsWindow();
@@ -33,7 +33,7 @@ public class TopPanelTests extends TestsStarter{
 
     /*    @Test
     @DisplayName("Нажатие кнопки «Оси» включает/выключает отображение осей на сцене")
-    @Link(name = "Ссылка на тест-кейс отсуствует", url = " ")
+    @Link(name = "Ссылка на тест-кейс отсутствует", url = " ")
     public void clickOnAxesButtonTest() {
         topPanel.clickOnAxesButton();
         MenuWindow menuWindow = new MenuWindow(driver);
@@ -43,7 +43,7 @@ public class TopPanelTests extends TestsStarter{
 
 /*    @Test
     @DisplayName("Нажатие кнопки «Проводник» открывает окно «Проводник»")
-    @Link(name = "Ссылка на тест-кейс отсуствует", url = " ")
+    @Link(name = "Ссылка на тест-кейс отсутствует", url = " ")
     public void clickOnExplorerButtonTest() {
         topPanel.clickOnExplorerButton();
         ExplorerWindow explorerWindow = new ExplorerWindow(driver);
@@ -55,7 +55,7 @@ public class TopPanelTests extends TestsStarter{
     // FIXME
   /*  @Test
     @DisplayName("Нажатие кнопки «Уровни» открывает окно «Уровни»")
-    @Link(name = "Ссылка на тест-кейс отсуствует", url = " ")
+    @Link(name = "Ссылка на тест-кейс отсутствует", url = " ")
     public void clickOnHierarchyButtonTest() {
         topPanel.clickOnHierarchyButton();
         MenuWindow menuWindow = new MenuWindow(driver);
@@ -64,7 +64,7 @@ public class TopPanelTests extends TestsStarter{
     */
     @Test
     @DisplayName("Нажатие кнопки «Меню» открывает окно «Меню»")
-    @Link(name = "Ссылка на тест-кейс отсуствует", url = " ")
+    @Link(name = "Ссылка на тест-кейс отсутствует", url = " ")
     public void clickOnMainMenuButtonTest() throws InterruptedException {
         topPanel.clickOnMainMenuButton();
         MenuWindow menuWindow = new MenuWindow(driver);
@@ -76,7 +76,7 @@ public class TopPanelTests extends TestsStarter{
     /*
     @Test
     @DisplayName("Нажатие кнопки «AR» включает режим «AR»")
-    @Link(name = "Ссылка на тест-кейс отсуствует", url = " ")
+    @Link(name = "Ссылка на тест-кейс отсутствует", url = " ")
     public void clickOnARTest() {
         topPanel.clickOnAR();
         MenuWindow menuWindow = new MenuWindow(driver);
@@ -86,7 +86,7 @@ public class TopPanelTests extends TestsStarter{
 
     @Test
     @DisplayName("Нажатие кнопки «MR» включает режим «MR»")
-    @Link(name = "Ссылка на тест-кейс отсуствует", url = " ")
+    @Link(name = "Ссылка на тест-кейс отсутствует", url = " ")
     public void clickOnMRTest() {
         topPanel.clickOnMR();
         MenuWindow menuWindow = new MenuWindow(driver);
@@ -96,7 +96,7 @@ public class TopPanelTests extends TestsStarter{
 
     @Test
     @DisplayName("Нажатие кнопки «AMR» включает режим «AMR»")
-    @Link(name = "Ссылка на тест-кейс отсуствует", url = " ")
+    @Link(name = "Ссылка на тест-кейс отсутствует", url = " ")
     public void clickOnAMRTest() {
         topPanel.clickOnAMR();
         MenuWindow menuWindow = new MenuWindow(driver);
