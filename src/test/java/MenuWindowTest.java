@@ -10,15 +10,13 @@ import mrs_elements.toppanel.menu.ComputerVisionWindow;
 import mrs_elements.toppanel.menu.DeveloperMode;
 import mrs_elements.toppanel.menu.SettingsWindow;
 import mrs_elements.toppanel.menu.settings.*;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MenuWindowTest extends TestsStarter {
     CloseAppMassage closeApp;
-    DeveloperMode developerMode;
+    DeveloperMode developerMode = new DeveloperMode(driver);
     ScreenNumericKeyboard screenNumericKeyboard = new ScreenNumericKeyboard(driver);
     SettingsWindow settingsWindow = new SettingsWindow(driver);
     ProfileWindow profileWindow = new ProfileWindow(driver);
@@ -27,30 +25,39 @@ public class MenuWindowTest extends TestsStarter {
     DepthMapWindow depthMapWindow = new DepthMapWindow(driver);
     AboutDeviceWindow aboutDeviceWindow = new AboutDeviceWindow(driver);
     ComputerVisionWindow computerVisionWindow =  new ComputerVisionWindow(driver);
-    static MenuWindow menuWindow;
+    MenuWindow menuWindow = new MenuWindow(driver);
     ScreenKeyboard screenKeyboard;
-    static TopPanel topPanel;
+    TopPanel topPanel = new TopPanel(driver);
     boolean result, newResult, oldResult;
     int origNumber, changedNumber;
-    String minValue, maxValue, medValue, oldValue, newValue, newValue1;
+    String minValue, maxValue, medValue, oldValue, newValue, thirdValue, originalText, changedText;
 
-    @BeforeAll
-    public static void clickOnMenuButton() {
-        topPanel = new TopPanel(driver);
+    @BeforeEach
+    public void clickOnMenuButton() {
+        topPanel.waitOpenTopPanel();
         topPanel.clickOnMainMenuButton();
-        menuWindow = new MenuWindow(driver);
         menuWindow.waitOpenMenuWindow();
     }
 
-    /*    @AfterAll
-        public static void closeMenu() {
-            menuWindow.waitOpenMenuWindow();
-            menuWindow.clickOnXButton();
-        }*/
-    @Step("Открытие окна «Профиль»")
-    public void openProfileWindow() {
+    @AfterEach
+    public void closeMenu() throws InterruptedException {
+        menuWindow.waitOpenMenuWindow();
+        menuWindow.clickOnXButton();
+        topPanel.waitOpenTopPanel();
+        Thread.sleep(600);
+
+    }
+
+    @Step("Открытие окна «Настройки»")
+    public void openSettingsWindow() {
         menuWindow.clickOnSettingsButton();
         settingsWindow.waitOpenSettingsWindow();
+        // todo сделать метод для открытия настроек
+    }
+
+    @Step("Открытие окна «Профиль»")
+    public void openProfileWindow() {
+        openSettingsWindow();
         settingsWindow.clickOnProfileButton();
         profileWindow.waitOpenProfileWindow();
     }
@@ -65,8 +72,7 @@ public class MenuWindowTest extends TestsStarter {
 
     @Step("Открытие окна «Интерфейс»")
     public void openInterfaceWindow() {
-        menuWindow.clickOnSettingsButton();
-        settingsWindow.waitOpenSettingsWindow();
+        openSettingsWindow();
         settingsWindow.clickOnInterfaceButton();
         interfaceWindow.waitOpenInterfaceWindow();
     }
@@ -81,8 +87,7 @@ public class MenuWindowTest extends TestsStarter {
 
     @Step("Открытие окна «Настройки CV»")
     public void openCVSettingsWindow() {
-        menuWindow.clickOnSettingsButton();
-        settingsWindow.waitOpenSettingsWindow();
+        openSettingsWindow();
         settingsWindow.clickOnCVSettingsButton();
         cVSettingsWindow.waitOpenCVSettingsWindow();
     }
@@ -196,9 +201,7 @@ public class MenuWindowTest extends TestsStarter {
     @DisplayName("Страница настроек «Профиль» открыта?")
     @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
     public void profileWindowIsOpenTest() {
-        menuWindow.clickOnSettingsButton();
-        settingsWindow.waitOpenSettingsWindow();
-        settingsWindow.clickOnProfileButton();
+        openProfileWindow();
         result = profileWindow.profileWindowIsOpen();
         returnToMainMenuWindowFromProfile();
         assertTrue(result);
@@ -209,9 +212,9 @@ public class MenuWindowTest extends TestsStarter {
     @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
     public void changingValueOfCounterClickMinusButtonTest() {
         openProfileWindow();
-        String originalText = profileWindow.getTextFromCounter();
+        originalText = profileWindow.getTextFromCounter();
         profileWindow.clickOnMinusButton();
-        String changedText = profileWindow.getTextFromCounter();
+        changedText = profileWindow.getTextFromCounter();
         origNumber = Integer.parseInt(originalText.trim());
         changedNumber = Integer.parseInt(changedText.trim());
         profileWindow.clickOnPlusButton();
@@ -224,9 +227,9 @@ public class MenuWindowTest extends TestsStarter {
     @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
     public void changingValueOfCounterClickPlusButtonTest() {
         openProfileWindow();
-        String originalText = profileWindow.getTextFromCounter();
+        originalText = profileWindow.getTextFromCounter();
         profileWindow.clickOnPlusButton();
-        String changedText = profileWindow.getTextFromCounter();
+        changedText = profileWindow.getTextFromCounter();
         origNumber = Integer.parseInt(originalText.trim());
         changedNumber = Integer.parseInt(changedText.trim());
         returnToMainMenuWindowFromProfile();
@@ -239,7 +242,7 @@ public class MenuWindowTest extends TestsStarter {
     public void changingValueFromCounterSaveTest() {
         openProfileWindow();
         profileWindow.clickOnPlusButton();
-        String originalText = profileWindow.getTextFromCounter();
+        originalText = profileWindow.getTextFromCounter();
         origNumber = Integer.parseInt(originalText.trim());
         returnToMainMenuWindowFromProfile();
         openProfileWindow();
@@ -605,12 +608,11 @@ public class MenuWindowTest extends TestsStarter {
     @DisplayName("Нажатие на кнопку «Компьютерное зрение» открывает окно «Компьютерное зрение»")
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-648")
     public void computerVisionButtonDeveloperModeTest() {
-        openDeveloperMode();
-        developerMode.clickOnComputerVisionButton();
+        openComputerVisionWindow();
         result = computerVisionWindow.computerVisionWindowIsOpen();
         returnToMainMenuWindowFromComputerVisionWindow();
         assertTrue(result);
-    } // todo доделать на это окно
+    }
 
     @Test
     @DisplayName("Включить и выключить переключатель «Вертикальная синхронизация»")
@@ -676,16 +678,16 @@ public class MenuWindowTest extends TestsStarter {
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-653")
     public void changeVirtualKeyboardTypeDeveloperModeTest() {
         openDeveloperMode();
-        developerMode.selectVirtualKeyboardTypeBuiltIntoMrs();
-        newValue = developerMode.virtualKeyboardTypeIs();
+        developerMode.selectVirtualKeyboardTypeNoVirtualKeyboard();
+        thirdValue = developerMode.virtualKeyboardTypeIs();
         developerMode.selectVirtualKeyboardTypeSystemWindows();
         oldValue = developerMode.virtualKeyboardTypeIs();
-        developerMode.selectVirtualKeyboardTypeNoVirtualKeyboard();
-        newValue1 = developerMode.virtualKeyboardTypeIs();
+        developerMode.selectVirtualKeyboardTypeBuiltIntoMrs();
+        newValue = developerMode.virtualKeyboardTypeIs();
         returnToMainMenuWindowFromDeveloperMode();
         assertEquals("Встроенная в MRS", newValue);
         assertEquals("Системная (Windows)", oldValue);
-        assertEquals("Без виртуальной клавиатуры", newValue1);
+        assertEquals("Без виртуальной клавиатуры", thirdValue);
         // todo позже проверить работу этих режимов
     }
 
@@ -842,8 +844,8 @@ public class MenuWindowTest extends TestsStarter {
     }*/
 
     @Test
-    @DisplayName("Проверяем активность кнопки «Начать» «Запись датасета»")
-    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-659")
+    @DisplayName("Проверяем работу кнопки «Собрать» из «Собрать логи в архив»")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-660")
     public void collectLogsToArchiveDeveloperModeTest() {
         openDeveloperMode();
         developerMode.clickOnRepeatButtonByScrollBar();
@@ -854,5 +856,96 @@ public class MenuWindowTest extends TestsStarter {
         assertTrue(result);
     }
 
+    @Test
+    @DisplayName("Нажать на раскрывающийся список «Пресет камеры (требуется аппаратная карта глубины)» и смена значений")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-648")
+    public void changeCameraPresetComputerVisionTest() {
+        openComputerVisionWindow();
+        computerVisionWindow.selectCameraPresetDefaultPreset();
+        oldValue = computerVisionWindow.cameraPresetIs();
+        computerVisionWindow.selectCameraPresetHighResHighAccuracyPreset();
+        newValue = computerVisionWindow.cameraPresetIs();
+        computerVisionWindow.selectCameraPresetHighResHighDensityPreset();
+        thirdValue = computerVisionWindow.cameraPresetIs();
+        returnToMainMenuWindowFromComputerVisionWindow();
+        assertEquals("DefaultPreset.json", oldValue);
+        assertEquals("HighResHighAccuracyPreset.json", newValue);
+        assertEquals("HighResHighDensityPreset.json", thirdValue);
+    }
+
+    @Test
+    @DisplayName("Нажать на раскрывающийся список «Алгоритм поиска Aruco» и смена значений")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-648")
+    public void changeArucoSearchAlgorithmComputerVisionTest() {
+        openComputerVisionWindow();
+        computerVisionWindow.selectArucoSearchAlgorithmOpenCvStandard();
+        oldValue = computerVisionWindow.arucoSearchAlgorithmIs();
+        computerVisionWindow.selectArucoSearchAlgorithmBrio();
+        newValue = computerVisionWindow.arucoSearchAlgorithmIs();
+        computerVisionWindow.selectArucoSearchAlgorithmCustom();
+        thirdValue = computerVisionWindow.arucoSearchAlgorithmIs();
+        returnToMainMenuWindowFromComputerVisionWindow();
+        assertEquals("OpenCV (стандартный)", oldValue);
+        assertEquals("Brio", newValue);
+        assertEquals("Custom", thirdValue);
+    }
+
+    @Test
+    @DisplayName("Включить и выключить переключатель «Обнаружение объектов»")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-648")
+    public void clickOnObjectDetectionToggleButtonComputerVisionTest() {
+        openComputerVisionWindow();
+        oldResult = computerVisionWindow.objectDetectionToggleButtonIsEnabled();
+        computerVisionWindow.clickOnObjectDetectionToggleButton();
+        newResult = computerVisionWindow.objectDetectionToggleButtonIsEnabled();
+        computerVisionWindow.clickOnObjectDetectionToggleButton();
+        returnToMainMenuWindowFromComputerVisionWindow();
+        assertEquals(oldResult, !newResult);
+    }
+
+    @Test
+    @DisplayName("Включить и выключить переключатель «Коррекция метки по гироскопу»")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-648")
+    public void clickOnGyroscopeMarkCorrectionsToggleButtonComputerVisionTest() {
+        openComputerVisionWindow();
+        oldResult = computerVisionWindow.gyroscopeMarkCorrectionsToggleButtonIsEnabled();
+        computerVisionWindow.clickOnGyroscopeMarkCorrectionsToggleButton();
+        newResult = computerVisionWindow.gyroscopeMarkCorrectionsToggleButtonIsEnabled();
+        computerVisionWindow.clickOnGyroscopeMarkCorrectionsToggleButton();
+        //по этому тесты можно только проверить вкл/выкл переключателя,
+        // режим сцены не протестить на автотестах.
+        returnToMainMenuWindowFromComputerVisionWindow();
+        assertEquals(oldResult, !newResult);
+    }
+
+    @Test
+    @DisplayName("Включить и выключить переключатель «Заморозка карты глубины»")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-648")
+    public void clickOnDepthMapFreezeToggleButtonComputerVisionTest() {
+        openComputerVisionWindow();
+        oldResult = computerVisionWindow.depthMapFreezeToggleButtonIsEnabled();
+        computerVisionWindow.clickOnDepthMapFreezeToggleButton();
+        newResult = computerVisionWindow.depthMapFreezeToggleButtonIsEnabled();
+        computerVisionWindow.clickOnDepthMapFreezeToggleButton();
+        //по этому тесты можно только проверить вкл/выкл переключателя,
+        // режим сцены не протестить на автотестах.
+        returnToMainMenuWindowFromComputerVisionWindow();
+        assertEquals(oldResult, !newResult);
+    }
+
+    @Test
+    @DisplayName("Включить и выключить переключатель «Контур объектов всегда виден»")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-648")
+    public void clickOnOutlineOfObjectsIsAlwaysVisibleToggleButtonComputerVisionTest() {
+        openComputerVisionWindow();
+        oldResult = computerVisionWindow.outlineOfObjectsIsAlwaysVisibleToggleButtonIsEnabled();
+        computerVisionWindow.clickOnOutlineOfObjectsIsAlwaysVisibleToggleButton();
+        newResult = computerVisionWindow.outlineOfObjectsIsAlwaysVisibleToggleButtonIsEnabled();
+        computerVisionWindow.clickOnOutlineOfObjectsIsAlwaysVisibleToggleButton();
+        //по этому тесты можно только проверить вкл/выкл переключателя,
+        // режим сцены не протестить на автотестах.
+        returnToMainMenuWindowFromComputerVisionWindow();
+        assertEquals(oldResult, !newResult);
+    }
 }
 

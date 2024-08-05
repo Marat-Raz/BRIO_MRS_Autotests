@@ -3,6 +3,12 @@ package mrs_elements.toppanel;
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.GO_BACK_INTERFACE_BUTTON;
 
 public class TopPanel {
     public static AppiumDriver driver;
@@ -18,6 +24,10 @@ public class TopPanel {
 
     public TopPanel(AppiumDriver driver) {
         this.driver = driver;
+    }
+    public static void waitOpenTopPanel() {
+        (new WebDriverWait(driver, Duration.ofSeconds(2)))
+                .until(ExpectedConditions.visibilityOfElementLocated(MENU_BUTTON));
     }
 
     @Step("Нажимаем на кнопку «Синхронизация»")

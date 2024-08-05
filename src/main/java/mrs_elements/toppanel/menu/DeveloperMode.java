@@ -99,8 +99,8 @@ public class DeveloperMode {
     }
     @Step("Считываем установленное значение для «Режим миникарты»")
     public String minimapModeIs() {
-        String systemLanguage = driver.findElement(MINIMAP_MODE_TOGGLE_BUTTON).getText();
-        return systemLanguage;
+        String minimapModeIs = driver.findElement(MINIMAP_MODE_TOGGLE_BUTTON).getText();
+        return minimapModeIs;
     }
 
     @Step("Выбор элемента «Вращение карты» выпадающего списка «Режим миникарты»")
@@ -122,8 +122,8 @@ public class DeveloperMode {
 
     @Step("Считываем установленное значение для «Тип виртуальной клавиатуры»")
     public String virtualKeyboardTypeIs() {
-        String systemLanguage = driver.findElement(VIRTUAL_KEYBOARD_TYPE_TOGGLE_BUTTON).getText();
-        return systemLanguage;
+        String virtualKeyboardTypeIs = driver.findElement(VIRTUAL_KEYBOARD_TYPE_TOGGLE_BUTTON).getText();
+        return virtualKeyboardTypeIs;
     }
 
     @Step("Выбор элемента «Встроенная в MRS» выпадающего списка «Тип виртуальной клавиатуры»")
