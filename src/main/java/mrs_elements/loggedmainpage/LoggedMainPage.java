@@ -11,18 +11,22 @@ public class LoggedMainPage {
     public static AppiumDriver driver;
     public static final By LOGGED_MAIN_PAGE = By.className("LoggedMainPageView");
     public static final By SELECTED_PROJECT_SIDE_VIEW = By.className("SelectedProjectSideView");
-    public static final By NOT_SELECTED_PROJECT_SIDE_VIEW = By.xpath("//LoggedMainPageView/Border/" +
-            "ContentPresenter/Grid/Decorator/Grid/AnimatedContentControl/Border/Grid/ContentPresenter/Decorator/Grid"); // todo By.name
-    public static final By ACCOUNT_LOGIN = By.xpath("//TextBlock[@Text='BrioCloud']"); // todo By.name, здесь может быть другое имя пользователя, поэтому надо искать по name
-    public static final By REFRESH_PROJECTS_LIST_BUTTON = By.xpath("//Button[@Text='Обновить список проектов']");
+    public static final By NOT_SELECTED_PROJECT_SIDE_VIEW =
+            By.xpath("//Button[.//TextBlock[@Text='Обновить список проектов']]/parent::*");
+    public static final By ACCOUNT_LOGIN =
+            By.xpath("//Button[.//TextBlock[@Text='Обновить список проектов']]/parent::*/TextBlock");
+    public static final By REFRESH_PROJECTS_LIST_BUTTON =
+            By.xpath("//Button[.//TextBlock[@Text='Обновить список проектов']]");
 //private static final By LOGIN_INPUT = By.xpath("//TextBox[.//TextBlock[@Text='Логин']]")
 
     public LoggedMainPage(AppiumDriver driver) {
         this.driver = driver;
     }
+
     public static void waitOpenLoggedMainPage() {
-        (new WebDriverWait(driver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(LOGGED_MAIN_PAGE));
+        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(LOGGED_MAIN_PAGE));
     }
+
     public boolean LoggedMainPageIsOpen() {
         waitOpenLoggedMainPage();
         return driver.findElement(LOGGED_MAIN_PAGE).isDisplayed();

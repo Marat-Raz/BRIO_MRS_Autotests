@@ -1,13 +1,17 @@
 import io.qameta.allure.Link;
-import mrs_elements.toppanel.*;
+import mrs_elements.toppanel.MenuWindow;
+import mrs_elements.toppanel.NotificationsWindow;
+import mrs_elements.toppanel.SynchronizationWindow;
+import mrs_elements.toppanel.TopPanel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TopPanelTests extends TestsStarter{
+public class TopPanelTests extends TestsStarter {
     TopPanel topPanel = new TopPanel(driver);
     boolean result;
+
     @Test
     @DisplayName("Нажатие кнопки «Синхронизация» открывает окно «Синхронизация»")
     @Link(name = "Ссылка на тест-кейс отсутствует", url = " ")
@@ -16,8 +20,9 @@ public class TopPanelTests extends TestsStarter{
         SynchronizationWindow synchronizationWindow = new SynchronizationWindow(driver);
         result = synchronizationWindow.synchronizationDialogIsOpen();
         synchronizationWindow.clickOnXButton();
-            assertTrue(result);
+        assertTrue(result);
     }
+
     @Test
     @DisplayName("Нажатие кнопки «Уведомления» открывает окно «Уведомления»")
     @Link(name = "Ссылка на тест-кейс отсутствует", url = " ")
@@ -27,7 +32,7 @@ public class TopPanelTests extends TestsStarter{
         notificationsWindow.waitOpenNotificationsWindow();
         result = notificationsWindow.notificationsWindowIsOpen();
         notificationsWindow.clickOnXButton();
-            assertTrue(result);
+        assertTrue(result);
     }
     // FIXME
 
@@ -41,17 +46,17 @@ public class TopPanelTests extends TestsStarter{
     } */
     // FIXME
 
-/*    @Test
-    @DisplayName("Нажатие кнопки «Проводник» открывает окно «Проводник»")
-    @Link(name = "Ссылка на тест-кейс отсутствует", url = " ")
-    public void clickOnExplorerButtonTest() {
-        topPanel.clickOnExplorerButton();
-        ExplorerWindow explorerWindow = new ExplorerWindow(driver);
-        result = explorerWindow.explorerWindowIsOpen();
-        explorerWindow.clickOnBackButton();
-            assertTrue(result);
+    /*    @Test
+        @DisplayName("Нажатие кнопки «Проводник» открывает окно «Проводник»")
+        @Link(name = "Ссылка на тест-кейс отсутствует", url = " ")
+        public void clickOnExplorerButtonTest() {
+            topPanel.clickOnExplorerButton();
+            ExplorerWindow explorerWindow = new ExplorerWindow(driver);
+            result = explorerWindow.explorerWindowIsOpen();
+            explorerWindow.clickOnBackButton();
+                assertTrue(result);
 
-    }*/
+        }*/
     // FIXME
   /*  @Test
     @DisplayName("Нажатие кнопки «Уровни» открывает окно «Уровни»")
@@ -70,7 +75,7 @@ public class TopPanelTests extends TestsStarter{
         MenuWindow menuWindow = new MenuWindow(driver);
         result = menuWindow.menuWindowIsOpen();
         menuWindow.clickOnXButton();
-            assertTrue(result);
+        assertTrue(result);
     }
     // FIXME
     /*

@@ -16,13 +16,16 @@ public class HierarchyWindow {
     public HierarchyWindow(AppiumDriver driver) {
         this.driver = driver;
     }
+
     public static void waitOpenHierarchyWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(HIERARCHY_WINDOW));
+        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(HIERARCHY_WINDOW));
     }
+
     public boolean notificationsWindowIsOpen() {
         waitOpenHierarchyWindow();
         return driver.findElement(HIERARCHY_WINDOW).isDisplayed();
     }
+
     @Step("Нажимаем на кнопку «X»")
     public static void clickOnXButton() {
         waitOpenHierarchyWindow();

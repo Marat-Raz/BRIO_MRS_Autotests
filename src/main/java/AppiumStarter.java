@@ -5,10 +5,9 @@ public class AppiumStarter {
         Runtime runtime = Runtime.getRuntime();
         try {
             Process appiumServer = runtime.exec("cmd.exe /c start cmd.exe /k appium");
-            }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-            }
+        }
     }
 
     public static void stopAppiumServerUsingCommandPrompt() {
@@ -16,9 +15,8 @@ public class AppiumStarter {
         try {
             runtime.exec("taskkill /F /IM node.exe");
             runtime.exec("taskkill /F /IM cmd.exe");
-            }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-            }
+        }
     }
 }

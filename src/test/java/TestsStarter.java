@@ -1,20 +1,22 @@
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Step;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
-import org.junit.jupiter.api.*;
-import io.qameta.allure.Step;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import java.io.IOException;
+
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class TestsStarter {
     static AppiumDriver driver = null;
+
     @BeforeAll
-    @Step("Запуск Allure и логгирования запросов по API, запуск Appium + AltTesterDesktop + БРИО МРС")
-    public static void globalSetUp() throws IOException, InterruptedException {
+    @Step("Запуск Allure и логирования запросов по API, запуск Appium + AltTesterDesktop + БРИО МРС")
+    public static void globalSetUp() throws InterruptedException {
         RestAssured.replaceFiltersWith(
                 new RequestLoggingFilter(), new ResponseLoggingFilter(),
                 new AllureRestAssured());
@@ -22,6 +24,7 @@ public class TestsStarter {
         AltTesterDesktopStartEnd.AltTesterDesktopStarter();
         startNewMRS();
     }
+
     public static void startNewMRS() throws InterruptedException {
         TimeUnit.SECONDS.sleep(5);
         try {
@@ -44,9 +47,9 @@ public class TestsStarter {
     }
 
     @AfterAll
-    @Step ("Закрытие ранее запущенных приложений")
+    @Step("Закрытие ранее запущенных приложений")
     public static void tearDown() throws InterruptedException {
-        if(driver != null)
+        if (driver != null)
             driver.quit();
         AltTesterDesktopStartEnd.AltTesterDesktopDestroy();
         AppiumStarter.stopAppiumServerUsingCommandPrompt();

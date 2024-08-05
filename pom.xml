@@ -35,6 +35,7 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.10.3</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <!-- модуль взаимодействия Allure и Junit -->
@@ -52,6 +53,7 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>5.10.3</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -69,7 +71,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
-                    <forkCount>0</forkCount>
+                    <forkCount>1</forkCount>
                     <testFailureIgnore>false</testFailureIgnore>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
@@ -103,7 +105,8 @@
                     <reportVersion>2.17.2</reportVersion>
                     <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
                     <reportDirectory>${project.build.directory}/allure-report</reportDirectory>
-                </configuration> </plugin>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

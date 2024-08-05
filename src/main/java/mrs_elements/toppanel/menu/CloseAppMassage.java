@@ -10,28 +10,38 @@ import java.time.Duration;
 
 public class CloseAppMassage {
     public static AppiumDriver driver;
+
     public CloseAppMassage(AppiumDriver driver) {
         this.driver = driver;
     }
-    public static final By YES_BUTTON_CLOSE_APPLICATION = By.xpath("//UniformGrid/ContentPresenter[1]/" +
-            "Button/Grid/ContentPresenter/TextBlock"); // todo By.name
-    public static final By NO_BUTTON_CLOSE_APPLICATION = By.xpath("//UniformGrid/ContentPresenter[2]/" +
-            "Button/Grid/ContentPresenter/TextBlock"); // todo By.name
-    public static final By NOTIFICATION_DIALOG_CLOSE_APPLICATION = By.xpath("//NotificationDialog/" +
-            "Border/ContentPresenter/ContentControl/Border/ContentPresenter"); // todo By.name
-    @Step("Нажимаем на кнопку «Да»")
-    public static void clickOnYesButton() {
-        (new WebDriverWait(driver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(NOTIFICATION_DIALOG_CLOSE_APPLICATION));
-        driver.findElement(YES_BUTTON_CLOSE_APPLICATION).click();
+
+    public static final By YES_BUTTON_CLOSE_APPLICATION = By.xpath("//Button[.//TextBlock[@Text='Да']]");
+    public static final By NO_BUTTON_CLOSE_APPLICATION = By.xpath("//Button[.//TextBlock[@Text='Нет']]");
+    public static final By NOTIFICATION_DIALOG_CLOSE_APPLICATION =
+            By.xpath("//TextBlock[@Text='Вы действительно хотите закрыть программу?']/parent::*");
+
+    @Step("Ожидаем открытия окна «Вы действительно хотите закрыть программу?»")
+    public static void waitOpenCloseAppMassage() {
+        (new WebDriverWait(driver, Duration.ofSeconds(2)))
+                .until(ExpectedConditions.visibilityOfElementLocated(NOTIFICATION_DIALOG_CLOSE_APPLICATION));
     }
-    @Step("Нажимаем на кнопку «Нет»")
-    public static void clickOnNoButton() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(NOTIFICATION_DIALOG_CLOSE_APPLICATION));
-        driver.findElement(NO_BUTTON_CLOSE_APPLICATION).click();
-    }
-    @Step("Окно «Закрыть приложение» открыто")
+    @Step("Окно «Закрыть приложение» открыто?")
     public void waitOpenCloseAppWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(NOTIFICATION_DIALOG_CLOSE_APPLICATION));
+        waitOpenCloseAppMassage();
         driver.findElement(NOTIFICATION_DIALOG_CLOSE_APPLICATION).isDisplayed();
     }
+
+    @Step("Нажимаем на кнопку «Да»")
+    public static void clickOnYesButton() {
+        waitOpenCloseAppMassage();
+        driver.findElement(YES_BUTTON_CLOSE_APPLICATION).click();
+    }
+
+    @Step("Нажимаем на кнопку «Нет»")
+    public static void clickOnNoButton() {
+        waitOpenCloseAppMassage();
+        driver.findElement(NO_BUTTON_CLOSE_APPLICATION).click();
+    }
+
+
 }

@@ -17,13 +17,16 @@ public class ScreenKeyboard {
     public ScreenKeyboard(AppiumDriver driver) {
         this.driver = driver;
     }
+
     public void waitOpenScreenKeyboard() {
-        (new WebDriverWait(driver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(SCREEN_KEYBOARD));
+        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(SCREEN_KEYBOARD));
     }
+
     public boolean ScreenKeyboardIsOpen() {
         waitOpenScreenKeyboard();
         return driver.findElement(SCREEN_KEYBOARD).isDisplayed();
     }
+
     @Step("Ввод текста в поле ввода клавиатуры")
     public void enterTextToScreenKeyboardInput(String text) {
         waitOpenScreenKeyboard();

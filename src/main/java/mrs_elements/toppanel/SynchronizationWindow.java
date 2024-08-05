@@ -14,16 +14,20 @@ public class SynchronizationWindow {
             "ContentPresenter/ContentControl/Border/ContentPresenter/Border/Grid/Grid[1]");
     public static final By CLOSE_SYNCHRONIZATION_DIALOG_BUTTON = By.xpath("//SynchronizationDialog/" +
             "Border/ContentPresenter/ContentControl/Border/ContentPresenter/Border/Grid/Grid[1]/Button");
+
     public SynchronizationWindow(AppiumDriver driver) {
         this.driver = driver;
     }
+
     public static void waitOpenSynchronizationWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(1))).until(ExpectedConditions.visibilityOfElementLocated(SYNCHRONIZATION_DIALOG));
+        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(SYNCHRONIZATION_DIALOG));
     }
+
     public boolean synchronizationDialogIsOpen() {
         waitOpenSynchronizationWindow();
         return driver.findElement(SYNCHRONIZATION_DIALOG).isDisplayed();
     }
+
     @Step("Нажимаем на кнопку «X»")
     public static void clickOnXButton() {
         waitOpenSynchronizationWindow();
