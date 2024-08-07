@@ -2,6 +2,7 @@ package mrs_elements.toppanel.menu.settings;
 
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
+import mrs_elements.MethodsForElements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -14,6 +15,8 @@ public class CVSettingsWindow {
     public CVSettingsWindow(AppiumDriver driver) {
         this.driver = driver;
     }
+
+    MethodsForElements methodsForElements = new MethodsForElements(driver);
 
     public static final By GO_BACK_CV_SETTINGS_BUTTON =
             By.xpath("//Button[.//TextBlock[@Text='Настройки CV']]");
@@ -30,13 +33,6 @@ public class CVSettingsWindow {
     public boolean CVSettingsWindowIsOpen() {
         waitOpenCVSettingsWindow();
         return driver.findElement(GO_BACK_CV_SETTINGS_BUTTON).isDisplayed();
-    }
-
-    public boolean switchEnabled(By by) {
-        waitOpenCVSettingsWindow();
-        String attr = driver.findElement(by).getAttribute("IsChecked");
-        boolean IsChecked = Boolean.parseBoolean(attr);
-        return IsChecked;
     }
 
     @Step("Нажимаем на кнопку «<Настройки CV»")
@@ -59,7 +55,7 @@ public class CVSettingsWindow {
 
     @Step("Считываем состояние переключателя «Многомаркерное позиционирование»")
     public boolean multiMarkerPositioningToggleButtonIsEnabled() {
-        return switchEnabled(MULTI_MARKER_POSITIONING_TOGGLE_BUTTON);
+        return methodsForElements.switchEnabled(MULTI_MARKER_POSITIONING_TOGGLE_BUTTON);
     }
 
 

@@ -33,7 +33,7 @@ public class DeveloperModeLocators {
     public static final By VOICE_INPUT_DEVICE_POPUP =
             By.xpath("//SettingsView/Border/ContentPresenter/AnimatedContentControl/Border/Grid/" +
                     "ContentPresenter/Grid/ScrollViewer/Border/Grid/ScrollContentPresenter/ItemsControl/Border/" +
-                    "ItemsPresenter/StackPanel/ContentPresenter[6]/Grid/ComboBox/Grid/Popup");
+                    "ItemsPresenter/StackPanel/ContentPresenter[7]/Grid/ComboBox/Grid/Popup/Border");
     public static final By MOVE_THE_MODEL_S_CAMERA_BEHIND_REAL_CAMERA_TOGGLE_BUTTON =
             By.xpath("//TextBlock[@Text='Перемещать камеру модели за реальной камерой']/following-sibling::*");
     public static final By CAMERA_ANIMATION_SPEED_OUTPUT =

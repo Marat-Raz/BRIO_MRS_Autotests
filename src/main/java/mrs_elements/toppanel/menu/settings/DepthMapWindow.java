@@ -2,6 +2,7 @@ package mrs_elements.toppanel.menu.settings;
 
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
+import mrs_elements.MethodsForElements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -14,6 +15,8 @@ public class DepthMapWindow {
     public DepthMapWindow(AppiumDriver driver) {
         this.driver = driver;
     }
+
+    MethodsForElements methodsForElements = new MethodsForElements(driver);
 
     public static final By GO_BACK_DEPTH_MAP_BUTTON =
             By.xpath("//Button[.//TextBlock[@Text='Карта глубины']]");
@@ -34,13 +37,6 @@ public class DepthMapWindow {
         return driver.findElement(GO_BACK_DEPTH_MAP_BUTTON).isDisplayed();
     }
 
-    public boolean switchEnabled(By by) {
-        waitOpenDepthMapWindow();
-        String attr = driver.findElement(by).getAttribute("IsChecked");
-        boolean IsChecked = Boolean.parseBoolean(attr);
-        return IsChecked;
-    }
-
     @Step("Нажимаем на кнопку «<Карта глубины»")
     public static void clickOnGoBackButton() {
         waitOpenDepthMapWindow();
@@ -55,7 +51,7 @@ public class DepthMapWindow {
 
     @Step("Считываем состояние переключателя «Аппаратная карта глубины»")
     public boolean hardwareDepthMapToggleButtonIsEnabled() {
-        return switchEnabled(HARDWARE_DEPTH_MAP_TOGGLE_BUTTON);
+        return methodsForElements.switchEnabled(HARDWARE_DEPTH_MAP_TOGGLE_BUTTON);
     }
 
     @Step("Нажимаем на переключатель «Фильтрация»")
@@ -66,7 +62,7 @@ public class DepthMapWindow {
 
     @Step("Считываем состояние переключателя «Фильтрация»")
     public boolean filtrationToggleButtonIsEnabled() {
-        return switchEnabled(FILTRATION_TOGGLE_BUTTON);
+        return methodsForElements.switchEnabled(FILTRATION_TOGGLE_BUTTON);
     }
 
     @Step("Нажимаем на переключатель «Усреднение»")
@@ -77,6 +73,6 @@ public class DepthMapWindow {
 
     @Step("Считываем состояние переключателя «Усреднение»")
     public boolean averagingToggleButtonIsEnabled() {
-        return switchEnabled(AVERAGING_TOGGLE_BUTTON);
+        return methodsForElements.switchEnabled(AVERAGING_TOGGLE_BUTTON);
     }
 }

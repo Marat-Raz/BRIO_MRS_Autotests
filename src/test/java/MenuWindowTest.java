@@ -1,3 +1,4 @@
+import groovyjarjarantlr4.v4.runtime.atn.SemanticContext;
 import io.qameta.allure.Link;
 import io.qameta.allure.Step;
 import mrs_elements.login.LoginWindow;
@@ -265,7 +266,7 @@ public class MenuWindowTest extends TestsStarter {
     }
 
     @Test
-    @DisplayName("Нажатие на кнопку «Выйти из акканта»")
+    @DisplayName("Нажатие на кнопку «Выйти из аккаунта»")
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-424")
     public void clickOnLogOutAccountButtonAndLogInTest() {
         openProfileWindow();
@@ -364,7 +365,7 @@ public class MenuWindowTest extends TestsStarter {
         interfaceWindow.clickOnShowLocationOnTheMapToggleButton();
         newResult = interfaceWindow.showLocationOnTheMapToggleButtonIsEnabled();
         interfaceWindow.clickOnShowLocationOnTheMapToggleButton();
-        //todo еще нужно проверять включение на сцене + Включить переключатель "Показывать миникарту"
+        //todo еще нужно проверять включение на сцене при этом Включить переключатель "Показывать миникарту"
         returnToMainMenuWindowFromInterfaceWindow();
         assertEquals(oldResult, !newResult);
     }
@@ -696,7 +697,6 @@ public class MenuWindowTest extends TestsStarter {
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-654")
     public void clickingOnVoiceInputDeviceToggleButtonOpensPopupDeveloperModeTest() {
         openDeveloperMode();
-        developerMode.selectVirtualKeyboardTypeBuiltIntoMrs();
         result = developerMode.clickingOnVoiceInputDeviceToggleButtonOpensPopup();
         returnToMainMenuWindowFromDeveloperMode();
         assertTrue(result);
@@ -745,10 +745,14 @@ public class MenuWindowTest extends TestsStarter {
         developerMode.clickOnSelectCoincidentFeaturesToggleButton();
         newResult = developerMode.selectCoincidentFeaturesToggleButtonIsEnabled();
         developerMode.clickOnSelectCoincidentFeaturesToggleButton();
+        if (oldResult | newResult) {
+                result = developerMode.sliderDistanceToCoincidentFeaturesAppear();
+        }
         //по этому тесты можно только проверить вкл/выкл переключателя,
         // режим сцены не протестить на автотестах.
         returnToMainMenuWindowFromDeveloperMode();
         assertEquals(oldResult, !newResult);
+        assertTrue(result);
     }
 
     @Test
@@ -756,6 +760,9 @@ public class MenuWindowTest extends TestsStarter {
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-668")
     public void distanceToCoincidentFeaturesDeveloperModeTest() {
         openDeveloperMode();
+        if (!developerMode.selectCoincidentFeaturesToggleButtonIsEnabled()) {
+            developerMode.clickOnSelectCoincidentFeaturesToggleButton();
+        }
         developerMode.moveSliderDistanceToCoincidentFeatures(50);
         medValue = developerMode.readValueOfDistanceToCoincidenceOfObjectsField();
         developerMode.moveSliderDistanceToCoincidentFeatures(0);

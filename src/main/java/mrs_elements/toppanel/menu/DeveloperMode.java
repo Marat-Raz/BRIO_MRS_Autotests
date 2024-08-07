@@ -2,10 +2,8 @@ package mrs_elements.toppanel.menu;
 
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
+import mrs_elements.MethodsForElements;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -18,7 +16,7 @@ import static mrs_elements.toppanel.menu.DeveloperModeLocators.*;
 
 public class DeveloperMode {
     public static AppiumDriver driver;
-
+    MethodsForElements methodsForElements = new MethodsForElements(driver);
     public DeveloperMode(AppiumDriver driver) {
         this.driver = driver;
     }
@@ -31,35 +29,6 @@ public class DeveloperMode {
     public boolean developerModeWindowIsOpen() {
         waitOpenDeveloperModeWindow();
         return driver.findElement(DEVELOPER_MODE_WINDOW).isDisplayed();
-    }
-
-    public boolean switchEnabled(By by) {
-        waitOpenDeveloperModeWindow();
-        String attr = driver.findElement(by).getAttribute("IsChecked");
-        boolean IsChecked = Boolean.parseBoolean(attr);
-        return IsChecked;
-    }
-
-    public void moveSliderToPercent(WebElement slider, int percent) {
-        Actions builder = new Actions(this.driver);
-        Action dragAndDrop;
-        int height = slider.getSize().getHeight();
-        int width = slider.getSize().getWidth();
-        int xHeight = (int) ((height * percent) / 100);
-        int xWidth = (int) ((width * percent) / 100);
-
-        if (width > height) {
-            //highly likely a horizontal slider
-            dragAndDrop = builder.clickAndHold(slider).moveByOffset(-(width / 2), 0).
-                    moveByOffset(xWidth, 0).
-                    release().build();
-        } else {
-            //highly likely a vertical slider
-            dragAndDrop = builder.clickAndHold(slider).moveByOffset(0, -(height / 2)).
-                    moveByOffset(0, xHeight).
-                    release().build();
-        }
-        dragAndDrop.perform();
     }
 
     @Step("Нажимаем на кнопку «◄»")
@@ -78,7 +47,7 @@ public class DeveloperMode {
     }
     @Step("Считываем состояние переключателя «Вертикальная синхронизация»")
     public boolean verticalSyncToggleButtonIsEnabled() {
-        return switchEnabled(VERTICAL_SYNC_TOGGLE_BUTTON);
+        return methodsForElements.switchEnabled(VERTICAL_SYNC_TOGGLE_BUTTON);
     }
 
     @Step("Нажимаем на переключатель «Показывать статистику»")
@@ -87,7 +56,7 @@ public class DeveloperMode {
     }
     @Step("Считываем состояние переключателя «Показывать статистику»")
     public boolean showStatisticsToggleButtonIsEnabled() {
-        return switchEnabled(SHOW_STATISTICS_TOGGLE_BUTTON);
+        return methodsForElements.switchEnabled(SHOW_STATISTICS_TOGGLE_BUTTON);
     }
     @Step("Нажимаем на переключатель «Показывать карту глубины вместо изображения с камеры»")
     public static void clickOnShowDepthMapInsteadOfCameraImageToggleButton() {
@@ -95,7 +64,7 @@ public class DeveloperMode {
     }
     @Step("Считываем состояние переключателя «Показывать карту глубины вместо изображения с камеры»")
     public boolean showDepthMapInsteadOfCameraImageToggleButtonIsEnabled() {
-        return switchEnabled(SHOW_DEPTH_MAP_INSTEAD_OF_CAMERA_IMAGE_TOGGLE_BUTTON);
+        return methodsForElements.switchEnabled(SHOW_DEPTH_MAP_INSTEAD_OF_CAMERA_IMAGE_TOGGLE_BUTTON);
     }
     @Step("Считываем установленное значение для «Режим миникарты»")
     public String minimapModeIs() {
@@ -105,19 +74,12 @@ public class DeveloperMode {
 
     @Step("Выбор элемента «Вращение карты» выпадающего списка «Режим миникарты»")
     public void selectMinimapModeMapRotation() {
-        driver.findElement(MINIMAP_MODE_TOGGLE_BUTTON).click();
-        (new WebDriverWait(driver, Duration.ofSeconds(1)))
-                .until(ExpectedConditions.visibilityOfElementLocated(MINIMAP_MODE_POPUP_MAP_ROTATION));
-        driver.findElement(MINIMAP_MODE_POPUP_MAP_ROTATION).click();
+        methodsForElements.clickingOnListAndSelectListItem(MINIMAP_MODE_TOGGLE_BUTTON, MINIMAP_MODE_POPUP_MAP_ROTATION);
     }
 
     @Step("Выбор элемента «Вращение маркера» выпадающего списка «Режим миникарты»")
     public void selectMinimapModeRotateMarker() {
-        driver.findElement(MINIMAP_MODE_TOGGLE_BUTTON).click();
-        (new WebDriverWait(driver, Duration.ofSeconds(1)))
-                .until(ExpectedConditions.visibilityOfElementLocated(MINIMAP_MODE_POPUP_ROTATE_MARKER));
-        WebElement popup = driver.findElement(MINIMAP_MODE_POPUP_ROTATE_MARKER);
-        popup.click();
+        methodsForElements.clickingOnListAndSelectListItem(MINIMAP_MODE_TOGGLE_BUTTON, MINIMAP_MODE_POPUP_ROTATE_MARKER);
     }
 
     @Step("Считываем установленное значение для «Тип виртуальной клавиатуры»")
@@ -128,48 +90,44 @@ public class DeveloperMode {
 
     @Step("Выбор элемента «Встроенная в MRS» выпадающего списка «Тип виртуальной клавиатуры»")
     public void selectVirtualKeyboardTypeBuiltIntoMrs() {
-        driver.findElement(VIRTUAL_KEYBOARD_TYPE_TOGGLE_BUTTON).click();
-        (new WebDriverWait(driver, Duration.ofSeconds(1)))
-                .until(ExpectedConditions.visibilityOfElementLocated(VIRTUAL_KEYBOARD_TYPE_POPUP_BUILT_INTO_MRS));
-        driver.findElement(VIRTUAL_KEYBOARD_TYPE_POPUP_BUILT_INTO_MRS).click();
+        methodsForElements.clickingOnListAndSelectListItem(VIRTUAL_KEYBOARD_TYPE_TOGGLE_BUTTON, VIRTUAL_KEYBOARD_TYPE_POPUP_BUILT_INTO_MRS);
     }
 
     @Step("Выбор элемента «Системная (Windows)» выпадающего списка «Тип виртуальной клавиатуры»")
     public void selectVirtualKeyboardTypeSystemWindows() {
-        driver.findElement(VIRTUAL_KEYBOARD_TYPE_TOGGLE_BUTTON).click();
-        (new WebDriverWait(driver, Duration.ofSeconds(1)))
-                .until(ExpectedConditions.visibilityOfElementLocated(VIRTUAL_KEYBOARD_TYPE_POPUP_SYSTEM_WINDOWS));
-        WebElement popup = driver.findElement(VIRTUAL_KEYBOARD_TYPE_POPUP_SYSTEM_WINDOWS);
-        popup.click();
+        methodsForElements.clickingOnListAndSelectListItem(VIRTUAL_KEYBOARD_TYPE_TOGGLE_BUTTON, VIRTUAL_KEYBOARD_TYPE_POPUP_SYSTEM_WINDOWS);
     }
 
     @Step("Выбор элемента «Без виртуальной клавиатуры» выпадающего списка «Тип виртуальной клавиатуры»")
     public void selectVirtualKeyboardTypeNoVirtualKeyboard() {
-        driver.findElement(VIRTUAL_KEYBOARD_TYPE_TOGGLE_BUTTON).click();
-        (new WebDriverWait(driver, Duration.ofSeconds(1)))
-                .until(ExpectedConditions.visibilityOfElementLocated(VIRTUAL_KEYBOARD_TYPE_POPUP_NO_VIRTUAL_KEYBOARD));
-        WebElement popup = driver.findElement(VIRTUAL_KEYBOARD_TYPE_POPUP_NO_VIRTUAL_KEYBOARD);
-        popup.click();
+        methodsForElements.clickingOnListAndSelectListItem(VIRTUAL_KEYBOARD_TYPE_TOGGLE_BUTTON, VIRTUAL_KEYBOARD_TYPE_POPUP_NO_VIRTUAL_KEYBOARD);
     }
+
     @Step("Клик на выпадающий список «Устройство голосового ввода» открывает Popup")
     public boolean clickingOnVoiceInputDeviceToggleButtonOpensPopup() {
+        // methodsForElements не применить, т.к. метод просто проверяет что список есть.
         driver.findElement(VOICE_INPUT_DEVICE_TOGGLE_BUTTON).click();
         (new WebDriverWait(driver, Duration.ofSeconds(1)))
                 .until(ExpectedConditions.visibilityOfElementLocated(VOICE_INPUT_DEVICE_POPUP));
-        return driver.findElement(VOICE_INPUT_DEVICE_POPUP).isDisplayed();
+        boolean isDisplayed = driver.findElement(VOICE_INPUT_DEVICE_POPUP).isDisplayed();
+        driver.findElement(VOICE_INPUT_DEVICE_TOGGLE_BUTTON).click();
+        return isDisplayed;
     }
+
     @Step("Нажимаем на переключатель «Перемещать камеру модели за реальной камерой»")
     public static void clickOnMoveTheModelSCameraBehindRealCameraToggleButton() {
         driver.findElement(MOVE_THE_MODEL_S_CAMERA_BEHIND_REAL_CAMERA_TOGGLE_BUTTON).click();
     }
+
     @Step("Считываем состояние переключателя «Перемещать камеру модели за реальной камерой»")
     public boolean theModelSCameraBehindRealCameraToggleButtonIsEnabled() {
-        return switchEnabled(MOVE_THE_MODEL_S_CAMERA_BEHIND_REAL_CAMERA_TOGGLE_BUTTON);
+        return methodsForElements.switchEnabled(MOVE_THE_MODEL_S_CAMERA_BEHIND_REAL_CAMERA_TOGGLE_BUTTON);
     }
+
     @Step("Двигаем слайдер «Скорость анимации камеры»")
     public void moveSliderCameraAnimationSpeedSlider(int percent) {
         WebElement slider = driver.findElement(CAMERA_ANIMATION_SPEED_SLIDER);
-        moveSliderToPercent(slider, percent);
+        methodsForElements.moveSliderToPercent(slider, percent);
     }
 
     @Step("Считываем состояние слайдера «Скорость анимации камеры»")
@@ -182,13 +140,20 @@ public class DeveloperMode {
     }
     @Step("Считываем состояние переключателя «Выделять совпадающие объекты»")
     public boolean selectCoincidentFeaturesToggleButtonIsEnabled() {
-        return switchEnabled(SELECT_COINCIDENT_FEATURES_TOGGLE_BUTTON);
+        return methodsForElements.switchEnabled(SELECT_COINCIDENT_FEATURES_TOGGLE_BUTTON);
+    }
+
+    @Step("Слайдер «Расстояние до совпадения объектов» появился?")
+    public boolean sliderDistanceToCoincidentFeaturesAppear() {
+        String attr = driver.findElement(DISTANCE_TO_COINCIDENT_FEATURES_SLIDER).getAttribute("IsVisible");
+        boolean IsVisible = Boolean.parseBoolean(attr);
+        return IsVisible;
     }
 
     @Step("Двигаем слайдер «Расстояние до совпадения объектов»")
     public void moveSliderDistanceToCoincidentFeatures(int percent) {
         WebElement slider = driver.findElement(DISTANCE_TO_COINCIDENT_FEATURES_SLIDER);
-        moveSliderToPercent(slider, percent);
+        methodsForElements.moveSliderToPercent(slider, percent);
     }
 
     @Step("Считываем состояние слайдера «Расстояние до совпадения объектов»")
@@ -199,7 +164,7 @@ public class DeveloperMode {
     @Step("Двигаем слайдер «Прозрачность объекта пересечения»")
     public void moveTransparencyOfAnIntersectionObjectSlider(int percent) {
         WebElement slider = driver.findElement(TRANSPARENCY_OF_AN_INTERSECTION_OBJECT_SLIDER);
-        moveSliderToPercent(slider, percent);
+        methodsForElements.moveSliderToPercent(slider, percent);
     }
 
     @Step("Считываем состояние слайдера «Прозрачность объекта пересечения»")
@@ -210,7 +175,7 @@ public class DeveloperMode {
     @Step("Двигаем слайдер «Размер линии пересечения»")
     public void moveIntersectionLineSizeSlider(int percent) {
         WebElement slider = driver.findElement(INTERSECTION_LINE_SIZE_SLIDER);
-        moveSliderToPercent(slider, percent);
+        methodsForElements.moveSliderToPercent(slider, percent);
     }
 
     @Step("Считываем состояние слайдера «Размер линии пересечения»")
