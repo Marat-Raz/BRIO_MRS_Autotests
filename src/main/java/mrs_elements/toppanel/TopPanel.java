@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.GO_BACK_INTERFACE_BUTTON;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.INTERFACE_WINDOW;
 
 public class TopPanel {
     public static AppiumDriver driver;
@@ -28,6 +29,10 @@ public class TopPanel {
     public static void waitOpenTopPanel() {
         (new WebDriverWait(driver, Duration.ofSeconds(2)))
                 .until(ExpectedConditions.visibilityOfElementLocated(MENU_BUTTON));
+    }
+    public boolean topPanelIsOpen() {
+        waitOpenTopPanel();
+        return driver.findElement(MENU_BUTTON).isDisplayed();
     }
 
     @Step("Нажимаем на кнопку «Синхронизация»")

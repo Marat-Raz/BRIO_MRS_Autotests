@@ -5,8 +5,6 @@ import io.qameta.allure.Step;
 import mrs_elements.MethodsForElements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -16,21 +14,26 @@ import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.*;
 
 public class InterfaceWindow {
     public static AppiumDriver driver;
-
+    MethodsForElements methodsForElements;
     public InterfaceWindow(AppiumDriver driver) {
         this.driver = driver;
+        methodsForElements = new MethodsForElements(driver);
     }
 
-    MethodsForElements methodsForElements = new MethodsForElements(driver);
 
     public static void waitOpenInterfaceWindow() {
         (new WebDriverWait(driver, Duration.ofSeconds(2)))
-                .until(ExpectedConditions.visibilityOfElementLocated(GO_BACK_INTERFACE_BUTTON));
+                .until(ExpectedConditions.visibilityOfElementLocated(INTERFACE_WINDOW));
     }
 
     public boolean interfaceWindowIsOpen() {
         waitOpenInterfaceWindow();
-        return driver.findElement(GO_BACK_INTERFACE_BUTTON).isDisplayed();
+        return driver.findElement(INTERFACE_WINDOW).isDisplayed();
+    }
+    public boolean switchEnabled(By by) {
+        String attr = driver.findElement(by).getAttribute("IsChecked");
+        boolean IsChecked = Boolean.parseBoolean(attr);
+        return IsChecked;
     }
 
     @Step("Нажимаем на кнопку «<Интерфейс»")
@@ -93,6 +96,7 @@ public class InterfaceWindow {
 
     @Step("Считываем состояние переключателя «Показывать местоположение на карте»")
     public boolean showLocationOnTheMapToggleButtonIsEnabled() {
+        waitOpenInterfaceWindow();
         return methodsForElements.switchEnabled(SHOW_LOCATION_ON_MAP_TOGGLE_BUTTON);
     }
 

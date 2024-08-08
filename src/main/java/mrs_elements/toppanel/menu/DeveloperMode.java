@@ -16,9 +16,10 @@ import static mrs_elements.toppanel.menu.DeveloperModeLocators.*;
 
 public class DeveloperMode {
     public static AppiumDriver driver;
-    MethodsForElements methodsForElements = new MethodsForElements(driver);
+    MethodsForElements methodsForElements;
     public DeveloperMode(AppiumDriver driver) {
         this.driver = driver;
+        methodsForElements = new MethodsForElements(driver);
     }
 
     public static void waitOpenDeveloperModeWindow() {

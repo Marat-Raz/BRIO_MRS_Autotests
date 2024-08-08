@@ -3,6 +3,7 @@ package mrs_elements.toppanel;
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -58,8 +59,9 @@ public class MenuWindow {
     @Step("Нажимаем на надписи с версией приложения")
     public static void clickFiveOnBrioMrsVersionButton() {
         waitOpenMenuWindow();
+        WebElement brioMrsVersionButton = driver.findElement(BRIO_MRS_VERSION_BUTTON);
         for (int i = 0; i < 5; i++) {
-            driver.findElement(BRIO_MRS_VERSION_BUTTON).click();
+            brioMrsVersionButton.click();
         }
     }
 

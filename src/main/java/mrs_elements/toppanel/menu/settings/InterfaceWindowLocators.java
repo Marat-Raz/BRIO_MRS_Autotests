@@ -3,6 +3,8 @@ package mrs_elements.toppanel.menu.settings;
 import org.openqa.selenium.By;
 
 public class InterfaceWindowLocators {
+    public static final By INTERFACE_WINDOW =
+            By.xpath("//Button[.//TextBlock[@Text='Интерфейс']]/parent::*");
     public static final By GO_BACK_INTERFACE_BUTTON =
             By.xpath("//Button[.//TextBlock[@Text='Интерфейс']]");
     public static final By INTERFACE_LANGUAGE_TOGGLE_BUTTON =
