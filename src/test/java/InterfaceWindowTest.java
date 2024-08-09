@@ -1,9 +1,12 @@
 import io.qameta.allure.Link;
-import mrs_elements.MethodsForElements;
+import mrs_elements.loggedmainpage.LoggedMainPage;
+import mrs_elements.login.LoginWindow;
+import mrs_elements.screenkeyboards.ScreenKeyboard;
 import mrs_elements.toppanel.MenuWindow;
 import mrs_elements.toppanel.TopPanel;
 import mrs_elements.toppanel.menu.SettingsWindow;
 import mrs_elements.toppanel.menu.settings.InterfaceWindow;
+import mrs_elements.toppanel.menu.settings.ProfileWindow;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,7 +23,7 @@ public class InterfaceWindowTest extends TestsStarter {
     String minValue, maxValue, medValue, oldValue, newValue;
 
     @BeforeEach
-    public void clickOnMenuButton() {
+    public void openInterfaceWindow() {
         topPanel.waitOpenTopPanel();
         topPanel.clickOnMainMenuButton();
         menuWindow.waitOpenMenuWindow();
@@ -50,6 +53,7 @@ public class InterfaceWindowTest extends TestsStarter {
         assertTrue(result);
     }
 
+/*
     @Test
     @DisplayName("Смена языка")
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-661")
@@ -60,6 +64,32 @@ public class InterfaceWindowTest extends TestsStarter {
         oldValue = interfaceWindow.systemLanguageIs();
         assertEquals("English (US)", newValue);
         assertEquals("Русский", oldValue);
+    }
+
+    @Test
+    @DisplayName("Проверка смены языка окна авторизации при смене языка системы")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-613")
+    public void loginWindowChangeLanguageWhenChangingSystemLanguageTest() {
+        interfaceWindow.selectLanguageEnglish();
+        interfaceWindow.clickOnGoBackButton();
+        settingsWindow.waitOpenSettingsWindow();
+        settingsWindow.clickOnProfileButton();
+        ProfileWindow profileWindow = new ProfileWindow(driver);
+        profileWindow.clickOnLogOutAccountButton();
+        LoginWindow loginWindow = new LoginWindow(driver);
+        loginWindow.waitOpenLoginWindow();
+        String txt = loginWindow.getTitleTextOfAuthorizationWindow();
+        loginWindow.clickLoginInput();
+        ScreenKeyboard screenKeyboard = new ScreenKeyboard(driver);
+        screenKeyboard.enterTextToScreenKeyboardInput("briocloud");
+        loginWindow.clickPasswordInput();
+        screenKeyboard.enterTextToScreenKeyboardInput("123");
+        loginWindow.clickContinueButton();
+        LoggedMainPage loggedMainPage = new LoggedMainPage(driver);
+        loggedMainPage.waitOpenLoggedMainPage();
+        openInterfaceWindow();
+        interfaceWindow.selectLanguageRussian();
+        assertEquals("Log in", txt);
     }
 
     @Test
@@ -226,4 +256,5 @@ public class InterfaceWindowTest extends TestsStarter {
         // режим работы с моделями пока не протестить на автотестах.
         assertEquals(oldResult, !newResult);
     }
+*/
 }

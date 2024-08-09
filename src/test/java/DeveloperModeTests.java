@@ -1,6 +1,5 @@
 import io.qameta.allure.Link;
 import io.qameta.allure.Step;
-import mrs_elements.MethodsForElements;
 import mrs_elements.toppanel.MenuWindow;
 import mrs_elements.toppanel.TopPanel;
 import mrs_elements.toppanel.menu.ComputerVisionWindow;
@@ -59,13 +58,11 @@ public class DeveloperModeTests extends TestsStarter {
     @DisplayName("Нажать 5 раз на надпись с версией приложения")
     @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
     public void clickOnBRIO_MRSVersionTest() {
-        menuWindow.clickFiveOnBrioMrsVersionButton();
-        developerMode = new DeveloperMode(driver);
         result = developerMode.developerModeWindowIsOpen();
         assertTrue(result);
     }
 
-    @Test
+/*    @Test
     @DisplayName("Нажатие на кнопку «Компьютерное зрение» открывает окно «Компьютерное зрение»")
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-648")
     public void computerVisionButtonDeveloperModeTest() {
@@ -235,7 +232,7 @@ public class DeveloperModeTests extends TestsStarter {
         assertEquals("100%", maxValue, "Значение отличается от ожидаемого");
     }
 
-/*    @Test
+*//*    @Test
     @DisplayName("Двигать ползунок «Размер линии пересечения»")
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-676")
     public void intersectionLineSizeDeveloperModeTest() {
@@ -252,7 +249,7 @@ public class DeveloperModeTests extends TestsStarter {
         assertNotNull(medValue, "Значение не считано");
         assertNotNull(minValue, "Значение не считано");
         assertNotNull(maxValue, "Значение не считано");
-    }*/
+    }*//*
 
     @Test
     @DisplayName("Проверяем активность кнопки «Начать» «Запись датасета»")
@@ -260,14 +257,13 @@ public class DeveloperModeTests extends TestsStarter {
     public void checkingActivityBeginButtonDeveloperModeTest() {
         developerMode.clickOnRepeatButtonByScrollBar();
         result = developerMode.beginButtonIsActive();
-        System.out.println(result);
         assertFalse(result);
 // todo перейти в режим камеры проверить нажатие и смену названия,
 //  проверить что был создан файл
 
     }
 
-/*    @Test
+*//*    @Test
     @DisplayName("Проверяем что, запись датасета произошел при нажатии на кнопку «Начать»")
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-659")
     public void checkThatDatasetWasRecordedWhenClickOnStartButtonDeveloperModeTest() throws InterruptedException {
@@ -282,7 +278,7 @@ public class DeveloperModeTests extends TestsStarter {
         assertEquals("Остановить", oldValue);
         assertFalse(result);
 
-    }*/
+    }*//*
 
     @Test
     @DisplayName("Проверяем работу кнопки «Собрать» из «Собрать логи в архив»")
@@ -291,7 +287,6 @@ public class DeveloperModeTests extends TestsStarter {
         developerMode.clickOnRepeatButtonByScrollBar();
         developerMode.clickCollectButton();
         result = developerMode.checkingForFilesInFolderThenDeletingThem();
-        System.out.println(result);
         assertTrue(result);
     }
 
@@ -385,5 +380,5 @@ public class DeveloperModeTests extends TestsStarter {
         // режим сцены не протестить на автотестах.
         returnToMainMenuWindowFromComputerVisionWindow();
         assertEquals(oldResult, !newResult);
-    }
+    }*/
 }

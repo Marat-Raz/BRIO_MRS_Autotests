@@ -24,10 +24,11 @@ public class LoggedMainPage {
     }
 
     public static void waitOpenLoggedMainPage() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(LOGGED_MAIN_PAGE));
+        (new WebDriverWait(driver, Duration.ofSeconds(2)))
+                .until(ExpectedConditions.visibilityOfElementLocated(LOGGED_MAIN_PAGE));
     }
 
-    public boolean LoggedMainPageIsOpen() {
+    public boolean loggedMainPageIsOpen() {
         waitOpenLoggedMainPage();
         return driver.findElement(LOGGED_MAIN_PAGE).isDisplayed();
     }

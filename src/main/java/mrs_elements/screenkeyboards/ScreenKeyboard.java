@@ -13,6 +13,7 @@ public class ScreenKeyboard {
     private static final By SCREEN_KEYBOARD = By.xpath("//TextKeyboardWithMicView/Border/" +
             "ContentPresenter/Grid/Border[2]");
     private static final By SCREEN_KEYBOARD_INPUT = By.name("KeyboardTextBox");
+    private static final By SCREEN_KEYBOARD_PART_ATTACHED_CLEAR_BUTTON = By.name("PART_AttachedClearButton");
 
     public ScreenKeyboard(AppiumDriver driver) {
         this.driver = driver;
@@ -27,9 +28,15 @@ public class ScreenKeyboard {
         return driver.findElement(SCREEN_KEYBOARD).isDisplayed();
     }
 
+    @Step(" текста в поле ввода клавиатуры")
+    public void clickClearButton() {
+        waitOpenScreenKeyboard();
+        driver.findElement(SCREEN_KEYBOARD_PART_ATTACHED_CLEAR_BUTTON).click();
+    }
+
     @Step("Ввод текста в поле ввода клавиатуры")
     public void enterTextToScreenKeyboardInput(String text) {
-        waitOpenScreenKeyboard();
+        clickClearButton();
         driver.findElement(SCREEN_KEYBOARD_INPUT).sendKeys(text);
     }
 

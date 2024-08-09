@@ -4,9 +4,9 @@ import org.openqa.selenium.By;
 
 public class InterfaceWindowLocators {
     public static final By INTERFACE_WINDOW =
-            By.xpath("//Button[.//TextBlock[@Text='Интерфейс']]/parent::*");
+            By.xpath("//Button[.//TextBlock[@Text='Интерфейс' or @Text='Interface']]/parent::*");
     public static final By GO_BACK_INTERFACE_BUTTON =
-            By.xpath("//Button[.//TextBlock[@Text='Интерфейс']]");
+            By.xpath("//Button[.//TextBlock[@Text='Интерфейс' or @Text='Interface']]");
     public static final By INTERFACE_LANGUAGE_TOGGLE_BUTTON =
             By.xpath("//TextBlock[@Text='Язык' or @Text='Language']/parent::*/descendant::ToggleButton");
     public static final By LANGUAGE_POPUP_ENGLISH =

@@ -16,12 +16,14 @@ public class LoginWindow {
     private static final By PASSWORD_INPUT = By.name("passBox");
     private static final By CONTINUE_BUTTON = By.name("loginBtn");
 
+
     public LoginWindow(AppiumDriver driver) {
         this.driver = driver;
     }
 
-    private static void waitOpenLoginWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(LOGIN_WINDOW_HEADER));
+    public static void waitOpenLoginWindow() {
+        (new WebDriverWait(driver, Duration.ofSeconds(2)))
+                .until(ExpectedConditions.visibilityOfElementLocated(LOGIN_WINDOW_HEADER));
     }
 
     public boolean loginWindowIsOpen() {
@@ -52,5 +54,10 @@ public class LoginWindow {
     @Step("Ввод текста в поле ввода «Пароль»")
     public static void enterTextInPasswordInput(String text) {
         driver.findElement(LOGIN_INPUT).sendKeys(text);
+    }
+
+    @Step("Получить текст заголовка окна авторизации")
+    public String getTitleTextOfAuthorizationWindow() {
+        return driver.findElement(LOGIN_WINDOW_HEADER).getText();
     }
 }

@@ -16,9 +16,9 @@ public class SettingsWindow {
     }
 
     public static final By SETTINGS_WINDOW = By.name("settingsPageContainer");
-    public static final By SETTINGS_GO_BACK = By.xpath("//Button[.//TextBlock[@Text='Настройки']]");
-    public static final By PROFILE_BUTTON = By.xpath("//Button[.//TextBlock[@Text='Профиль']]");
-    public static final By INTERFACE_BUTTON = By.xpath("//Button[.//TextBlock[@Text='Интерфейс']]");
+    public static final By SETTINGS_GO_BACK = By.xpath("//Button[.//TextBlock[@Text='Настройки' or @Text='Settings']]");
+    public static final By PROFILE_BUTTON = By.xpath("//Button[.//TextBlock[@Text='Профиль' or @Text='Profile']]");
+    public static final By INTERFACE_BUTTON = By.xpath("//Button[.//TextBlock[@Text='Интерфейс' or @Text='Interface']]");
     public static final By CV_SETTINGS_BUTTON = By.xpath("//Button[.//TextBlock[@Text='Настройки CV']]");
     public static final By ABOUT_BUTTON = By.xpath("//Button[.//TextBlock[@Text='Об устройстве']]");
 

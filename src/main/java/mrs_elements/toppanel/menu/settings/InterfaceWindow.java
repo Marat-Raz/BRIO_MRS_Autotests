@@ -20,7 +20,6 @@ public class InterfaceWindow {
         methodsForElements = new MethodsForElements(driver);
     }
 
-
     public static void waitOpenInterfaceWindow() {
         (new WebDriverWait(driver, Duration.ofSeconds(2)))
                 .until(ExpectedConditions.visibilityOfElementLocated(INTERFACE_WINDOW));
@@ -29,11 +28,6 @@ public class InterfaceWindow {
     public boolean interfaceWindowIsOpen() {
         waitOpenInterfaceWindow();
         return driver.findElement(INTERFACE_WINDOW).isDisplayed();
-    }
-    public boolean switchEnabled(By by) {
-        String attr = driver.findElement(by).getAttribute("IsChecked");
-        boolean IsChecked = Boolean.parseBoolean(attr);
-        return IsChecked;
     }
 
     @Step("Нажимаем на кнопку «<Интерфейс»")

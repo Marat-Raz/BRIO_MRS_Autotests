@@ -11,7 +11,7 @@ import java.time.Duration;
 
 public class MenuWindow {
     public static AppiumDriver driver;
-    private static final By SETTINGS_BUTTON = By.xpath("//Button[.//TextBlock[@Text='Настройки']]");
+    private static final By SETTINGS_BUTTON = By.name("settingsBtn");
     private static final By RETURN_TO_MAIN_PAGE_BUTTON = By.name("returnToMainPageBtn");
     private static final By MINIMIZE_BUTTON = By.name("minimizeBtn");
     private static final By CLOSE_APPLICATION_BUTTON = By.name("closeAppBtn");

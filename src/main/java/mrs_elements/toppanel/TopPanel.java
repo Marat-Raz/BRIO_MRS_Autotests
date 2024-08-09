@@ -37,46 +37,55 @@ public class TopPanel {
 
     @Step("Нажимаем на кнопку «Синхронизация»")
     public static void clickOnSynchronizationButton() {
+        waitOpenTopPanel();
         driver.findElement(SYNCHRONIZATION_BUTTON).click();
     }
 
     @Step("Нажимаем на кнопку «Уведомления»")
     public static void clickOnNotificationsButton() {
+        waitOpenTopPanel();
         driver.findElement(NOTIFICATIONS_BUTTON).click();
     }
 
     @Step("Нажимаем на кнопку «Оси»")
     public static void clickOnAxesButton() {
+        waitOpenTopPanel();
         driver.findElement(AXES_BUTTON).click();
     }
 
     @Step("Нажимаем на кнопку «Проводник»")
     public static void clickOnExplorerButton() {
+        waitOpenTopPanel();
         driver.findElement(EXPLORER_BUTTON).click();
     }
 
     @Step("Нажимаем на кнопку «Уровни»")
     public static void clickOnHierarchyButton() {
+        waitOpenTopPanel();
         driver.findElement(HIERARCHY_BUTTON).click();
     }
 
     @Step("Нажимаем на кнопку «Меню»")
     public static void clickOnMainMenuButton() {
+        waitOpenTopPanel();
         driver.findElement(MENU_BUTTON).click();
     }
 
     @Step("Нажимаем на кнопку «AR»")
     public static void clickOnAR() {
+        waitOpenTopPanel();
         driver.findElement(AR_BUTTON).click();
     }
 
     @Step("Нажимаем на кнопку «MR»")
     public static void clickOnMR() {
+        waitOpenTopPanel();
         driver.findElement(MR_BUTTON).click();
     }
 
     @Step("Нажимаем на кнопку «AMR»")
     public static void clickOnAMR() {
+        waitOpenTopPanel();
         driver.findElement(AMR_BUTTON).click();
     }
 

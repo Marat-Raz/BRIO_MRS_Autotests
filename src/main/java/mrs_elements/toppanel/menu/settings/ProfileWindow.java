@@ -10,12 +10,12 @@ import java.time.Duration;
 
 public class ProfileWindow {
     public static AppiumDriver driver;
-    private static final By GO_BACK_PROFILE_BUTTON = By.xpath("//Button[.//TextBlock[@Text='Профиль']]");
+    private static final By GO_BACK_PROFILE_BUTTON = By.xpath("//Button[.//TextBlock[@Text='Профиль' or @Text='Profile']]");
     private static final By MINUS_BUTTON = By.xpath("//NumericUpDown/Border/Grid/RepeatButton[1]/Grid/Border");
     private static final By PLUS_BUTTON = By.xpath("//NumericUpDown/Border/Grid/RepeatButton[2]/Grid/Border");
     private static final By COUNTER_AS_INPUT = By.xpath("//NumericUpDown/Border/Grid/TextBox");
     private static final By COUNTER_AS_BUTTON = By.xpath("//NumericUpDown/Border/Grid");
-    private static final By LOG_OUT_ACCOUNT_BUTTON = By.xpath("//Button[.//TextBlock[@Text='Выйти из аккаунта']]");
+    private static final By LOG_OUT_ACCOUNT_BUTTON = By.xpath("//Button[.//TextBlock[@Text='Выйти из аккаунта' or @Text='Logout']]");
 
     public ProfileWindow(AppiumDriver driver) {
         this.driver = driver;
