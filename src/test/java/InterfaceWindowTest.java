@@ -53,7 +53,6 @@ public class InterfaceWindowTest extends TestsStarter {
         assertTrue(result);
     }
 
-/*
     @Test
     @DisplayName("Смена языка")
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-661")
@@ -256,5 +255,4 @@ public class InterfaceWindowTest extends TestsStarter {
         // режим работы с моделями пока не протестить на автотестах.
         assertEquals(oldResult, !newResult);
     }
-*/
 }

@@ -116,7 +116,6 @@ public class MenuWindowTest extends TestsStarter {
         driver.manage().window().maximize();
     }
 
-/*
     @Test
     @DisplayName("Нажать на «Закрыть приложение» и в запросе нажать на «Нет»")
     @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
@@ -205,10 +204,9 @@ public class MenuWindowTest extends TestsStarter {
         LoginWindow loginWindow = new LoginWindow(driver);
         result = loginWindow.loginWindowIsOpen();
 
-*/
 /*     loginWindow.enterTextInLoginInput("briocloud"); Не работает ввод непосредственно в эти поля ввода.
         Связано с тем, что экранная клавиатура перехватывает фокус
-        loginWindow.enterTextInPasswordInput("123"); *//*
+        loginWindow.enterTextInPasswordInput("123"); */
 
 
         loginWindow.clickLoginInput();
@@ -326,6 +324,5 @@ public class MenuWindowTest extends TestsStarter {
         assertNotNull(dateM);
     }
 
-*/
 }
 

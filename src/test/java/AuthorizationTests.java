@@ -63,7 +63,6 @@ public class AuthorizationTests extends TestsStarter {
                 "Вход не выполнен: Пaроль не должен быть пустым", txt);
     }
 
-/*
     @Test
     @DisplayName("Вход в систему используя только логин")
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-163")
@@ -123,6 +122,5 @@ public class AuthorizationTests extends TestsStarter {
         assertEquals("Ошибка\n" +
                 "Вход не выполнен: Не удалось найти пользователя", txt);
     }
-*/
 
 }
