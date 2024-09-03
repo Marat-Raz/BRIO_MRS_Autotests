@@ -19,7 +19,7 @@ public class DeveloperModeTests extends TestsStarter {
     DeveloperMode developerMode = new DeveloperMode(driver);
     ComputerVisionWindow computerVisionWindow =  new ComputerVisionWindow(driver);
     boolean result, newResult, oldResult;
-    String minValue, maxValue, medValue, oldValue, newValue, thirdValue;
+    String minValue, maxValue, medValue, oldValue, newValue, thirdValue, value1, value2, value3;
 
     @BeforeEach
     public void clickOnMenuButton() {
@@ -32,15 +32,9 @@ public class DeveloperModeTests extends TestsStarter {
 
     @AfterEach
     public void closeMenu() throws InterruptedException {
-        developerMode.clickOnBackButton();
-        settingsWindow.waitOpenSettingsWindow();
-        settingsWindow.clickOnGoBackButton();
-        menuWindow.waitOpenMenuWindow();
-        menuWindow.waitOpenMenuWindow();
-        menuWindow.clickOnXButton();
-        topPanel.waitOpenTopPanel();
+        developerMode.waitOpenDeveloperModeWindow();
+        developerMode.clickOnXButton();
         Thread.sleep(600);
-
     }
 
     @Step("Открытие окна «Компьютерное зрение»")
@@ -49,17 +43,20 @@ public class DeveloperModeTests extends TestsStarter {
         computerVisionWindow.waitOpenComputerVisionWindow();
     }
 
-    @Step("Возврат из окна «Компьютерное зрение» в главное окно «Меню»")
-    public void returnToMainMenuWindowFromComputerVisionWindow() {
-        computerVisionWindow.clickOnBackButton();
-    }
-
     @Test
-    @DisplayName("Нажать 5 раз на надпись с версией приложения")
+    @DisplayName("Проверка открытия окна «Разработка» и появления после этого кнопки «Разработка» в окне «Настройки»")
     @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
     public void clickOnBRIO_MRSVersionTest() {
         result = developerMode.developerModeWindowIsOpen();
+        developerMode.clickOnGoBackButton();
+        boolean result1 = settingsWindow.settingsWindowIsOpen();
+        boolean result2 = settingsWindow.developmentButtonOnSettingsWindowIsDisplayed();
+        settingsWindow.clickOnDevelopmentButton();
+        boolean result3 = developerMode.developerModeWindowIsOpen();
         assertTrue(result);
+        assertTrue(result1);
+        assertTrue(result2);
+        assertTrue(result3);
     }
 
     @Test
@@ -68,7 +65,7 @@ public class DeveloperModeTests extends TestsStarter {
     public void computerVisionButtonDeveloperModeTest() {
         openComputerVisionWindow();
         result = computerVisionWindow.computerVisionWindowIsOpen();
-        returnToMainMenuWindowFromComputerVisionWindow();
+        computerVisionWindow.clickOnGoBackButton();
         assertTrue(result);
     }
 
@@ -186,7 +183,7 @@ public class DeveloperModeTests extends TestsStarter {
         newResult = developerMode.selectCoincidentFeaturesToggleButtonIsEnabled();
         developerMode.clickOnSelectCoincidentFeaturesToggleButton();
         if (oldResult | newResult) {
-            result = developerMode.sliderDistanceToCoincidentFeaturesAppear();
+            result = developerMode.sliderDistanceToCoincidentFeaturesIsAppear();
         }
         //по этому тесты можно только проверить вкл/выкл переключателя,
         // режим сцены не протестить на автотестах.
@@ -198,6 +195,7 @@ public class DeveloperModeTests extends TestsStarter {
     @DisplayName("Двигать ползунок «Расстояние до совпадения объектов»")
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-668")
     public void distanceToCoincidentFeaturesDeveloperModeTest() {
+        developerMode.clickOnRepeatButtonByScrollBar();
         if (!developerMode.selectCoincidentFeaturesToggleButtonIsEnabled()) {
             developerMode.clickOnSelectCoincidentFeaturesToggleButton();
         }
@@ -296,15 +294,15 @@ public class DeveloperModeTests extends TestsStarter {
     public void changeCameraPresetComputerVisionTest() {
         openComputerVisionWindow();
         computerVisionWindow.selectCameraPresetDefaultPreset();
-        oldValue = computerVisionWindow.cameraPresetIs();
+        value1 = computerVisionWindow.cameraPresetIs();
         computerVisionWindow.selectCameraPresetHighResHighAccuracyPreset();
-        newValue = computerVisionWindow.cameraPresetIs();
+        value2 = computerVisionWindow.cameraPresetIs();
         computerVisionWindow.selectCameraPresetHighResHighDensityPreset();
-        thirdValue = computerVisionWindow.cameraPresetIs();
-        returnToMainMenuWindowFromComputerVisionWindow();
-        assertEquals("DefaultPreset.json", oldValue);
-        assertEquals("HighResHighAccuracyPreset.json", newValue);
-        assertEquals("HighResHighDensityPreset.json", thirdValue);
+        value3 = computerVisionWindow.cameraPresetIs();
+        computerVisionWindow.clickOnGoBackButton();
+        assertEquals("DefaultPreset.json", value1);
+        assertEquals("HighResHighAccuracyPreset.json", value2);
+        assertEquals("HighResHighDensityPreset.json", value3);
     }
 
     @Test
@@ -313,15 +311,15 @@ public class DeveloperModeTests extends TestsStarter {
     public void changeArucoSearchAlgorithmComputerVisionTest() {
         openComputerVisionWindow();
         computerVisionWindow.selectArucoSearchAlgorithmOpenCvStandard();
-        oldValue = computerVisionWindow.arucoSearchAlgorithmIs();
+        value1 = computerVisionWindow.arucoSearchAlgorithmIs();
         computerVisionWindow.selectArucoSearchAlgorithmBrio();
-        newValue = computerVisionWindow.arucoSearchAlgorithmIs();
+        value2 = computerVisionWindow.arucoSearchAlgorithmIs();
         computerVisionWindow.selectArucoSearchAlgorithmCustom();
-        thirdValue = computerVisionWindow.arucoSearchAlgorithmIs();
-        returnToMainMenuWindowFromComputerVisionWindow();
-        assertEquals("OpenCV (стандартный)", oldValue);
-        assertEquals("Brio", newValue);
-        assertEquals("Custom", thirdValue);
+        value3 = computerVisionWindow.arucoSearchAlgorithmIs();
+        computerVisionWindow.clickOnGoBackButton();
+        assertEquals("OpenCV (стандартный)", value1);
+        assertEquals("Brio", value2);
+        assertEquals("Custom", value3);
     }
 
     @Test
@@ -333,7 +331,7 @@ public class DeveloperModeTests extends TestsStarter {
         computerVisionWindow.clickOnObjectDetectionToggleButton();
         newResult = computerVisionWindow.objectDetectionToggleButtonIsEnabled();
         computerVisionWindow.clickOnObjectDetectionToggleButton();
-        returnToMainMenuWindowFromComputerVisionWindow();
+        computerVisionWindow.clickOnGoBackButton();
         assertEquals(oldResult, !newResult);
     }
 
@@ -348,7 +346,7 @@ public class DeveloperModeTests extends TestsStarter {
         computerVisionWindow.clickOnGyroscopeMarkCorrectionsToggleButton();
         //по этому тесты можно только проверить вкл/выкл переключателя,
         // режим сцены не протестить на автотестах.
-        returnToMainMenuWindowFromComputerVisionWindow();
+        computerVisionWindow.clickOnGoBackButton();
         assertEquals(oldResult, !newResult);
     }
 
@@ -363,7 +361,7 @@ public class DeveloperModeTests extends TestsStarter {
         computerVisionWindow.clickOnDepthMapFreezeToggleButton();
         //по этому тесты можно только проверить вкл/выкл переключателя,
         // режим сцены не протестить на автотестах.
-        returnToMainMenuWindowFromComputerVisionWindow();
+        computerVisionWindow.clickOnGoBackButton();
         assertEquals(oldResult, !newResult);
     }
 
@@ -378,7 +376,7 @@ public class DeveloperModeTests extends TestsStarter {
         computerVisionWindow.clickOnOutlineOfObjectsIsAlwaysVisibleToggleButton();
         //по этому тесты можно только проверить вкл/выкл переключателя,
         // режим сцены не протестить на автотестах.
-        returnToMainMenuWindowFromComputerVisionWindow();
+        computerVisionWindow.clickOnGoBackButton();
         assertEquals(oldResult, !newResult);
     }
 }

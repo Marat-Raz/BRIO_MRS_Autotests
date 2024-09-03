@@ -11,7 +11,7 @@ import java.time.Duration;
 public class LoginWindow {
     public static AppiumDriver driver;
     private static final By LOGIN_WINDOW = By.xpath("//TextBlock[@Text='Войти в систему']/parent::*");
-    private static final By LOGIN_WINDOW_HEADER = By.name("loginPageTitle");
+    private static final By LOGIN_WINDOW_HEADER = By.xpath("//TextBlock[@Text='Войти в систему']");
     private static final By LOGIN_INPUT = By.name("loginBox");
     private static final By PASSWORD_INPUT = By.name("passBox");
     private static final By CONTINUE_BUTTON = By.name("loginBtn");

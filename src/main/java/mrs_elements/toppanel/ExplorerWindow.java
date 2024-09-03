@@ -10,8 +10,7 @@ import java.time.Duration;
 
 public class ExplorerWindow {
     public static AppiumDriver driver;
-    public static final By EXPLORER_ITEMS = By.xpath("//ExplorerItemsControl/Border/ScrollViewer/Border/" +
-            "Grid/ScrollContentPresenter/AdornerLayer");
+    public static final By EXPLORER_VIEW = By.name("ExplorerView");
     public static final By EXPLORER_GO_BACK_BUTTON = By.name("explorerGoBackBtn");
     public static final By EXPLORER_SEARCH_BOX = By.name("searchTextBox");
 
@@ -20,12 +19,13 @@ public class ExplorerWindow {
     }
 
     public static void waitExplorerWindowOpen() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(EXPLORER_ITEMS));
+        (new WebDriverWait(driver, Duration.ofSeconds(2)))
+                .until(ExpectedConditions.visibilityOfElementLocated(EXPLORER_VIEW));
     }
 
     public boolean explorerWindowIsOpen() {
         waitExplorerWindowOpen();
-        return driver.findElement(EXPLORER_ITEMS).isDisplayed();
+        return driver.findElement(EXPLORER_VIEW).isDisplayed();
     }
 
     @Step("Нажимаем на кнопку «◄»")

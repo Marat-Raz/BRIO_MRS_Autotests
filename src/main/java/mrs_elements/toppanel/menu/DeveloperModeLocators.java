@@ -3,9 +3,11 @@ package mrs_elements.toppanel.menu;
 import org.openqa.selenium.By;
 
 public class DeveloperModeLocators {
-    public static final By DEVELOPER_MODE_WINDOW = By.xpath("//Button[.//TextBlock[@Text='Для разработчиков']]/parent::*");
+    public static final By DEVELOPER_MODE_WINDOW = By.xpath("//Button[.//TextBlock[@Text='Разработка']]/parent::*");
     public static final By DEVELOPER_MODE_GO_BACK =
-            By.xpath("//Button[.//TextBlock[@Text='Для разработчиков']]");
+            By.xpath("//Button[.//TextBlock[@Text='Разработка']]");
+    public static final By DEVELOPER_MODE_X_BUTTON =
+            By.xpath("//Button[.//TextBlock[@Text='Разработка']]/following-sibling::*");
     public static final By COMPUTER_VISION_BUTTON =
             By.xpath("//Button[.//TextBlock[@Text='Компьютерное зрение']]");
     public static final By VERTICAL_SYNC_TOGGLE_BUTTON =

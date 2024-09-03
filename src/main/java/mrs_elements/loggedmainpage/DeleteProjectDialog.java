@@ -8,58 +8,47 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class CreateNewProjectDialog {
+public class DeleteProjectDialog {
     public static AppiumDriver driver;
-    public static final By CREATE_NEW_PROJECT_DIALOG =
-            By.xpath("//TextBlock[@Text='Введите название проекта']/parent::*");
-    public static final By TEXT_BOX = By.name("inputBox");
-    public static final By CREATE_BUTTON =
-            By.xpath("//Button[.//TextBlock[@Text='Создать']]");
+    public static final By DELETE_PROJECT_DIALOG =
+            By.xpath("//CheckBox[.//TextBlock[@Text='Оставить локальные файлы']]/parent::*");
+    public static final By CHECK_BOX_LEAVE_LOCAL_FILES =
+            By.xpath("//CheckBox[.//TextBlock[@Text='Оставить локальные файлы']]");
+    public static final By DELETE_BUTTON =
+            By.xpath("//Button[.//TextBlock[@Text='Удалить']]");
     public static final By CANCEL_BUTTON =
             By.xpath("//Button[.//TextBlock[@Text='Отмена']]");
-    public static final By ERROR_MESSAGE =
-            By.xpath("//TextBlock[@Text='Введите название проекта']/following-sibling::TextBlock");
 
-    public CreateNewProjectDialog(AppiumDriver driver) {
+    public DeleteProjectDialog(AppiumDriver driver) {
         this.driver = driver;
     }
 
-    public static void waitOpenCreateNewProjectDialog() {
+    public static void waitOpenDeleteProjectDialog() {
         (new WebDriverWait(driver, Duration.ofSeconds(2)))
-                .until(ExpectedConditions.visibilityOfElementLocated(CREATE_NEW_PROJECT_DIALOG));
+                .until(ExpectedConditions.visibilityOfElementLocated(DELETE_PROJECT_DIALOG));
     }
 
-    public boolean createNewProjectDialogIsOpen() {
-        waitOpenCreateNewProjectDialog();
-        return driver.findElement(CREATE_NEW_PROJECT_DIALOG).isDisplayed();
+    public boolean deleteProjectDialogIsOpen() {
+        waitOpenDeleteProjectDialog();
+        return driver.findElement(DELETE_PROJECT_DIALOG).isDisplayed();
     }
 
     @Step("Нажать на поле ввода названия проекта")
-    public void clickOnTextBox() {
-        waitOpenCreateNewProjectDialog();
-        driver.findElement(TEXT_BOX).click();
+    public void clickOnCheckBoxLeaveLocalFiles() {
+        waitOpenDeleteProjectDialog();
+        driver.findElement(CHECK_BOX_LEAVE_LOCAL_FILES).click();
     }
 
     @Step("Нажать на кнопку «Создать»")
-    public void clickOnCreateButton() {
-        waitOpenCreateNewProjectDialog();
-        driver.findElement(CREATE_BUTTON).click();
+    public void clickOnDeleteButton() {
+        waitOpenDeleteProjectDialog();
+        driver.findElement(DELETE_BUTTON).click();
     }
 
     @Step("Нажать на кнопку «Отмена»")
     public void clickOnCancelButton() {
-        waitOpenCreateNewProjectDialog();
+        waitOpenDeleteProjectDialog();
         driver.findElement(CANCEL_BUTTON).click();
-    }
-
-    @Step("Появилось сообщение об ошибке?")
-    public boolean errorMessageIsDisplayed() {
-        return driver.findElement(ERROR_MESSAGE).isDisplayed();
-    }
-
-    @Step("Получить текст сообщения об ошибке")
-    public String getTextErrorMessage() {
-        return driver.findElement(ERROR_MESSAGE).getText();
     }
 
 }

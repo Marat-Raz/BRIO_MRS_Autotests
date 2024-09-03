@@ -17,6 +17,7 @@ public class AboutDeviceWindow {
 
     public static final By ABOUT_DEVICE_WINDOW = By.xpath("//DeviceInformationView");
     public static final By ABOUT_DEVICE_GO_BACK = By.xpath("//Button[.//TextBlock[@Text='Об устройстве']]");
+    public static final By ABOUT_DEVICE_X_BUTTON = By.xpath("//Button[.//TextBlock[@Text='Об устройстве']]/following-sibling::*");
     public static final By SERIAL_NUMBER_TEXT = By.xpath("//DeviceInformationView/Border/ContentPresenter/Grid/StackPanel[1]/TextBlock[1]");
     public static final By DATE_OF_MANUFACTURE_TEXT = By.xpath("//DeviceInformationView/Border/ContentPresenter/Grid/StackPanel[1]/TextBlock[1]");
 
@@ -34,6 +35,7 @@ public class AboutDeviceWindow {
 
     @Step("Нажимаем на кнопку «<Об устройстве»")
     public static void clickOnGoBackButton() {
+        // todo добавить тесты на эту кнопку
         waitOpenAboutDeviceWindow();
         driver.findElement(ABOUT_DEVICE_GO_BACK).click();
     }
@@ -49,4 +51,8 @@ public class AboutDeviceWindow {
     }
 
 
+    public void clickOnXButton() {
+        waitOpenAboutDeviceWindow();
+        driver.findElement(ABOUT_DEVICE_X_BUTTON).click();
+    }
 }

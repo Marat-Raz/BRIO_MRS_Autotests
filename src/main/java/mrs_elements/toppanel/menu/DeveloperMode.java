@@ -33,7 +33,8 @@ public class DeveloperMode {
     }
 
     @Step("Нажимаем на кнопку «◄»")
-    public static void clickOnBackButton() {
+    public static void clickOnGoBackButton() {
+        // todo проверить работу этой кнопки
         waitOpenDeveloperModeWindow();
         driver.findElement(DEVELOPER_MODE_GO_BACK).click();
     }
@@ -145,7 +146,7 @@ public class DeveloperMode {
     }
 
     @Step("Слайдер «Расстояние до совпадения объектов» появился?")
-    public boolean sliderDistanceToCoincidentFeaturesAppear() {
+    public boolean sliderDistanceToCoincidentFeaturesIsAppear() {
         String attr = driver.findElement(DISTANCE_TO_COINCIDENT_FEATURES_SLIDER).getAttribute("IsVisible");
         boolean IsVisible = Boolean.parseBoolean(attr);
         return IsVisible;
@@ -262,6 +263,10 @@ public class DeveloperMode {
         return driver.findElement(STATISTICS_WINDOW).isDisplayed();
     }
 
-
+    @Step("Нажимаем на кнопку Х")
+    public void clickOnXButton() {
+        waitOpenDeveloperModeWindow();
+        driver.findElement(DEVELOPER_MODE_X_BUTTON).click();
+    }
 }
 

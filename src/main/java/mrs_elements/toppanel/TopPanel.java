@@ -22,6 +22,7 @@ public class TopPanel {
     public static final By AR_BUTTON = By.name("switchToARBtn");
     public static final By MR_BUTTON = By.name("switchToMRBtn");
     public static final By AMR_BUTTON = By.name("switchToAMRBtn");
+    public static final By CLOCK = By.className("ClockStatusIconView");
 
     public TopPanel(AppiumDriver driver) {
         this.driver = driver;
@@ -87,6 +88,11 @@ public class TopPanel {
     public static void clickOnAMR() {
         waitOpenTopPanel();
         driver.findElement(AMR_BUTTON).click();
+    }
+
+    @Step("Считываем значение часов")
+    public String readClock() {
+        return driver.findElement(CLOCK).getText();
     }
 
 }

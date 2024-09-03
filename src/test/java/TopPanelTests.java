@@ -6,6 +6,10 @@ import mrs_elements.toppanel.TopPanel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TopPanelTests extends TestsStarter {
@@ -34,6 +38,17 @@ public class TopPanelTests extends TestsStarter {
         notificationsWindow.clickOnXButton();
         assertTrue(result);
     }
+
+    @Test
+    @DisplayName("Сравнение системных часов с программным")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-358")
+    public void compareSystemClockWithProgramClock() {
+        String progClk = topPanel.readClock();
+        String sysClk = new SimpleDateFormat("HH:mm").format(new Date());
+        assertEquals(progClk, sysClk, "Время в программе отличается от системного");
+    }
+
+
     // FIXME
 
     /*    @Test
@@ -53,7 +68,7 @@ public class TopPanelTests extends TestsStarter {
             topPanel.clickOnExplorerButton();
             ExplorerWindow explorerWindow = new ExplorerWindow(driver);
             result = explorerWindow.explorerWindowIsOpen();
-            explorerWindow.clickOnBackButton();
+            explorerWindow.clickOnGoBackButton();
                 assertTrue(result);
 
         }*/

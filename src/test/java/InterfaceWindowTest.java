@@ -6,7 +6,6 @@ import mrs_elements.toppanel.MenuWindow;
 import mrs_elements.toppanel.TopPanel;
 import mrs_elements.toppanel.menu.SettingsWindow;
 import mrs_elements.toppanel.menu.settings.InterfaceWindow;
-import mrs_elements.toppanel.menu.settings.ProfileWindow;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -35,12 +34,7 @@ public class InterfaceWindowTest extends TestsStarter {
 
     @AfterEach
     public void closeMenu() throws InterruptedException {
-        interfaceWindow.clickOnGoBackButton();
-        settingsWindow.waitOpenSettingsWindow();
-        settingsWindow.clickOnGoBackButton();
-        menuWindow.waitOpenMenuWindow();
-        menuWindow.clickOnXButton();
-        topPanel.waitOpenTopPanel();
+        interfaceWindow.clickOnXButton();
         Thread.sleep(600);
     }
 
@@ -72,9 +66,9 @@ public class InterfaceWindowTest extends TestsStarter {
         interfaceWindow.selectLanguageEnglish();
         interfaceWindow.clickOnGoBackButton();
         settingsWindow.waitOpenSettingsWindow();
-        settingsWindow.clickOnProfileButton();
-        ProfileWindow profileWindow = new ProfileWindow(driver);
-        profileWindow.clickOnLogOutAccountButton();
+        settingsWindow.clickOnGoBackButton();
+        menuWindow.waitOpenMenuWindow();
+        menuWindow.clickOnLogOutAccountButton();
         LoginWindow loginWindow = new LoginWindow(driver);
         loginWindow.waitOpenLoginWindow();
         String txt = loginWindow.getTitleTextOfAuthorizationWindow();
@@ -217,6 +211,7 @@ public class InterfaceWindowTest extends TestsStarter {
     @DisplayName("Включить и выключить переключатель «Отображать метки задач, находящихся вне поля зрения»")
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-670")
     public void displayTaskOutOfSightInterfaceWindowTest() {
+        interfaceWindow.clickOnScrollBarIncreaseButton();
         oldResult = interfaceWindow.displayTaskOutOfSightToggleButtonIsEnabled();
         interfaceWindow.clickOnDisplayTaskOutOfSightToggleButton();
         newResult = interfaceWindow.displayTaskOutOfSightToggleButtonIsEnabled();
@@ -229,6 +224,7 @@ public class InterfaceWindowTest extends TestsStarter {
     @DisplayName("Двигать ползунок «Максимальная дальность отрисовки меток задач»")
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-671")
     public void maximumRenderingDistanceLabelsInterfaceWindowTest() {
+        interfaceWindow.clickOnScrollBarIncreaseButton();
         interfaceWindow.moveSliderMaximumRenderingDistanceLabels(50);
         medValue = interfaceWindow.readValueOfMaximumRenderingDistanceLabelsField();
         interfaceWindow.moveSliderMaximumRenderingDistanceLabels(0);
@@ -247,6 +243,7 @@ public class InterfaceWindowTest extends TestsStarter {
             "отрисовки меток задач на виде модели»")
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-672")
     public void useDrawDistanceLimitForTaskLabelsInModelViewInterfaceWindowTest() {
+        interfaceWindow.clickOnScrollBarIncreaseButton();
         oldResult = interfaceWindow.useDrawDistanceToggleButtonIsEnabled();
         interfaceWindow.clickOnUseDrawDistanceToggleButton();
         newResult = interfaceWindow.useDrawDistanceToggleButtonIsEnabled();

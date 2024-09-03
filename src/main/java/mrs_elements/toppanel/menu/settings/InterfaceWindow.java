@@ -90,7 +90,6 @@ public class InterfaceWindow {
 
     @Step("Считываем состояние переключателя «Показывать местоположение на карте»")
     public boolean showLocationOnTheMapToggleButtonIsEnabled() {
-        waitOpenInterfaceWindow();
         return methodsForElements.switchEnabled(SHOW_LOCATION_ON_MAP_TOGGLE_BUTTON);
     }
 
@@ -181,5 +180,17 @@ public class InterfaceWindow {
     @Step("Считываем состояние переключателя «Отображать метки задач, находящихся вне поля зрения»")
     public boolean useDrawDistanceToggleButtonIsEnabled() {
         return methodsForElements.switchEnabled(USE_DRAW_DISTANCE_TOGGLE_BUTTON);
+    }
+
+    @Step("Закрываем окно «Интерфейс», нажав на кнопку Х")
+    public void clickOnXButton() {
+        waitOpenInterfaceWindow();
+        driver.findElement(INTERFACE_X_BUTTON).click();
+    }
+
+    @Step("Нажимаем на кнопку полосы прокрутки для прокрутки страницы")
+    public void clickOnScrollBarIncreaseButton() {
+        waitOpenInterfaceWindow();
+        driver.findElement(SCROLL_BAR_INCREASE_BUTTON).click();
     }
 }

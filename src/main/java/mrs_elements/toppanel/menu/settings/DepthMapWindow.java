@@ -20,6 +20,8 @@ public class DepthMapWindow {
 
     public static final By GO_BACK_DEPTH_MAP_BUTTON =
             By.xpath("//Button[.//TextBlock[@Text='Карта глубины']]");
+    public static final By DEPTH_MAP_X_BUTTON =
+            By.xpath("//Button[.//TextBlock[@Text='Карта глубины']]/following-sibling::*");
     public static final By HARDWARE_DEPTH_MAP_TOGGLE_BUTTON =
             By.xpath("//TextBlock[@Text='Аппаратная карта глубины']/following-sibling::*");
     public static final By FILTRATION_TOGGLE_BUTTON =
@@ -39,6 +41,7 @@ public class DepthMapWindow {
 
     @Step("Нажимаем на кнопку «<Карта глубины»")
     public static void clickOnGoBackButton() {
+        // todo добавить тесты на эту кнопку
         waitOpenDepthMapWindow();
         driver.findElement(GO_BACK_DEPTH_MAP_BUTTON).click();
     }
@@ -74,5 +77,10 @@ public class DepthMapWindow {
     @Step("Считываем состояние переключателя «Усреднение»")
     public boolean averagingToggleButtonIsEnabled() {
         return methodsForElements.switchEnabled(AVERAGING_TOGGLE_BUTTON);
+    }
+
+    public void clickOnXButton() {
+        waitOpenDepthMapWindow();
+        driver.findElement(DEPTH_MAP_X_BUTTON).click();
     }
 }

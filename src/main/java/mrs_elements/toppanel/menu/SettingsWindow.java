@@ -17,30 +17,30 @@ public class SettingsWindow {
 
     public static final By SETTINGS_WINDOW = By.name("settingsPageContainer");
     public static final By SETTINGS_GO_BACK = By.xpath("//Button[.//TextBlock[@Text='Настройки' or @Text='Settings']]");
-    public static final By PROFILE_BUTTON = By.xpath("//Button[.//TextBlock[@Text='Профиль' or @Text='Profile']]");
+    public static final By SETTINGS_X_BUTTON = By.xpath("//Button[.//TextBlock[@Text='Настройки' or @Text='Settings']]/following-sibling::*");
     public static final By INTERFACE_BUTTON = By.xpath("//Button[.//TextBlock[@Text='Интерфейс' or @Text='Interface']]");
     public static final By CV_SETTINGS_BUTTON = By.xpath("//Button[.//TextBlock[@Text='Настройки CV']]");
     public static final By ABOUT_BUTTON = By.xpath("//Button[.//TextBlock[@Text='Об устройстве']]");
+    public static final By DEVELOPMENT_BUTTON = By.xpath("//Button[.//TextBlock[@Text='Разработка']]");
 
     public static void waitOpenSettingsWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(SETTINGS_WINDOW));
+        (new WebDriverWait(driver, Duration.ofSeconds(2)))
+                .until(ExpectedConditions.visibilityOfElementLocated(SETTINGS_WINDOW));
     }
 
     public boolean settingsWindowIsOpen() {
         waitOpenSettingsWindow();
         return driver.findElement(SETTINGS_WINDOW).isDisplayed();
     }
+    public boolean developmentButtonOnSettingsWindowIsDisplayed() {
+        waitOpenSettingsWindow();
+        return driver.findElement(DEVELOPMENT_BUTTON).isDisplayed();
+    }
 
     @Step("Нажимаем на кнопку «<Настройки»")
     public static void clickOnGoBackButton() {
         waitOpenSettingsWindow();
         driver.findElement(SETTINGS_GO_BACK).click();
-    }
-
-    @Step("Нажимаем на кнопку «Профиль»")
-    public static void clickOnProfileButton() {
-        waitOpenSettingsWindow();
-        driver.findElement(PROFILE_BUTTON).click();
     }
 
     @Step("Нажимаем на кнопку «Интерфейс»")
@@ -61,5 +61,16 @@ public class SettingsWindow {
         driver.findElement(ABOUT_BUTTON).click();
     }
 
+    @Step("Нажимаем на кнопку Х")
+    public void clickOnXButton() {
+        waitOpenSettingsWindow();
+        driver.findElement(SETTINGS_X_BUTTON).click();
+    }
+
+    @Step("Нажимаем на кнопку «Разработка»")
+    public void clickOnDevelopmentButton() {
+        waitOpenSettingsWindow();
+        driver.findElement(DEVELOPMENT_BUTTON).click();
+    }
 }
 

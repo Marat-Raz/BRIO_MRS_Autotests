@@ -31,8 +31,8 @@ public class TestsStarter {
             DesiredCapabilities caps = new DesiredCapabilities();
             caps.setCapability("platformName", "Windows");
             caps.setCapability("appium:automationName", "Windows");
-            caps.setCapability("appium:app", "D:\\BRIO MRS 2.1.3-gui-tests\\BRIO MRS.exe");
-            caps.setCapability("appium:appWorkingDir", "D:\\BRIO MRS 2.1.3-gui-tests\\");
+            caps.setCapability("appium:app", "D:\\BRIO MRS 2.x for AutoTests\\BRIO MRS.exe");
+            caps.setCapability("appium:appWorkingDir", "D:\\BRIO MRS 2.x for AutoTests\\");
             caps.setCapability("ms:waitForAppLaunch", 10);
             caps.setCapability("appium:altUnityHost", "127.0.0.1");
             caps.setCapability("appium:altUnityPort", "13000");

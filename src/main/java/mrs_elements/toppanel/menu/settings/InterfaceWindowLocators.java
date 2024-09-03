@@ -7,6 +7,8 @@ public class InterfaceWindowLocators {
             By.xpath("//Button[.//TextBlock[@Text='Интерфейс' or @Text='Interface']]/parent::*");
     public static final By GO_BACK_INTERFACE_BUTTON =
             By.xpath("//Button[.//TextBlock[@Text='Интерфейс' or @Text='Interface']]");
+    public static final By INTERFACE_X_BUTTON =
+            By.xpath("//Button[.//TextBlock[@Text='Интерфейс' or @Text='Interface']]/following-sibling::*");
     public static final By INTERFACE_LANGUAGE_TOGGLE_BUTTON =
             By.xpath("//TextBlock[@Text='Язык' or @Text='Language']/parent::*/descendant::ToggleButton");
     public static final By LANGUAGE_POPUP_ENGLISH =
@@ -50,7 +52,8 @@ public class InterfaceWindowLocators {
     public static final By USE_DRAW_DISTANCE_TOGGLE_BUTTON =
             By.xpath("//TextBlock[@Text='Использовать ограничение дальности " +
                     "отрисовки меток задач на виде модели']/following-sibling::*");
-    public static final By SCROLL_BAR = By.xpath("//SettingsView/Border/ContentPresenter/" +
-            "AnimatedContentControl/Border/Grid/ContentPresenter/Grid/ScrollViewer/Border/Grid/ScrollBar[2]");
+    public static final By SCROLL_BAR_INCREASE_BUTTON = By.xpath("//SettingsView/Border/ContentPresenter/" +
+            "AnimatedContentControl/Border/Grid/ContentPresenter/Grid/ScrollViewer/Border/Grid/ScrollBar[2]/Grid/" +
+            "Track/RepeatButton[2]");
 
 }

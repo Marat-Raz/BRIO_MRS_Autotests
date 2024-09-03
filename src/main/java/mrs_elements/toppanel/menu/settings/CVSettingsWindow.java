@@ -20,6 +20,8 @@ public class CVSettingsWindow {
 
     public static final By GO_BACK_CV_SETTINGS_BUTTON =
             By.xpath("//Button[.//TextBlock[@Text='Настройки CV']]");
+    public static final By CV_SETTINGS_X_BUTTON =
+            By.xpath("//Button[.//TextBlock[@Text='Настройки CV']]/following-sibling::*");
     public static final By DEPTH_MAP_BUTTON =
             By.xpath("//Button[.//TextBlock[@Text='Карта глубины']]");
     public static final By MULTI_MARKER_POSITIONING_TOGGLE_BUTTON =
@@ -30,7 +32,7 @@ public class CVSettingsWindow {
                 until(ExpectedConditions.visibilityOfElementLocated(GO_BACK_CV_SETTINGS_BUTTON));
     }
 
-    public boolean CVSettingsWindowIsOpen() {
+    public boolean cVSettingsWindowIsOpen() {
         waitOpenCVSettingsWindow();
         return driver.findElement(GO_BACK_CV_SETTINGS_BUTTON).isDisplayed();
     }
@@ -59,4 +61,8 @@ public class CVSettingsWindow {
     }
 
 
+    public void clickOnXButton() {
+        waitOpenCVSettingsWindow();
+        driver.findElement(CV_SETTINGS_X_BUTTON).click();
+    }
 }

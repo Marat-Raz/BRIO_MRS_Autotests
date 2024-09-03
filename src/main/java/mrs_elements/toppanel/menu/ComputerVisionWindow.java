@@ -20,6 +20,8 @@ public class ComputerVisionWindow {
 
     public static final By GO_BACK_COMPUTER_VISION_BUTTON =
             By.xpath("//Button[.//TextBlock[@Text='Компьютерное зрение']]");
+    public static final By COMPUTER_VISION_X_BUTTON =
+            By.xpath("//Button[.//TextBlock[@Text='Компьютерное зрение']]/following-sibling::*");
     public static final By CAMERA_PRESET =
             By.xpath("//TextBlock[@Text='Пресет камеры (требуется аппаратная карта глубины)']" +
                     "/parent::*/descendant::ToggleButton");
@@ -57,7 +59,7 @@ public class ComputerVisionWindow {
     }
 
     @Step("Нажимаем на кнопку «◄»")
-    public static void clickOnBackButton() {
+    public static void clickOnGoBackButton() {
         waitOpenComputerVisionWindow();
         driver.findElement(GO_BACK_COMPUTER_VISION_BUTTON).click();
     }

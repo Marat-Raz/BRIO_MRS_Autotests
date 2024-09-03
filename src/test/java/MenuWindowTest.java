@@ -2,7 +2,6 @@ import io.qameta.allure.Link;
 import io.qameta.allure.Step;
 import mrs_elements.login.LoginWindow;
 import mrs_elements.screenkeyboards.ScreenKeyboard;
-import mrs_elements.screenkeyboards.ScreenNumericKeyboard;
 import mrs_elements.toppanel.MenuWindow;
 import mrs_elements.toppanel.TopPanel;
 import mrs_elements.toppanel.menu.CloseAppMassage;
@@ -14,53 +13,27 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MenuWindowTest extends TestsStarter {
     CloseAppMassage closeApp;
-    ScreenNumericKeyboard screenNumericKeyboard = new ScreenNumericKeyboard(driver);
     SettingsWindow settingsWindow = new SettingsWindow(driver);
-    ProfileWindow profileWindow = new ProfileWindow(driver);
     CVSettingsWindow cVSettingsWindow = new CVSettingsWindow(driver);
     DepthMapWindow depthMapWindow = new DepthMapWindow(driver);
     AboutDeviceWindow aboutDeviceWindow = new AboutDeviceWindow(driver);
     MenuWindow menuWindow = new MenuWindow(driver);
     ScreenKeyboard screenKeyboard;
     TopPanel topPanel = new TopPanel(driver);
-    boolean result, newResult, oldResult;
-    int origNumber, changedNumber;
-    String originalText, changedText;
+    boolean result, newResult, oldResult, aResult;
 
     @BeforeEach
-    public void clickOnMenuButton() {
+    public void clickOnMenuButton() throws InterruptedException {
+        Thread.sleep(600);
         topPanel.waitOpenTopPanel();
         topPanel.clickOnMainMenuButton();
         menuWindow.waitOpenMenuWindow();
-    }
-
-    @AfterEach
-    public void closeMenu() throws InterruptedException {
-        menuWindow.waitOpenMenuWindow();
-        menuWindow.clickOnXButton();
-        topPanel.waitOpenTopPanel();
-        Thread.sleep(600);
     }
 
     @Step("Открытие окна «Настройки»")
     public void openSettingsWindow() {
         menuWindow.clickOnSettingsButton();
         settingsWindow.waitOpenSettingsWindow();
-    }
-
-    @Step("Открытие окна «Профиль»")
-    public void openProfileWindow() {
-        openSettingsWindow();
-        settingsWindow.clickOnProfileButton();
-        profileWindow.waitOpenProfileWindow();
-    }
-
-    @Step("Возврат из окна «Профиль» в главное окно «Меню»")
-    public void returnToMainMenuWindowFromProfile() {
-        profileWindow.clickOnGoBackButton();
-        settingsWindow.waitOpenSettingsWindow();
-        settingsWindow.clickOnGoBackButton();
-        menuWindow.waitOpenMenuWindow();
     }
 
     @Step("Открытие окна «Настройки CV»")
@@ -70,25 +43,11 @@ public class MenuWindowTest extends TestsStarter {
         cVSettingsWindow.waitOpenCVSettingsWindow();
     }
 
-    @Step("Возврат из окна «Настройки CV» в главное окно «Меню»")
-    public void returnToMainMenuWindowFromCVSettingsWindow() {
-        cVSettingsWindow.clickOnGoBackButton();
-        settingsWindow.waitOpenSettingsWindow();
-        settingsWindow.clickOnGoBackButton();
-        menuWindow.waitOpenMenuWindow();
-    }
-
     @Step("Открытие окна «Карта глубины»")
     public void openDepthMapWindow() {
         openCVSettingsWindow();
         cVSettingsWindow.clickOnDepthMapButton();
         depthMapWindow.waitOpenDepthMapWindow();
-    }
-
-    @Step("Возврат из окна «Карта глубины» в главное окно «Меню»")
-    public void returnToMainMenuWindowFromDepthMapWindow() {
-        depthMapWindow.clickOnGoBackButton();
-        returnToMainMenuWindowFromCVSettingsWindow();
     }
 
     @Step("Открытие окна «Об устройстве»")
@@ -97,14 +56,6 @@ public class MenuWindowTest extends TestsStarter {
         settingsWindow.waitOpenSettingsWindow();
         settingsWindow.clickOnAboutButton();
         aboutDeviceWindow.waitOpenAboutDeviceWindow();
-    }
-
-    @Step("Возврат из окна «Об устройстве» в главное окно «Меню»")
-    public void returnToMainMenuWindowFromAboutDeviceWindow() {
-        aboutDeviceWindow.clickOnGoBackButton();
-        settingsWindow.waitOpenSettingsWindow();
-        settingsWindow.clickOnGoBackButton();
-        menuWindow.waitOpenMenuWindow();
     }
 
     @Test
@@ -134,80 +85,25 @@ public class MenuWindowTest extends TestsStarter {
         menuWindow.clickOnSettingsButton();
         result = settingsWindow.settingsWindowIsOpen();
         settingsWindow.clickOnGoBackButton();
+        aResult = menuWindow.menuWindowIsOpen();
+        menuWindow.clickOnXButton();
         assertTrue(result);
-    }
-
-    @Test
-    @DisplayName("Страница настроек «Профиль» открыта?")
-    @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
-    public void profileWindowIsOpenTest() {
-        openProfileWindow();
-        result = profileWindow.profileWindowIsOpen();
-        returnToMainMenuWindowFromProfile();
-        assertTrue(result);
-    }
-
-    @Test
-    @DisplayName("Изменение значения поля «Время на устранение задачи по умолчанию, дней» нажатием на «-» и «+»")
-    @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
-    public void changingValueOfCounterClickMinusButtonTest() {
-        openProfileWindow();
-        originalText = profileWindow.getTextFromCounter();
-        profileWindow.clickOnMinusButton();
-        changedText = profileWindow.getTextFromCounter();
-        origNumber = Integer.parseInt(originalText.trim());
-        changedNumber = Integer.parseInt(changedText.trim());
-        profileWindow.clickOnPlusButton();
-        String revertedText = profileWindow.getTextFromCounter();
-        int revertedNumber = Integer.parseInt(revertedText.trim());
-        returnToMainMenuWindowFromProfile();
-        assertEquals(origNumber - 1, changedNumber);
-        assertEquals(origNumber, revertedNumber);
-
-    }
-
-    @Test
-    @DisplayName("Измененные значения поля «Время на устранение задачи по умолчанию, дней» сохраняются")
-    @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
-    public void changingValueFromCounterSaveTest() {
-        openProfileWindow();
-        profileWindow.clickOnPlusButton();
-        originalText = profileWindow.getTextFromCounter();
-        origNumber = Integer.parseInt(originalText.trim());
-        returnToMainMenuWindowFromProfile();
-        openProfileWindow();
-        String savedText = profileWindow.getTextFromCounter();
-        int savedNumber = Integer.parseInt(savedText.trim());
-        profileWindow.clickOnMinusButton();
-        returnToMainMenuWindowFromProfile();
-        assertEquals(origNumber, savedNumber);
-    }
-
-    @Test
-    @DisplayName("Нажатие на поле «Время на устранение задачи по умолчанию, дней» открывает экранную цифровую клавиатуру")
-    @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
-    public void clickOnCounterOpenScreenKeyboardTest() {
-        openProfileWindow();
-        profileWindow.clickOnCounter();
-        screenNumericKeyboard = new ScreenNumericKeyboard(driver);
-        result = screenNumericKeyboard.ScreenNumericKeyboardIsOpen();
-        returnToMainMenuWindowFromProfile();
-        assertTrue(result);
+        assertTrue(aResult);
     }
 
     @Test
     @DisplayName("Нажатие на кнопку «Выйти из аккаунта»")
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-424")
     public void clickOnLogOutAccountButtonAndLogInTest() {
-        openProfileWindow();
-        profileWindow.clickOnLogOutAccountButton();
+        // todo приспособить под новое меню
+        menuWindow.clickOnLogOutAccountButton();
         LoginWindow loginWindow = new LoginWindow(driver);
         result = loginWindow.loginWindowIsOpen();
 
-/*     loginWindow.enterTextInLoginInput("briocloud"); Не работает ввод непосредственно в эти поля ввода.
-        Связано с тем, что экранная клавиатура перехватывает фокус
-        loginWindow.enterTextInPasswordInput("123"); */
-
+/*     loginWindow.enterTextInLoginInput("briocloud");
+        //Не работает ввод непосредственно в эти поля ввода.
+        //Связано с тем, что экранная клавиатура перехватывает фокус
+        loginWindow.enterTextInPasswordInput("123");*/
 
         loginWindow.clickLoginInput();
         screenKeyboard = new ScreenKeyboard(driver);
@@ -227,9 +123,13 @@ public class MenuWindowTest extends TestsStarter {
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-677")
     public void openCVSettingsWindowTest() {
         openCVSettingsWindow();
-        result = cVSettingsWindow.CVSettingsWindowIsOpen();
-        returnToMainMenuWindowFromCVSettingsWindow();
+        result = cVSettingsWindow.cVSettingsWindowIsOpen();
+        //cVSettingsWindow.clickOnXButton();
+        cVSettingsWindow.clickOnGoBackButton();
+        aResult = settingsWindow.settingsWindowIsOpen();
+        settingsWindow.clickOnXButton();
         assertTrue(result);
+        assertTrue(aResult);
     }
 
     @Test
@@ -238,8 +138,11 @@ public class MenuWindowTest extends TestsStarter {
     public void clickOnDepthMapButtonOpenDepthMapWindowTest() {
         openDepthMapWindow();
         result = depthMapWindow.depthMapWindowIsOpen();
-        returnToMainMenuWindowFromDepthMapWindow();
+        depthMapWindow.clickOnGoBackButton();
+        aResult = cVSettingsWindow.cVSettingsWindowIsOpen();
+        cVSettingsWindow.clickOnXButton();
         assertTrue(result);
+        assertTrue(aResult);
     }
 
     @Test
@@ -253,7 +156,7 @@ public class MenuWindowTest extends TestsStarter {
         cVSettingsWindow.clickOnMultiMarkerPositioningToggleButton();
         //по этому тесты можно только проверить вкл/выкл переключателя,
         // режим работы с моделями пока не протестить на автотестах.
-        returnToMainMenuWindowFromCVSettingsWindow();
+        cVSettingsWindow.clickOnXButton();
         assertEquals(oldResult, !newResult);
     }
 
@@ -268,7 +171,7 @@ public class MenuWindowTest extends TestsStarter {
         depthMapWindow.clickOnHardwareDepthMapToggleButton();
         //по этому тесты можно только проверить вкл/выкл переключателя,
         // режим работы с моделями пока не протестить на автотестах.
-        returnToMainMenuWindowFromDepthMapWindow();
+        depthMapWindow.clickOnXButton();
         assertEquals(oldResult, !newResult);
     }
 
@@ -283,7 +186,7 @@ public class MenuWindowTest extends TestsStarter {
         depthMapWindow.clickOnFiltrationToggleButton();
         //по этому тесты можно только проверить вкл/выкл переключателя,
         // режим работы с моделями пока не протестить на автотестах.
-        returnToMainMenuWindowFromDepthMapWindow();
+        depthMapWindow.clickOnXButton();
         assertEquals(oldResult, !newResult);
     }
 
@@ -298,7 +201,7 @@ public class MenuWindowTest extends TestsStarter {
         depthMapWindow.clickOnAveragingToggleButton();
         //по этому тесты можно только проверить вкл/выкл переключателя,
         // режим работы с моделями пока не протестить на автотестах.
-        returnToMainMenuWindowFromDepthMapWindow();
+        depthMapWindow.clickOnXButton();
         assertEquals(oldResult, !newResult);
     }
 
@@ -308,8 +211,11 @@ public class MenuWindowTest extends TestsStarter {
     public void clickOnAboutDeviceButtonOpenAboutDeviceWindowTest() {
         openAboutDeviceWindow();
         result = aboutDeviceWindow.aboutDeviceWindowIsOpen();
-        returnToMainMenuWindowFromAboutDeviceWindow();
+        aboutDeviceWindow.clickOnGoBackButton();
+        aResult = settingsWindow.settingsWindowIsOpen();
+        settingsWindow.clickOnXButton();
         assertTrue(result);
+        assertTrue(aResult);
     }
 
     @Test
@@ -319,7 +225,7 @@ public class MenuWindowTest extends TestsStarter {
         openAboutDeviceWindow();
         String serN = aboutDeviceWindow.readSerialNumberText();
         String dateM = aboutDeviceWindow.readDateOfManufactureText();
-        returnToMainMenuWindowFromAboutDeviceWindow();
+        aboutDeviceWindow.clickOnXButton();
         assertNotNull(serN);
         assertNotNull(dateM);
     }

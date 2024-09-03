@@ -18,13 +18,15 @@ public class MenuWindow {
     private static final By BRIO_MRS_VERSION_BUTTON = By.name("versionBtn");
     private static final By MENU_WINDOW = By.name("menuPanelContainer");
     private static final By BUTTON_X = By.name("closeMenuBtn");
+    private static final By BUTTON_LOGOUT = By.name("logoutBtn");
 
     public MenuWindow(AppiumDriver driver) {
         this.driver = driver;
     }
 
     public static void waitOpenMenuWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(MENU_WINDOW));
+        (new WebDriverWait(driver, Duration.ofSeconds(2)))
+                .until(ExpectedConditions.visibilityOfElementLocated(MENU_WINDOW));
     }
 
     public boolean menuWindowIsOpen() {
@@ -40,6 +42,7 @@ public class MenuWindow {
 
     @Step("Нажимаем на кнопку «На главную»")
     public static void clickOnReturnToMainPageButton() {
+        // todo добавить тесты на эту кнопку
         waitOpenMenuWindow();
         driver.findElement(RETURN_TO_MAIN_PAGE_BUTTON).click();
     }
@@ -70,5 +73,11 @@ public class MenuWindow {
         waitOpenMenuWindow();
         driver.findElement(BUTTON_X).click();
     }
+    @Step("Нажимаем на кнопку выхода с аккаунта")
+    public void clickOnLogOutAccountButton() {
+        waitOpenMenuWindow();
+        driver.findElement(BUTTON_LOGOUT).click();
+        driver.findElement(BUTTON_LOGOUT).click();
 
+    }
 }
