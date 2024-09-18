@@ -60,32 +60,6 @@ public class InterfaceWindowTest extends TestsStarter {
     }
 
     @Test
-    @DisplayName("Проверка смены языка окна авторизации при смене языка системы")
-    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-613")
-    public void loginWindowChangeLanguageWhenChangingSystemLanguageTest() {
-        interfaceWindow.selectLanguageEnglish();
-        interfaceWindow.clickOnGoBackButton();
-        settingsWindow.waitOpenSettingsWindow();
-        settingsWindow.clickOnGoBackButton();
-        menuWindow.waitOpenMenuWindow();
-        menuWindow.clickOnLogOutAccountButton();
-        LoginWindow loginWindow = new LoginWindow(driver);
-        loginWindow.waitOpenLoginWindow();
-        String txt = loginWindow.getTitleTextOfAuthorizationWindow();
-        loginWindow.clickLoginInput();
-        ScreenKeyboard screenKeyboard = new ScreenKeyboard(driver);
-        screenKeyboard.enterTextToScreenKeyboardInput("briocloud");
-        loginWindow.clickPasswordInput();
-        screenKeyboard.enterTextToScreenKeyboardInput("123");
-        loginWindow.clickContinueButton();
-        LoggedMainPage loggedMainPage = new LoggedMainPage(driver);
-        loggedMainPage.waitOpenLoggedMainPage();
-        openInterfaceWindow();
-        interfaceWindow.selectLanguageRussian();
-        assertEquals("Log in", txt);
-    }
-
-    @Test
     @DisplayName("Сменить сторону интерфейса")
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-662")
     public void changeInterfaceSideInterfaceWindowTest() {

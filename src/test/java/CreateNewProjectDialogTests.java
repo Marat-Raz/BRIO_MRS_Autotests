@@ -24,7 +24,7 @@ public class CreateNewProjectDialogTests extends TestsStarter {
 
     @ParameterizedTest
     @DisplayName("Ввод запрещенных символов в поле ввода названия проекта")
-    @ValueSource(strings = { "<", ">", "/", "\\", "|", "?", "*", "\""})
+    @ValueSource(strings = { "<", ">", "/", "\\", "|", "?", "*", "\"", ":"})
     @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
     public void enterProhibitedCharactersInProjectNameFieldTest(String prohibitedChar) {
         loggedMainPage.clickOnOpenOrCreateProjectButton();

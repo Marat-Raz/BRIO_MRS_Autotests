@@ -114,5 +114,5 @@ public class AuthorizationTests extends TestsStarter {
         assertEquals("Ошибка\n" +
                 "Вход не выполнен: Не удалось найти пользователя", txt);
     }
-
+// todo сделать тесты на кнопку переключения языка в окне авторизации
 }
