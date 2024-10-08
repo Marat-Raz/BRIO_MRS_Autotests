@@ -10,11 +10,12 @@ import java.time.Duration;
 
 public class LoginWindow {
     public static AppiumDriver driver;
-    private static final By LOGIN_WINDOW = By.xpath("//TextBlock[@Text='Войти в систему']/parent::*");
-    private static final By LOGIN_WINDOW_HEADER = By.xpath("//TextBlock[@Text='Войти в систему']");
+    private static final By LOGIN_WINDOW = By.xpath("//TextBlock[@Text='Войти в систему' or @Text='Login into system']/parent::*");
+    private static final By LOGIN_WINDOW_HEADER = By.xpath("//TextBlock[@Text='Войти в систему' or @Text='Login into system']");
     private static final By LOGIN_INPUT = By.name("loginBox");
     private static final By PASSWORD_INPUT = By.name("passBox");
     private static final By CONTINUE_BUTTON = By.name("loginBtn");
+    private static final By CHANGE_LANGUAGE_BUTTON = By.name("changeLanguageBtn");
 
 
     public LoginWindow(AppiumDriver driver) {
@@ -60,4 +61,15 @@ public class LoginWindow {
     public String getTitleTextOfAuthorizationWindow() {
         return driver.findElement(LOGIN_WINDOW_HEADER).getText();
     }
+
+    @Step("Нажимаем на поле ввода «Пароль»")
+    public static void clickChangeLanguageButton() {
+        driver.findElement(CHANGE_LANGUAGE_BUTTON).click();
+    }
+
+    @Step("Получить текст кнопки смены языка")
+    public String getTitleTextOfChangeLanguageButton() {
+        return driver.findElement(CHANGE_LANGUAGE_BUTTON).getText();
+    }
+
 }

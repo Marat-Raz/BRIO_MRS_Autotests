@@ -11,6 +11,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class AuthorizationTests extends TestsStarter {
      static TopPanel topPanel;
@@ -36,9 +37,9 @@ public class AuthorizationTests extends TestsStarter {
     @AfterAll
     public static void logIn() {
         loginWindow.clickLoginInput();
-        screenKeyboard.enterTextToScreenKeyboardInput("briocloud");
+        screenKeyboard.enterTextToScreenKeyboardInput("Autotests");
         loginWindow.clickPasswordInput();
-        screenKeyboard.enterTextToScreenKeyboardInput("123");
+        screenKeyboard.enterTextToScreenKeyboardInput("Autotests123456");
         loginWindow.clickContinueButton();
         loggedMainPage = new LoggedMainPage(driver);
         loggedMainPage.waitOpenLoggedMainPage();
@@ -60,7 +61,7 @@ public class AuthorizationTests extends TestsStarter {
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-163")
     public void loginUsingOnlyYourLoginTest() {
         loginWindow.clickLoginInput();
-        screenKeyboard.enterTextToScreenKeyboardInput("briocloud");
+        screenKeyboard.enterTextToScreenKeyboardInput("Autotests");
         loginWindow.clickPasswordInput();
         screenKeyboard.clickClearButton();
         loginWindow.clickContinueButton();
@@ -75,7 +76,7 @@ public class AuthorizationTests extends TestsStarter {
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-161")
     public void logInWithCorrectUsernameAndWrongPassTest() {
         loginWindow.clickLoginInput();
-        screenKeyboard.enterTextToScreenKeyboardInput("briocloud");
+        screenKeyboard.enterTextToScreenKeyboardInput("Autotests");
         loginWindow.clickPasswordInput();
         screenKeyboard.enterTextToScreenKeyboardInput("1");
         loginWindow.clickContinueButton();
@@ -114,5 +115,18 @@ public class AuthorizationTests extends TestsStarter {
         assertEquals("Ошибка\n" +
                 "Вход не выполнен: Не удалось найти пользователя", txt);
     }
-// todo сделать тесты на кнопку переключения языка в окне авторизации
+
+    @Test
+    @DisplayName("Нажимаем на кнопку смены языка")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-2036")
+    public void changeLanguageTest() {
+        String oldValue = loginWindow.getTitleTextOfChangeLanguageButton();
+        loginWindow.clickChangeLanguageButton();
+        String newValue = loginWindow.getTitleTextOfChangeLanguageButton();
+        if (newValue == "ENG") {
+            loginWindow.clickChangeLanguageButton();
+        }
+        assertNotEquals(oldValue, newValue);
+    }
+
 }

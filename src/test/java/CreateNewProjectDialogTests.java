@@ -1,8 +1,7 @@
 import io.qameta.allure.Link;
-import mrs_elements.loggedmainpage.CreateNewProjectDialog;
-import mrs_elements.loggedmainpage.ImportLocalProjectsView;
-import mrs_elements.loggedmainpage.LoggedMainPage;
-import mrs_elements.loggedmainpage.SelectedProjectSideView;
+import io.qameta.allure.Links;
+import io.qameta.allure.Step;
+import mrs_elements.loggedmainpage.*;
 import mrs_elements.screenkeyboards.ScreenKeyboard;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.DisplayName;
@@ -11,20 +10,31 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CreateNewProjectDialogTests extends TestsStarter {
     LoggedMainPage loggedMainPage = new LoggedMainPage(driver);
     ImportLocalProjectsView importLocalProjectsView = new ImportLocalProjectsView(driver);
     CreateNewProjectDialog createNewProjectDialog = new CreateNewProjectDialog(driver);
+    DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(driver);
     ScreenKeyboard screenKeyboard;
-    SelectedProjectSideView selectedProjectSideView;
+    SelectedProjectSideView selectedProjectSideView = new SelectedProjectSideView(driver);
+    ;
     boolean result, anotherResult;
     String actTxt;
 
+    @Step("Удалить проект")
+    public void deleteProject(String project) {
+        loggedMainPage.findProjectAndClickThem(project);
+        selectedProjectSideView.selectMenuItemDeleteProjectItem();
+        if (deleteProjectDialog.CheckBoxLeaveLocalFilesIsChecked()) {
+            deleteProjectDialog.clickOnCheckBoxLeaveLocalFiles();
+        }
+        deleteProjectDialog.clickOnDeleteButton();
+    }
+
     @ParameterizedTest
     @DisplayName("Ввод запрещенных символов в поле ввода названия проекта")
-    @ValueSource(strings = { "<", ">", "/", "\\", "|", "?", "*", "\"", ":"})
+    @ValueSource(strings = {"<", ">", "/", "\\", "|", "?", "*", "\"", ":"})
     @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
     public void enterProhibitedCharactersInProjectNameFieldTest(String prohibitedChar) {
         loggedMainPage.clickOnOpenOrCreateProjectButton();
@@ -67,34 +77,44 @@ public class CreateNewProjectDialogTests extends TestsStarter {
     }
 
     @Test
-    @DisplayName("Создать проект с кнопкой «Создать новый»")
-    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-172")
+    @DisplayName("Создать проект с кнопкой «Создать новый», а также проверить счетчик проектов на увеличение и уменьшение")
+    @Links(value = {@Link(name = "Ссылка на тест-кейс №1", url = "https://app.qase.io/case/MRS-1355"),
+                    @Link(name = "Ссылка на тест-кейс №2", url = "https://app.qase.io/case/MRS-1469"),
+                    @Link(name = "Ссылка на тест-кейс №3", url = "https://app.qase.io/case/MRS-1470")})
     public void createProjectWithCreateNewButtonTest() {
+        String newProject = "createProjectTest. Delete me";
+        int numberOfProjects = loggedMainPage.getNumberOfProjectsFromHeaderProjects();
         loggedMainPage.clickOnOpenOrCreateProjectButton();
         createNewProjectDialog.waitOpenCreateNewProjectDialog();
         createNewProjectDialog.clickOnTextBox();
         screenKeyboard = new ScreenKeyboard(driver);
         screenKeyboard.waitOpenScreenKeyboard();
-        screenKeyboard.enterTextToScreenKeyboardInput("createProjectTest. Delete me");
+        screenKeyboard.enterTextToScreenKeyboardInput(newProject);
         screenKeyboard.clickHideKeyboardButton();
         createNewProjectDialog.clickOnCreateButton();
         loggedMainPage.waitOpenLoggedMainPage();
-        result = loggedMainPage.findProject("createProjectTest. Delete me");
-        // todo нужно удалить тестовый проект
-        System.out.println(result);
-
+        int numberOfProjectsPlus1 = loggedMainPage.getNumberOfProjectsFromHeaderProjects();
+        result = loggedMainPage.desiredProjectIsDisplayed(newProject);
+        deleteProject(newProject);
+        int numberOfProjectsMinus1 = loggedMainPage.getNumberOfProjectsFromHeaderProjects();
+        assertAll(
+                () -> assertTrue(result),
+                () -> assertEquals(numberOfProjects + 1, numberOfProjectsPlus1),
+                () -> assertEquals(numberOfProjectsPlus1 - 1, numberOfProjectsMinus1)
+        );
     }
 
     @Test
     @DisplayName("Создать проект с уже существующим именем")
-    @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1705")
     public void createProjectWithAnExistingNameTest() {
+        String duplicateName = "duplicateNameTest. Delete me";
         loggedMainPage.clickOnOpenOrCreateProjectButton();
         createNewProjectDialog.waitOpenCreateNewProjectDialog();
         createNewProjectDialog.clickOnTextBox();
         screenKeyboard = new ScreenKeyboard(driver);
         screenKeyboard.waitOpenScreenKeyboard();
-        screenKeyboard.enterTextToScreenKeyboardInput("duplicateNameTest. Delete me");
+        screenKeyboard.enterTextToScreenKeyboardInput(duplicateName);
         screenKeyboard.clickHideKeyboardButton();
         createNewProjectDialog.clickOnCreateButton();
 
@@ -103,29 +123,20 @@ public class CreateNewProjectDialogTests extends TestsStarter {
         createNewProjectDialog.clickOnTextBox();
         screenKeyboard = new ScreenKeyboard(driver);
         screenKeyboard.waitOpenScreenKeyboard();
-        screenKeyboard.enterTextToScreenKeyboardInput("duplicateNameTest. Delete me");
+        screenKeyboard.enterTextToScreenKeyboardInput(duplicateName);
         screenKeyboard.clickHideKeyboardButton();
         createNewProjectDialog.clickOnCreateButton();
         result = createNewProjectDialog.errorMessageIsDisplayed();
         actTxt = createNewProjectDialog.getTextErrorMessage();
         createNewProjectDialog.clickOnCancelButton();
-        loggedMainPage.findProjectAndClickThem("duplicateNameTest. Delete me");
 
-        selectedProjectSideView.selectMenuItemDeleteProjectItem();
+        deleteProject(duplicateName);
         assertAll(
                 () -> assertTrue(result),
                 () -> assertEquals("#Проект с заданным именем уже существует", actTxt)
         );
 
-
-        // todo нужно удалить тестовый проект
-
-        // todo заменить пользователя bricloud/123 на test/123
-
-        System.out.println(result);
-
     }
-
 
 
 }

@@ -16,7 +16,7 @@ public class ImportLocalProjectsView {
     public static final By SELECT_OR_RESET_ALL_CHECKBOX =
             By.xpath("//CheckBox[.//TextBlock[@Text='Выбрать/Сбросить всё']]");
     public static final By PROJECT_FOR_AUTO_TESTS_CHECKBOX =
-            By.xpath("//CheckBox[.//TextBlock[@Text='беларусь']]");
+            By.xpath("//CheckBox[.//TextBlock[@Text='For Autotests']]");
     public static final By INCREASE_BUTTON_SCROLL = By.name("IncreaseButton"); // LineDownButton
     public static final By CREATE_BUTTON =
             By.xpath("//Button[.//TextBlock[@Text='Создать']]");

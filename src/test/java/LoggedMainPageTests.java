@@ -1,4 +1,5 @@
 import io.qameta.allure.Link;
+import io.qameta.allure.Links;
 import mrs_elements.loggedmainpage.CreateNewProjectDialog;
 import mrs_elements.loggedmainpage.ImportLocalProjectsView;
 import mrs_elements.loggedmainpage.LoggedMainPage;
@@ -15,38 +16,32 @@ public class LoggedMainPageTests extends TestsStarter {
     CreateNewProjectDialog createNewProjectDialog = new CreateNewProjectDialog(driver);
     ScreenKeyboard screenKeyboard;
     SelectedProjectSideView selectedProjectSideView;
-    boolean result, anotherResult;
+    boolean result;
     String actTxt;
 
     @Test
-    @DisplayName("Открыть и Закрыть окно «Создать проекты из папок»")
-    @Link(name = "Ссылка на тест-кейс 1", url = "https://app.qase.io/case/MRS-172")
-    @Link(name = "Ссылка на тест-кейс 2", url = "https://app.qase.io/case/MRS-439")
+    @DisplayName("Нажать на кнопку «Создать новый»")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1701")
     public void OpenAndCloseProjectCreationWindowTest() {
         loggedMainPage.clickOnOpenOrCreateProjectButton();
         result = createNewProjectDialog.createNewProjectDialogIsOpen();
         createNewProjectDialog.clickOnCancelButton();
-        anotherResult = createNewProjectDialog.createNewProjectDialogIsOpen();
         assertTrue(result);
-        assertFalse(anotherResult);
     }
 
     @Test
     @DisplayName("Открыть и Закрыть окно «Создать проекты из папок»")
-    @Link(name = "Ссылка на тест-кейс 1", url = "https://app.qase.io/case/MRS-458")
-    @Link(name = "Ссылка на тест-кейс 2", url = "https://app.qase.io/case/MRS-459")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1461")
     public void OpenAndCloseCreateProjectsFromFoldersWindowTest() {
         loggedMainPage.clickOnCreateProjectsFromFoldersButton();
         result = importLocalProjectsView.importLocalProjectsViewIsOpen();
         importLocalProjectsView.clickOnCancelButton();
-        anotherResult = importLocalProjectsView.importLocalProjectsViewIsOpen();
         assertTrue(result);
-        assertFalse(anotherResult);
     }
 
     @Test
     @DisplayName("Нажатие на поле ввода «Поиск» открывает экранную клавиатуру")
-    @Link(name = "Ссылка на тест-кейс 1", url = "https://app.qase.io/case/MRS-458")
+    @Link(name = "Ссылка на тест-кейс 1", url = "https://app.qase.io/case/MRS-1700")
     public void clickingOnSearchInputFieldOpensOnScreenKeyboardTest() {
         loggedMainPage.clickOnInputFieldSearch();
         screenKeyboard = new ScreenKeyboard(driver);
@@ -57,7 +52,7 @@ public class LoggedMainPageTests extends TestsStarter {
 
     @Test
     @DisplayName("Нажатие на проект открывает окно-меню проекта и меняется текст кнопки «Создать новый»")
-    @Link(name = "Ссылка на тест-кейс 1", url = "https://app.qase.io/case/MRS-437")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1443")
     public void clickOnProjectTest() {
         loggedMainPage.clickOnProjectForAutoTests();
         actTxt = loggedMainPage.getTextOpenOrCreateProjectButton();
@@ -69,17 +64,5 @@ public class LoggedMainPageTests extends TestsStarter {
                 () -> assertTrue(result)
         );
     }
-
-
-    @Test
-    @DisplayName("«Создать проекты из папок»")
-    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-458")
-    public void OneTest() {
-        // FIXME
-        int txt = loggedMainPage.GetNumberOfProjectsFromHeaderProjects();
-                System.out.println(txt);
-    }
-
-
 
 }

@@ -43,5 +43,10 @@ public class SelectedProjectSideView {
         methodsForElements.clickingOnListAndSelectListItem(MENU_ITEM, MENU_ITEM_DELETE_PROJECT_ITEM);
     }
 
+    @Step("Выбор элемента «Переименовать проект» выпадающего списка «Меню выбранного проекта»")
+    public void selectMenuItemRenameProjectItem() {
+        methodsForElements.clickingOnListAndSelectListItem(MENU_ITEM, MENU_ITEM_RENAME_PROJECT_ITEM);
+    }
+
 
 }

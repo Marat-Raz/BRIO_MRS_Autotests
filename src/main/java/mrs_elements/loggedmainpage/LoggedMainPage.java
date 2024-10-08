@@ -69,7 +69,7 @@ public class LoggedMainPage {
     }
 
     @Step("Получить количество проектов из заголовка «Проекты»")
-    public int GetNumberOfProjectsFromHeaderProjects() {
+    public int getNumberOfProjectsFromHeaderProjects() {
         String txt = (driver.findElement(PROJECTS).getText()).substring(7);
         int numberOfProjects = Integer.parseInt(txt.trim());
         return numberOfProjects;
@@ -81,7 +81,7 @@ public class LoggedMainPage {
         driver.findElement(OPEN_OR_CREATE_PROJECT_BUTTON).click();
     }
 
-    @Step("Нажать на кнопку «Создать новый/Открыть проект»")
+    @Step("Получить текст кнопки «Создать новый/Открыть проект»")
     public String getTextOpenOrCreateProjectButton() {
         return (driver.findElement(OPEN_OR_CREATE_PROJECT_BUTTON).getText()).substring(0,14);
     }
@@ -93,7 +93,7 @@ public class LoggedMainPage {
     }
 
 
-    public boolean findProject(String project) {
+    public boolean desiredProjectIsDisplayed(String project) {
         return driver.findElement(By.xpath("//ListBoxItem[.//TextBlock[@Text='" + project + "']]")).isDisplayed();
     }
 

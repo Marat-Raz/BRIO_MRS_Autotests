@@ -1,7 +1,4 @@
 import io.qameta.allure.Link;
-import mrs_elements.loggedmainpage.LoggedMainPage;
-import mrs_elements.login.LoginWindow;
-import mrs_elements.screenkeyboards.ScreenKeyboard;
 import mrs_elements.toppanel.MenuWindow;
 import mrs_elements.toppanel.TopPanel;
 import mrs_elements.toppanel.menu.SettingsWindow;
@@ -13,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class InterfaceWindowTest extends TestsStarter {
+public class InterfaceWindowTests extends TestsStarter {
     TopPanel topPanel = new TopPanel(driver);
     MenuWindow menuWindow = new MenuWindow(driver);
     SettingsWindow settingsWindow = new SettingsWindow(driver);

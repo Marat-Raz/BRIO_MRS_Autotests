@@ -11,7 +11,7 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MenuWindowTest extends TestsStarter {
+public class MenuWindowTests extends TestsStarter {
     CloseAppMassage closeApp;
     SettingsWindow settingsWindow = new SettingsWindow(driver);
     CVSettingsWindow cVSettingsWindow = new CVSettingsWindow(driver);
@@ -107,9 +107,9 @@ public class MenuWindowTest extends TestsStarter {
 
         loginWindow.clickLoginInput();
         screenKeyboard = new ScreenKeyboard(driver);
-        screenKeyboard.enterTextToScreenKeyboardInput("briocloud");
+        screenKeyboard.enterTextToScreenKeyboardInput("Autotests");
         loginWindow.clickPasswordInput();
-        screenKeyboard.enterTextToScreenKeyboardInput("123");
+        screenKeyboard.enterTextToScreenKeyboardInput("Autotests123456");
         loginWindow.clickContinueButton();
         topPanel.clickOnMainMenuButton();
         menuWindow = new MenuWindow(driver);
