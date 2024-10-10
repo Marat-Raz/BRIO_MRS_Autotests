@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriverException;
 
 import static java.lang.Thread.sleep;
+import static mrs_elements.login.LoginWindow.clickLoginInput;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -101,7 +102,7 @@ public class RestartMRSTests extends TestsStarter {
         loginWindow = new LoginWindow(driver);
         result = loginWindow.loginWindowIsOpen();
 
-        loginWindow.clickLoginInput();
+                            clickLoginInput();
         screenKeyboard = new ScreenKeyboard(driver);
         screenKeyboard.enterTextToScreenKeyboardInput("Autotests");
         loginWindow.clickPasswordInput();

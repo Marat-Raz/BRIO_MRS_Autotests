@@ -19,7 +19,7 @@ public class ExplorerWindow {
     }
 
     public static void waitExplorerWindowOpen() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2)))
+        (new WebDriverWait(driver, Duration.ofSeconds(3)))
                 .until(ExpectedConditions.visibilityOfElementLocated(EXPLORER_VIEW));
     }
 

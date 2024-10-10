@@ -19,7 +19,7 @@ public class NotificationsWindow {
     }
 
     public static void waitOpenNotificationsWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2)))
+        (new WebDriverWait(driver, Duration.ofSeconds(3)))
                 .until(ExpectedConditions.visibilityOfElementLocated(NOTIFICATIONS_WINDOW));
     }
 

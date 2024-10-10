@@ -28,7 +28,7 @@ public class TopPanel {
         this.driver = driver;
     }
     public static void waitOpenTopPanel() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2)))
+        (new WebDriverWait(driver, Duration.ofSeconds(3)))
                 .until(ExpectedConditions.visibilityOfElementLocated(MENU_BUTTON));
     }
     public boolean topPanelIsOpen() {

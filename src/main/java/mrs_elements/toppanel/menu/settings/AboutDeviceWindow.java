@@ -24,7 +24,7 @@ public class AboutDeviceWindow {
 //DeviceInformationView/Border/ContentPresenter/Grid/StackPanel[1]/TextBlock[1]
 
     public static void waitOpenAboutDeviceWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).
+        (new WebDriverWait(driver, Duration.ofSeconds(3))).
                 until(ExpectedConditions.visibilityOfElementLocated(ABOUT_DEVICE_WINDOW));
     }
 

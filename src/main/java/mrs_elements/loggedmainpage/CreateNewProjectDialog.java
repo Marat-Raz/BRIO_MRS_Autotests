@@ -25,7 +25,7 @@ public class CreateNewProjectDialog {
     }
 
     public static void waitOpenCreateNewProjectDialog() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2)))
+        (new WebDriverWait(driver, Duration.ofSeconds(3)))
                 .until(ExpectedConditions.visibilityOfElementLocated(CREATE_NEW_PROJECT_DIALOG));
     }
 

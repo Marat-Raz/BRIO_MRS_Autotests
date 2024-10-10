@@ -19,7 +19,7 @@ public class ModelView {
     }
 
     public static void waitOpenModelView() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(MODEL_VIEW));
+        (new WebDriverWait(driver, Duration.ofSeconds(3))).until(ExpectedConditions.visibilityOfElementLocated(MODEL_VIEW));
     }
 
     public boolean interfaceWindowIsOpen() {

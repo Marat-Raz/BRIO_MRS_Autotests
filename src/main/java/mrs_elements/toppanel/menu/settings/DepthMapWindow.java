@@ -30,7 +30,7 @@ public class DepthMapWindow {
             By.xpath("//TextBlock[@Text='Усреднение']/following-sibling::*");
 
     public static void waitOpenDepthMapWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).
+        (new WebDriverWait(driver, Duration.ofSeconds(3))).
                 until(ExpectedConditions.visibilityOfElementLocated(GO_BACK_DEPTH_MAP_BUTTON));
     }
 

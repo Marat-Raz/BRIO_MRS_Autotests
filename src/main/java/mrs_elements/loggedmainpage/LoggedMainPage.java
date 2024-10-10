@@ -22,7 +22,7 @@ public class LoggedMainPage {
             By.xpath("//*[starts-with(@Text,'Проекты')]");
     public static final By OPEN_OR_CREATE_PROJECT_BUTTON = By.name("openOrCreateProjectBtn");
     public static final By PROJECT_FOR_AUTO_TESTS =
-            By.xpath("//ListBoxItem[.//TextBlock[@Text='For AutoTests']]");
+            By.xpath("//ListBoxItem[.//TextBlock[@Text='For Autotests']]");
     MethodsForElements methodsForElements;
 
     public LoggedMainPage(AppiumDriver driver) {
@@ -31,7 +31,7 @@ public class LoggedMainPage {
     }
 
     public static void waitOpenLoggedMainPage() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2)))
+        (new WebDriverWait(driver, Duration.ofSeconds(3)))
                 .until(ExpectedConditions.visibilityOfElementLocated(LOGGED_MAIN_PAGE));
     }
 
@@ -41,7 +41,7 @@ public class LoggedMainPage {
     }
 
     public static void waitOpenNotSelectedProjectSideView() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2)))
+        (new WebDriverWait(driver, Duration.ofSeconds(3)))
                 .until(ExpectedConditions.visibilityOfElementLocated(LOGGED_MAIN_PAGE));
     }
 
@@ -71,7 +71,7 @@ public class LoggedMainPage {
     @Step("Получить количество проектов из заголовка «Проекты»")
     public int getNumberOfProjectsFromHeaderProjects() {
         String txt = (driver.findElement(PROJECTS).getText()).substring(7);
-        int numberOfProjects = Integer.parseInt(txt.trim());
+        int numberOfProjects = txt == "" ? 0 : Integer.parseInt(txt.trim());
         return numberOfProjects;
     }
 
@@ -101,4 +101,10 @@ public class LoggedMainPage {
         waitOpenLoggedMainPage();
         driver.findElement(By.xpath("//ListBoxItem[.//TextBlock[@Text='" + project + "']]")).click();
     }
+
+    public boolean projectForAutoTestsIsDisplayed() {
+        waitOpenLoggedMainPage();
+        return driver.findElement(PROJECT_FOR_AUTO_TESTS).isDisplayed();
+    }
+
 }

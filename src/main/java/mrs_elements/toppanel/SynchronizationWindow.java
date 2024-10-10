@@ -20,7 +20,7 @@ public class SynchronizationWindow {
     }
 
     public static void waitOpenSynchronizationWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(SYNCHRONIZATION_DIALOG));
+        (new WebDriverWait(driver, Duration.ofSeconds(3))).until(ExpectedConditions.visibilityOfElementLocated(SYNCHRONIZATION_DIALOG));
     }
 
     public boolean synchronizationDialogIsOpen() {

@@ -23,7 +23,7 @@ public class LoginWindow {
     }
 
     public static void waitOpenLoginWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2)))
+        (new WebDriverWait(driver, Duration.ofSeconds(3)))
                 .until(ExpectedConditions.visibilityOfElementLocated(LOGIN_WINDOW_HEADER));
     }
 

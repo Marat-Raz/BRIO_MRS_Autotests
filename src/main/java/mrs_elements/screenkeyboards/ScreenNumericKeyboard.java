@@ -17,12 +17,12 @@ public class ScreenNumericKeyboard {
     }
 
     public void waitOpenScreenNumericKeyboard() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(SCREEN_NUMERIC_KEYBOARD));
+        (new WebDriverWait(driver, Duration.ofSeconds(3))).until(ExpectedConditions.visibilityOfElementLocated(SCREEN_NUMERIC_KEYBOARD));
         driver.findElement(SCREEN_NUMERIC_KEYBOARD).isDisplayed();
     }
 
     public boolean ScreenNumericKeyboardIsOpen() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(SCREEN_NUMERIC_KEYBOARD));
+        waitOpenScreenNumericKeyboard();
         return driver.findElement(SCREEN_NUMERIC_KEYBOARD).isDisplayed();
     }
 }

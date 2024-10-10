@@ -49,7 +49,7 @@ public class ComputerVisionWindow {
             By.xpath("//TextBlock[@Text='Контур объектов всегда виден']/following-sibling::*");
 
     public static void waitOpenComputerVisionWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).
+        (new WebDriverWait(driver, Duration.ofSeconds(3))).
                 until(ExpectedConditions.visibilityOfElementLocated(GO_BACK_COMPUTER_VISION_BUTTON));
     }
 

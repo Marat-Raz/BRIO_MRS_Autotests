@@ -21,7 +21,7 @@ public class InterfaceWindow {
     }
 
     public static void waitOpenInterfaceWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2)))
+        (new WebDriverWait(driver, Duration.ofSeconds(3)))
                 .until(ExpectedConditions.visibilityOfElementLocated(INTERFACE_WINDOW));
     }
 

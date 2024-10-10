@@ -24,7 +24,7 @@ public class SettingsWindow {
     public static final By DEVELOPMENT_BUTTON = By.xpath("//Button[.//TextBlock[@Text='Разработка']]");
 
     public static void waitOpenSettingsWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2)))
+        (new WebDriverWait(driver, Duration.ofSeconds(3)))
                 .until(ExpectedConditions.visibilityOfElementLocated(SETTINGS_WINDOW));
     }
 

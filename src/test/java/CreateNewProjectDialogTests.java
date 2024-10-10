@@ -9,17 +9,17 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CreateNewProjectDialogTests extends TestsStarter {
     LoggedMainPage loggedMainPage = new LoggedMainPage(driver);
-    ImportLocalProjectsView importLocalProjectsView = new ImportLocalProjectsView(driver);
     CreateNewProjectDialog createNewProjectDialog = new CreateNewProjectDialog(driver);
     DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(driver);
     ScreenKeyboard screenKeyboard;
     SelectedProjectSideView selectedProjectSideView = new SelectedProjectSideView(driver);
-    ;
-    boolean result, anotherResult;
+
+    boolean result;
     String actTxt;
 
     @Step("Удалить проект")
@@ -81,8 +81,8 @@ public class CreateNewProjectDialogTests extends TestsStarter {
     @Links(value = {@Link(name = "Ссылка на тест-кейс №1", url = "https://app.qase.io/case/MRS-1355"),
                     @Link(name = "Ссылка на тест-кейс №2", url = "https://app.qase.io/case/MRS-1469"),
                     @Link(name = "Ссылка на тест-кейс №3", url = "https://app.qase.io/case/MRS-1470")})
-    public void createProjectWithCreateNewButtonTest() {
-        String newProject = "createProjectTest. Delete me";
+    public void createProjectWithCreateNewButtonTest() throws InterruptedException {
+        String newProject = "createProjectTest - Delete me";
         int numberOfProjects = loggedMainPage.getNumberOfProjectsFromHeaderProjects();
         loggedMainPage.clickOnOpenOrCreateProjectButton();
         createNewProjectDialog.waitOpenCreateNewProjectDialog();
@@ -94,7 +94,8 @@ public class CreateNewProjectDialogTests extends TestsStarter {
         createNewProjectDialog.clickOnCreateButton();
         loggedMainPage.waitOpenLoggedMainPage();
         int numberOfProjectsPlus1 = loggedMainPage.getNumberOfProjectsFromHeaderProjects();
-        result = loggedMainPage.desiredProjectIsDisplayed(newProject);
+        sleep(1000);
+        result = loggedMainPage.desiredProjectIsDisplayed(newProject); // fixme не находит проект по xpath
         deleteProject(newProject);
         int numberOfProjectsMinus1 = loggedMainPage.getNumberOfProjectsFromHeaderProjects();
         assertAll(
@@ -108,7 +109,7 @@ public class CreateNewProjectDialogTests extends TestsStarter {
     @DisplayName("Создать проект с уже существующим именем")
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1705")
     public void createProjectWithAnExistingNameTest() {
-        String duplicateName = "duplicateNameTest. Delete me";
+        String duplicateName = "duplicateNameTest - Delete me";
         loggedMainPage.clickOnOpenOrCreateProjectButton();
         createNewProjectDialog.waitOpenCreateNewProjectDialog();
         createNewProjectDialog.clickOnTextBox();

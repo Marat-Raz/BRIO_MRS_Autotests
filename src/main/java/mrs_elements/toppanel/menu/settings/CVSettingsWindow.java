@@ -28,7 +28,7 @@ public class CVSettingsWindow {
             By.xpath("//TextBlock[@Text='Многомаркерное позиционирование']/following-sibling::*");
 
     public static void waitOpenCVSettingsWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).
+        (new WebDriverWait(driver, Duration.ofSeconds(3))).
                 until(ExpectedConditions.visibilityOfElementLocated(GO_BACK_CV_SETTINGS_BUTTON));
     }
 

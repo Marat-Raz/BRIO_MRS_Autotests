@@ -23,7 +23,7 @@ public class DeveloperMode {
     }
 
     public static void waitOpenDeveloperModeWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).
+        (new WebDriverWait(driver, Duration.ofSeconds(3))).
                 until(ExpectedConditions.visibilityOfElementLocated(DEVELOPER_MODE_WINDOW));
     }
 
@@ -109,7 +109,7 @@ public class DeveloperMode {
     public boolean clickingOnVoiceInputDeviceToggleButtonOpensPopup() {
         // methodsForElements не применить, т.к. метод просто проверяет что список есть.
         driver.findElement(VOICE_INPUT_DEVICE_TOGGLE_BUTTON).click();
-        (new WebDriverWait(driver, Duration.ofSeconds(1)))
+        (new WebDriverWait(driver, Duration.ofSeconds(3)))
                 .until(ExpectedConditions.visibilityOfElementLocated(VOICE_INPUT_DEVICE_POPUP));
         boolean isDisplayed = driver.findElement(VOICE_INPUT_DEVICE_POPUP).isDisplayed();
         driver.findElement(VOICE_INPUT_DEVICE_TOGGLE_BUTTON).click();
@@ -254,7 +254,7 @@ public class DeveloperMode {
     }
 
     public static void waitOpenStatisticsWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).
+        (new WebDriverWait(driver, Duration.ofSeconds(3))).
                 until(ExpectedConditions.visibilityOfElementLocated(STATISTICS_WINDOW));
     }
 

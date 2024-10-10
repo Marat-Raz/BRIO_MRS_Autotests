@@ -18,7 +18,7 @@ public class HierarchyWindow {
     }
 
     public static void waitOpenHierarchyWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2))).until(ExpectedConditions.visibilityOfElementLocated(HIERARCHY_WINDOW));
+        (new WebDriverWait(driver, Duration.ofSeconds(3))).until(ExpectedConditions.visibilityOfElementLocated(HIERARCHY_WINDOW));
     }
 
     public boolean notificationsWindowIsOpen() {

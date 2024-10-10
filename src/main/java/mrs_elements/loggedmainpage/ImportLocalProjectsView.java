@@ -4,10 +4,18 @@ import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
 import mrs_elements.MethodsForElements;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.Duration;
+import java.util.List;
 
 public class ImportLocalProjectsView {
     public static AppiumDriver driver;
@@ -22,7 +30,13 @@ public class ImportLocalProjectsView {
             By.xpath("//Button[.//TextBlock[@Text='Создать']]");
     public static final By CANCEL_BUTTON =
             By.xpath("//Button[.//TextBlock[@Text='Отмена']]");
+    public static final By LIST_OF_PROJECTS =
+            By.xpath("//ImportLocalProjectsView./StackPanel/descendant::TextBlock");
     MethodsForElements methodsForElements;
+
+    String oldName = "C:\\Users\\User\\Documents\\Brio MRS\\Database";
+    String newName = "_new_name";
+
 
     public ImportLocalProjectsView(AppiumDriver driver) {
         methodsForElements = new MethodsForElements(driver);
@@ -30,7 +44,7 @@ public class ImportLocalProjectsView {
     }
 
     public static void waitOpenImportLocalProjectsView() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2)))
+        (new WebDriverWait(driver, Duration.ofSeconds(3)))
                 .until(ExpectedConditions.visibilityOfElementLocated(IMPORT_LOCAL_PROJECTS_VIEW));
     }
 
@@ -52,7 +66,6 @@ public class ImportLocalProjectsView {
 
     @Step("Считываем состояние чекбокса выбранного проекта «For AutoTests»")
     public boolean projectForAutoTestsIsChecked() {
-        //waitOpenImportLocalProjectsView();
         return methodsForElements.switchEnabled(PROJECT_FOR_AUTO_TESTS_CHECKBOX);
     }
 
@@ -60,9 +73,10 @@ public class ImportLocalProjectsView {
     public void clickOnProjectForAutoTests() {
         waitOpenImportLocalProjectsView();
         moveToElement(PROJECT_FOR_AUTO_TESTS_CHECKBOX);
-        //(new WebDriverWait(driver, Duration.ofSeconds(1)))
-         //       .until(ExpectedConditions.elementToBeClickable(PROJECT_FOR_AUTO_TESTS_CHECKBOX));
+        // (new WebDriverWait(driver, Duration.ofSeconds(3)))
+        //       .until(ExpectedConditions.elementToBeClickable(PROJECT_FOR_AUTO_TESTS_CHECKBOX));
         //driver.findElement(PROJECT_FOR_AUTO_TESTS_CHECKBOX).click();
+        driver.findElement(PROJECT_FOR_AUTO_TESTS_CHECKBOX).click();
         driver.findElement(PROJECT_FOR_AUTO_TESTS_CHECKBOX).click();
 
         // fixme по факту нажатия не происходит, когда нужно выбрать элемент в конце списка
@@ -75,13 +89,13 @@ public class ImportLocalProjectsView {
         driver.findElement(INCREASE_BUTTON_SCROLL).click();
     }
 
+    @Step("Нажимать на кнопку вниз полосы прокрутки")
     public void moveToElement(By by) {
         waitOpenImportLocalProjectsView();
-        while (!driver.findElement(by).isDisplayed());
+        while (!driver.findElement(by).isDisplayed()) ;
         {
             clickOnIncreaseButtonScroll();
         }
-
     }
 
     @Step("Нажать на кнопку «Создать»")
@@ -101,6 +115,42 @@ public class ImportLocalProjectsView {
     public void clickOnCancelButton() {
         waitOpenImportLocalProjectsView();
         driver.findElement(CANCEL_BUTTON).click();
+    }
+
+    @Step("Получить список доступных проектов")
+    public int getListOfAvailableProjects() {
+        int numberOfProjects;
+        try {
+            List<WebElement> elements = (List<WebElement>) driver.findElement(LIST_OF_PROJECTS);
+            numberOfProjects = elements.size();
+        } catch (NoSuchElementException ex) {
+            numberOfProjects = 0;
+        }
+        return numberOfProjects;
+    }
+
+    @Step("Переименовать папку Database в проводнике")
+    public void renameFolderDatabase() {
+        Path sourcePath = Paths.get(oldName);
+        Path destinationPath = Paths.get(oldName + newName);
+        try {
+            Files.move(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("Успех! Файл был переименован.");
+        } catch (IOException e) {
+            System.out.println("Ошибка! Возникло исключение: " + e.getMessage());
+        }
+    }
+
+    @Step("Вернуть название папки Database в проводнике")
+    public void returnNameFolderDatabase() {
+        Path sourcePath = Paths.get(oldName + newName);
+        Path destinationPath = Paths.get(oldName);
+        try {
+            Files.move(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("Успех! Файл был переименован.");
+        } catch (IOException e) {
+            System.out.println("Ошибка! Возникло исключение: " + e.getMessage());
+        }
     }
 
 

@@ -23,7 +23,7 @@ public class SelectedProjectSideView {
     }
 
     public static void waitOpenSelectedProjectSideView() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2)))
+        (new WebDriverWait(driver, Duration.ofSeconds(3)))
                 .until(ExpectedConditions.visibilityOfElementLocated(SELECTED_PROJECT_SIDE_VIEW));
     }
 

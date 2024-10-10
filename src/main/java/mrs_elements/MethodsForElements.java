@@ -46,7 +46,7 @@ public class MethodsForElements {
 
     public void clickingOnListAndSelectListItem(By list, By listItem) {
         driver.findElement(list).click();
-        (new WebDriverWait(driver, Duration.ofSeconds(1)))
+        (new WebDriverWait(driver, Duration.ofSeconds(3)))
                 .until(ExpectedConditions.visibilityOfElementLocated(listItem));
         driver.findElement(listItem).click();
     }

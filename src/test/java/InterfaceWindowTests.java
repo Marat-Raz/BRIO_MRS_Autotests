@@ -35,7 +35,6 @@ public class InterfaceWindowTests extends TestsStarter {
         Thread.sleep(600);
     }
 
-
     @Test
     @DisplayName("Открылось окно настроек интерфейса")
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-673")

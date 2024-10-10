@@ -27,7 +27,7 @@ public class DeleteProjectDialog {
     }
 
     public static void waitOpenDeleteProjectDialog() {
-        (new WebDriverWait(driver, Duration.ofSeconds(2)))
+        (new WebDriverWait(driver, Duration.ofSeconds(3)))
                 .until(ExpectedConditions.visibilityOfElementLocated(DELETE_PROJECT_DIALOG));
     }
 
@@ -44,6 +44,18 @@ public class DeleteProjectDialog {
     @Step("Нажать на чек бокс «Оставить локальные файлы»")
     public void clickOnCheckBoxLeaveLocalFiles() {
         waitOpenDeleteProjectDialog();
+        driver.findElement(CHECK_BOX_LEAVE_LOCAL_FILES).click();
+    }
+
+    @Step("Выбрать чек бокс «Оставить локальные файлы»")
+    public void selectCheckBoxLeaveLocalFiles() {
+        if  (!CheckBoxLeaveLocalFilesIsChecked())
+        driver.findElement(CHECK_BOX_LEAVE_LOCAL_FILES).click();
+    }
+
+    @Step("Выбрать чек бокс «Оставить локальные файлы»")
+    public void deselectCheckBoxLeaveLocalFiles() {
+        if  (CheckBoxLeaveLocalFilesIsChecked())
         driver.findElement(CHECK_BOX_LEAVE_LOCAL_FILES).click();
     }
 
