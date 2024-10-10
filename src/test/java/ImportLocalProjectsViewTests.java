@@ -14,29 +14,22 @@ public class ImportLocalProjectsViewTests extends TestsStarter {
     ImportLocalProjectsView importLocalProjectsView = new ImportLocalProjectsView(driver);
     SelectedProjectSideView selectedProjectSideView = new SelectedProjectSideView(driver);
     DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(driver);
-    CreateNewProjectDialog createNewProjectDialog = new CreateNewProjectDialog(driver);
-    ScreenKeyboard screenKeyboard;
 
-    boolean result, resultOne, resultTwo;
-    String actTxt;
-
-    public void clickOnCreateProjectsFromFolders() {
-        loggedMainPage.clickOnCreateProjectsFromFoldersButton();
-        ImportLocalProjectsView.waitOpenImportLocalProjectsView();
-    }
+    boolean resultOne, resultTwo;
 
     @Test
     @DisplayName("Создать проект из папки")
     @Links(value = {@Link(name = "Ссылка на тест-кейс №1", url = "https://app.qase.io/case/MRS-1463"),
                     @Link(name = "Ссылка на тест-кейс №2", url = "https://app.qase.io/case/MRS-1702")})
     public void createProjectFromFolderTest() throws InterruptedException {
-        clickOnCreateProjectsFromFolders();
+        loggedMainPage.clickOnCreateProjectsFromFoldersButton();
+        ImportLocalProjectsView.waitOpenImportLocalProjectsView();
         importLocalProjectsView.clickOnProjectForAutoTests();
         resultOne = importLocalProjectsView.projectForAutoTestsIsChecked();
         importLocalProjectsView.clickOnCreateButton();
         LoggedMainPage.waitOpenLoggedMainPage();
         sleep(1000);
-        result = loggedMainPage.projectForAutoTestsIsDisplayed();
+        resultTwo = loggedMainPage.projectForAutoTestsIsDisplayed();
         loggedMainPage.clickOnProjectForAutoTests();
         SelectedProjectSideView.waitOpenSelectedProjectSideView();
         sleep(1000);
@@ -45,7 +38,7 @@ public class ImportLocalProjectsViewTests extends TestsStarter {
         deleteProjectDialog.clickOnDeleteButton();
         assertAll(
                 () -> assertTrue(resultOne),
-                () -> assertTrue(result)
+                () -> assertTrue(resultTwo)
         );
     }
 
@@ -53,7 +46,8 @@ public class ImportLocalProjectsViewTests extends TestsStarter {
     @DisplayName("Нажать кнопку «Выбрать/Сбросить всё»")
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1465")
     public void clickOnSelectOrResetAllCheckboxTest() {
-        clickOnCreateProjectsFromFolders();
+        loggedMainPage.clickOnCreateProjectsFromFoldersButton();
+        ImportLocalProjectsView.waitOpenImportLocalProjectsView();
         importLocalProjectsView.clickOnSelectOrResetAllCheckbox();
         resultOne = importLocalProjectsView.selectOrResetAllCheckboxIsChecked();
         importLocalProjectsView.clickOnSelectOrResetAllCheckbox();
@@ -67,12 +61,12 @@ public class ImportLocalProjectsViewTests extends TestsStarter {
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1569")
     public void folderDatabaseMissingTest() {
         importLocalProjectsView.renameFolderDatabase();
-        clickOnCreateProjectsFromFolders();
+        loggedMainPage.clickOnCreateProjectsFromFoldersButton();
+        ImportLocalProjectsView.waitOpenImportLocalProjectsView();
         int numberOfProjects = importLocalProjectsView.getListOfAvailableProjects();
         importLocalProjectsView.returnNameFolderDatabase();
         importLocalProjectsView.clickOnCancelButton();
         assertEquals(0, numberOfProjects);
     }
-
 
 }
