@@ -25,6 +25,8 @@ public class ImportLocalProjectsView {
             By.xpath("//CheckBox[.//TextBlock[@Text='Выбрать/Сбросить всё']]");
     public static final By PROJECT_FOR_AUTO_TESTS_CHECKBOX =
             By.xpath("//CheckBox[.//TextBlock[@Text='For Autotests']]");
+    public static final By PROJECT_IMPORTLOCALPROJECTSVIEWTESTS_CHECKBOX =
+            By.xpath("//CheckBox[.//TextBlock[@Text='ImportLocalProjectsViewTests']]");
     public static final By INCREASE_BUTTON_SCROLL = By.name("IncreaseButton"); // LineDownButton
     public static final By CREATE_BUTTON =
             By.xpath("//Button[.//TextBlock[@Text='Создать']]");
@@ -81,6 +83,22 @@ public class ImportLocalProjectsView {
 
         // fixme по факту нажатия не происходит, когда нужно выбрать элемент в конце списка
         //  или сделать прокрутку на другую страницу
+    }
+
+    @Step("Нажимаем на чекбокс выбранного проекта «ImportLocalProjectsViewTests»")
+    public void clickOnProjectImportLocalProjectsViewTests() {
+        waitOpenImportLocalProjectsView();
+        moveToElement(PROJECT_IMPORTLOCALPROJECTSVIEWTESTS_CHECKBOX);
+        driver.findElement(PROJECT_IMPORTLOCALPROJECTSVIEWTESTS_CHECKBOX).click();
+        driver.findElement(PROJECT_IMPORTLOCALPROJECTSVIEWTESTS_CHECKBOX).click();
+
+        // fixme по факту нажатия не происходит, когда нужно выбрать элемент в конце списка
+        //  или сделать прокрутку на другую страницу
+    }
+
+    @Step("Считываем состояние чекбокса выбранного проекта «ImportLocalProjectsViewTests»")
+    public boolean projectImportLocalProjectsViewTestsIsChecked() {
+        return methodsForElements.switchEnabled(PROJECT_IMPORTLOCALPROJECTSVIEWTESTS_CHECKBOX);
     }
 
     @Step("Нажимаем вниз в полосе прокрутки")

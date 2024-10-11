@@ -1,8 +1,7 @@
 import io.qameta.allure.Link;
 import io.qameta.allure.Links;
 import mrs_elements.loggedmainpage.*;
-import mrs_elements.screenkeyboards.ScreenKeyboard;
-import org.junit.jupiter.api.BeforeEach;
+import mrs_elements.loggedmainpage.selectedProjectSideView.DeleteProjectDialog;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -23,15 +22,15 @@ public class ImportLocalProjectsViewTests extends TestsStarter {
                     @Link(name = "Ссылка на тест-кейс №2", url = "https://app.qase.io/case/MRS-1702")})
     public void createProjectFromFolderTest() throws InterruptedException {
         loggedMainPage.clickOnCreateProjectsFromFoldersButton();
-        ImportLocalProjectsView.waitOpenImportLocalProjectsView();
-        importLocalProjectsView.clickOnProjectForAutoTests();
-        resultOne = importLocalProjectsView.projectForAutoTestsIsChecked();
+        importLocalProjectsView.waitOpenImportLocalProjectsView();
+        importLocalProjectsView.clickOnProjectImportLocalProjectsViewTests();
+        resultOne = importLocalProjectsView.projectImportLocalProjectsViewTestsIsChecked();
         importLocalProjectsView.clickOnCreateButton();
-        LoggedMainPage.waitOpenLoggedMainPage();
+        loggedMainPage.waitOpenLoggedMainPage();
         sleep(1000);
-        resultTwo = loggedMainPage.projectForAutoTestsIsDisplayed();
-        loggedMainPage.clickOnProjectForAutoTests();
-        SelectedProjectSideView.waitOpenSelectedProjectSideView();
+        resultTwo = loggedMainPage.projectImportLocalProjectsViewTestsIsDisplayed();
+        loggedMainPage.clickOnProjectImportLocalProjectsViewTests();
+        selectedProjectSideView.waitOpenSelectedProjectSideView();
         sleep(1000);
         selectedProjectSideView.selectMenuItemDeleteProjectItem();
         deleteProjectDialog.selectCheckBoxLeaveLocalFiles();
@@ -47,7 +46,7 @@ public class ImportLocalProjectsViewTests extends TestsStarter {
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1465")
     public void clickOnSelectOrResetAllCheckboxTest() {
         loggedMainPage.clickOnCreateProjectsFromFoldersButton();
-        ImportLocalProjectsView.waitOpenImportLocalProjectsView();
+        importLocalProjectsView.waitOpenImportLocalProjectsView();
         importLocalProjectsView.clickOnSelectOrResetAllCheckbox();
         resultOne = importLocalProjectsView.selectOrResetAllCheckboxIsChecked();
         importLocalProjectsView.clickOnSelectOrResetAllCheckbox();
@@ -62,7 +61,7 @@ public class ImportLocalProjectsViewTests extends TestsStarter {
     public void folderDatabaseMissingTest() {
         importLocalProjectsView.renameFolderDatabase();
         loggedMainPage.clickOnCreateProjectsFromFoldersButton();
-        ImportLocalProjectsView.waitOpenImportLocalProjectsView();
+        importLocalProjectsView.waitOpenImportLocalProjectsView();
         int numberOfProjects = importLocalProjectsView.getListOfAvailableProjects();
         importLocalProjectsView.returnNameFolderDatabase();
         importLocalProjectsView.clickOnCancelButton();

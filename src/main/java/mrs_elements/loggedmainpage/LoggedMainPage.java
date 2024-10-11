@@ -23,6 +23,8 @@ public class LoggedMainPage {
     public static final By OPEN_OR_CREATE_PROJECT_BUTTON = By.name("openOrCreateProjectBtn");
     public static final By PROJECT_FOR_AUTO_TESTS =
             By.xpath("//ListBoxItem[.//TextBlock[@Text='For Autotests']]");
+    public static final By PROJECT_IMPORTLOCALPROJECTSVIEWTESTS =
+            By.xpath("//ListBoxItem[.//TextBlock[@Text='ImportLocalProjectsViewTests']]");
     MethodsForElements methodsForElements;
 
     public LoggedMainPage(AppiumDriver driver) {
@@ -86,10 +88,16 @@ public class LoggedMainPage {
         return (driver.findElement(OPEN_OR_CREATE_PROJECT_BUTTON).getText()).substring(0,14);
     }
 
-    @Step("Нажать на проект «For AutoTests»")
-    public void clickOnProjectForAutoTests() {
+    @Step("Нажать на проект «For Autotests»")
+    public void clickOnProjectForAutotests() {
         waitOpenLoggedMainPage();
         driver.findElement(PROJECT_FOR_AUTO_TESTS).click();
+    }
+
+    @Step("Нажать на проект «ImportLocalProjectsViewTests»")
+    public void clickOnProjectImportLocalProjectsViewTests() {
+        waitOpenLoggedMainPage();
+        driver.findElement(PROJECT_IMPORTLOCALPROJECTSVIEWTESTS).click();
     }
 
 
@@ -105,6 +113,11 @@ public class LoggedMainPage {
     public boolean projectForAutoTestsIsDisplayed() {
         waitOpenLoggedMainPage();
         return driver.findElement(PROJECT_FOR_AUTO_TESTS).isDisplayed();
+    }
+
+    public boolean projectImportLocalProjectsViewTestsIsDisplayed() {
+        waitOpenLoggedMainPage();
+        return driver.findElement(PROJECT_IMPORTLOCALPROJECTSVIEWTESTS).isDisplayed();
     }
 
 }
