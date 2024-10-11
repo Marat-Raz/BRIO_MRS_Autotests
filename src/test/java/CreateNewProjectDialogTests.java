@@ -2,6 +2,7 @@ import io.qameta.allure.Link;
 import io.qameta.allure.Links;
 import io.qameta.allure.Step;
 import mrs_elements.loggedmainpage.*;
+import mrs_elements.loggedmainpage.selectedProjectSideView.DeleteProjectDialog;
 import mrs_elements.screenkeyboards.ScreenKeyboard;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.DisplayName;
@@ -26,9 +27,7 @@ public class CreateNewProjectDialogTests extends TestsStarter {
     public void deleteProject(String project) {
         loggedMainPage.findProjectAndClickThem(project);
         selectedProjectSideView.selectMenuItemDeleteProjectItem();
-        if (deleteProjectDialog.CheckBoxLeaveLocalFilesIsChecked()) {
-            deleteProjectDialog.clickOnCheckBoxLeaveLocalFiles();
-        }
+        deleteProjectDialog.deselectCheckBoxLeaveLocalFiles();
         deleteProjectDialog.clickOnDeleteButton();
     }
 
@@ -80,7 +79,8 @@ public class CreateNewProjectDialogTests extends TestsStarter {
     @DisplayName("Создать проект с кнопкой «Создать новый», а также проверить счетчик проектов на увеличение и уменьшение")
     @Links(value = {@Link(name = "Ссылка на тест-кейс №1", url = "https://app.qase.io/case/MRS-1355"),
                     @Link(name = "Ссылка на тест-кейс №2", url = "https://app.qase.io/case/MRS-1469"),
-                    @Link(name = "Ссылка на тест-кейс №3", url = "https://app.qase.io/case/MRS-1470")})
+                    @Link(name = "Ссылка на тест-кейс №3", url = "https://app.qase.io/case/MRS-1470"),
+                    @Link(name = "Ссылка на тест-кейс №3", url = "https://app.qase.io/case/MRS-1459")})
     public void createProjectWithCreateNewButtonTest() throws InterruptedException {
         String newProject = "createProjectTest - Delete me";
         int numberOfProjects = loggedMainPage.getNumberOfProjectsFromHeaderProjects();
@@ -97,11 +97,13 @@ public class CreateNewProjectDialogTests extends TestsStarter {
         sleep(1000);
         result = loggedMainPage.desiredProjectIsDisplayed(newProject); // fixme не находит проект по xpath
         deleteProject(newProject);
+        boolean otherResult = deleteProjectDialog.checkingDeletingFolderFromDatabase(newProject);
         int numberOfProjectsMinus1 = loggedMainPage.getNumberOfProjectsFromHeaderProjects();
         assertAll(
-                () -> assertTrue(result),
                 () -> assertEquals(numberOfProjects + 1, numberOfProjectsPlus1),
-                () -> assertEquals(numberOfProjectsPlus1 - 1, numberOfProjectsMinus1)
+                () -> assertEquals(numberOfProjectsPlus1 - 1, numberOfProjectsMinus1),
+                () -> assertTrue(result),
+                () -> assertTrue(!otherResult)
         );
     }
 

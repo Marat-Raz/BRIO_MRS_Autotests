@@ -1,4 +1,4 @@
-package mrs_elements.loggedmainpage;
+package mrs_elements.loggedmainpage.selectedProjectSideView;
 
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
 import java.time.Duration;
 
 public class DeleteProjectDialog {
@@ -37,7 +38,7 @@ public class DeleteProjectDialog {
     }
 
     @Step("Считываем состояние чекбокса «Оставить локальные файлы»")
-    public boolean CheckBoxLeaveLocalFilesIsChecked() {
+    public boolean checkBoxLeaveLocalFilesIsChecked() {
         return methodsForElements.switchEnabled(CHECK_BOX_LEAVE_LOCAL_FILES);
     }
 
@@ -49,13 +50,13 @@ public class DeleteProjectDialog {
 
     @Step("Выбрать чек бокс «Оставить локальные файлы»")
     public void selectCheckBoxLeaveLocalFiles() {
-        if  (!CheckBoxLeaveLocalFilesIsChecked())
+        if (!checkBoxLeaveLocalFilesIsChecked())
         driver.findElement(CHECK_BOX_LEAVE_LOCAL_FILES).click();
     }
 
     @Step("Выбрать чек бокс «Оставить локальные файлы»")
     public void deselectCheckBoxLeaveLocalFiles() {
-        if  (CheckBoxLeaveLocalFilesIsChecked())
+        if (checkBoxLeaveLocalFilesIsChecked())
         driver.findElement(CHECK_BOX_LEAVE_LOCAL_FILES).click();
     }
 
@@ -70,5 +71,13 @@ public class DeleteProjectDialog {
         waitOpenDeleteProjectDialog();
         driver.findElement(CANCEL_BUTTON).click();
     }
+
+    @Step("Проверка удаления папки из Database")
+    public boolean checkingDeletingFolderFromDatabase(String projectName) {
+        File findFile = new File("C:\\Users\\User\\Documents\\Brio MRS\\Database\\" + projectName);
+        return (findFile.exists());
+    }
+
+
 
 }

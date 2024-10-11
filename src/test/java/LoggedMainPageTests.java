@@ -1,5 +1,4 @@
 import io.qameta.allure.Link;
-import io.qameta.allure.Links;
 import mrs_elements.loggedmainpage.CreateNewProjectDialog;
 import mrs_elements.loggedmainpage.ImportLocalProjectsView;
 import mrs_elements.loggedmainpage.LoggedMainPage;
@@ -54,11 +53,11 @@ public class LoggedMainPageTests extends TestsStarter {
     @DisplayName("Нажатие на проект открывает окно-меню проекта и меняется текст кнопки «Создать новый»")
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1443")
     public void clickOnProjectTest() {
-        loggedMainPage.clickOnProjectForAutoTests();
+        loggedMainPage.clickOnProjectForAutotests();
         actTxt = loggedMainPage.getTextOpenOrCreateProjectButton();
         selectedProjectSideView = new SelectedProjectSideView(driver);
         result = selectedProjectSideView.selectedProjectSideViewIsOpen();
-        loggedMainPage.clickOnProjectForAutoTests();
+        loggedMainPage.clickOnProjectForAutotests();
         assertAll(
                 () -> assertEquals("Открыть проект", actTxt),
                 () -> assertTrue(result)
