@@ -53,11 +53,11 @@ public class LoggedMainPageTests extends TestsStarter {
     @DisplayName("Нажатие на проект открывает окно-меню проекта и меняется текст кнопки «Создать новый»")
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1443")
     public void clickOnProjectTest() {
-        loggedMainPage.clickOnProjectForAutotests();
+        loggedMainPage.findProjectAndClickThem("For Autotests");
         actTxt = loggedMainPage.getTextOpenOrCreateProjectButton();
         selectedProjectSideView = new SelectedProjectSideView(driver);
         result = selectedProjectSideView.selectedProjectSideViewIsOpen();
-        loggedMainPage.clickOnProjectForAutotests();
+        loggedMainPage.findProjectAndClickThem("For Autotests");
         assertAll(
                 () -> assertEquals("Открыть проект", actTxt),
                 () -> assertTrue(result)

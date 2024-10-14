@@ -21,7 +21,7 @@ public class DeleteProjectDialogTest extends TestsStarter {
 
     @BeforeEach
     public void clickOnProjectAndMenu() {
-        loggedMainPage.clickOnProjectForAutotests();
+        loggedMainPage.findProjectAndClickThem("For Autotests");
         selectedProjectSideView.waitOpenSelectedProjectSideView();
         selectedProjectSideView.clickOnMenuItemButton();
         selectedProjectSideView.selectMenuItemDeleteProjectItem();
@@ -30,7 +30,7 @@ public class DeleteProjectDialogTest extends TestsStarter {
     @AfterEach
     public void closeDeleteProjectDialog() {
         deleteProjectDialog.clickOnCancelButton();
-        loggedMainPage.clickOnProjectForAutotests();
+        loggedMainPage.findProjectAndClickThem("For Autotests");
     }
 
     @Test
@@ -63,7 +63,7 @@ public class DeleteProjectDialogTest extends TestsStarter {
         deleteProjectDialog.selectCheckBoxLeaveLocalFiles();
         deleteProjectDialog.clickOnDeleteButton();
         sleep(1500);
-        resultOne = loggedMainPage.projectForAutoTestsIsDisplayed();
+        resultOne = loggedMainPage.desiredProjectIsDisplayed("For Autotests");
         resultTwo = deleteProjectDialog.checkingDeletingFolderFromDatabase("For Autotests");
         loggedMainPage.clickOnCreateProjectsFromFoldersButton();
 

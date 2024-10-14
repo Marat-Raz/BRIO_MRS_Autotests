@@ -28,8 +28,8 @@ public class ImportLocalProjectsViewTests extends TestsStarter {
         importLocalProjectsView.clickOnCreateButton();
         loggedMainPage.waitOpenLoggedMainPage();
         sleep(1000);
-        resultTwo = loggedMainPage.projectImportLocalProjectsViewTestsIsDisplayed();
-        loggedMainPage.clickOnProjectImportLocalProjectsViewTests();
+        resultTwo = loggedMainPage.desiredProjectIsDisplayed("ImportLocalProjectsViewTests");
+        loggedMainPage.findProjectAndClickThem("ImportLocalProjectsViewTests");
         selectedProjectSideView.waitOpenSelectedProjectSideView();
         sleep(1000);
         selectedProjectSideView.selectMenuItemDeleteProjectItem();

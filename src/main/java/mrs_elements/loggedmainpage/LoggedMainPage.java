@@ -88,36 +88,15 @@ public class LoggedMainPage {
         return (driver.findElement(OPEN_OR_CREATE_PROJECT_BUTTON).getText()).substring(0,14);
     }
 
-    @Step("Нажать на проект «For Autotests»")
-    public void clickOnProjectForAutotests() {
-        waitOpenLoggedMainPage();
-        driver.findElement(PROJECT_FOR_AUTO_TESTS).click();
-    }
-
-    @Step("Нажать на проект «ImportLocalProjectsViewTests»")
-    public void clickOnProjectImportLocalProjectsViewTests() {
-        waitOpenLoggedMainPage();
-        driver.findElement(PROJECT_IMPORTLOCALPROJECTSVIEWTESTS).click();
-    }
-
-
+    @Step ("Искомый проект виден в списке проектов")
     public boolean desiredProjectIsDisplayed(String project) {
         return driver.findElement(By.xpath("//ListBoxItem[.//TextBlock[@Text='" + project + "']]")).isDisplayed();
     }
 
+    @Step("Нажать на проект в списке проектов")
     public void findProjectAndClickThem(String project) {
         waitOpenLoggedMainPage();
         driver.findElement(By.xpath("//ListBoxItem[.//TextBlock[@Text='" + project + "']]")).click();
-    }
-
-    public boolean projectForAutoTestsIsDisplayed() {
-        waitOpenLoggedMainPage();
-        return driver.findElement(PROJECT_FOR_AUTO_TESTS).isDisplayed();
-    }
-
-    public boolean projectImportLocalProjectsViewTestsIsDisplayed() {
-        waitOpenLoggedMainPage();
-        return driver.findElement(PROJECT_IMPORTLOCALPROJECTSVIEWTESTS).isDisplayed();
     }
 
 }

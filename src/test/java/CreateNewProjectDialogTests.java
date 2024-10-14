@@ -56,7 +56,7 @@ public class CreateNewProjectDialogTests extends TestsStarter {
     @Test
     @DisplayName("Ввод 151 символов в поле ввода названия проекта")
     @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
-    public void enterLongLineInProjectNameField() {
+    public void enterLongLineInProjectNameFieldTest() {
         loggedMainPage.clickOnOpenOrCreateProjectButton();
         createNewProjectDialog.waitOpenCreateNewProjectDialog();
         createNewProjectDialog.clickOnTextBox();
