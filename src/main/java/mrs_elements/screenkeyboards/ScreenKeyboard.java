@@ -21,7 +21,7 @@ public class ScreenKeyboard {
                 .until(ExpectedConditions.visibilityOfElementLocated(SCREEN_KEYBOARD));
     }
 
-    public boolean ScreenKeyboardIsOpen() {
+    public boolean screenKeyboardIsOpen() {
         waitOpenScreenKeyboard();
         return driver.findElement(SCREEN_KEYBOARD).isDisplayed();
     }

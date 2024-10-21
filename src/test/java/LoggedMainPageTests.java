@@ -1,12 +1,15 @@
 import io.qameta.allure.Link;
+import io.qameta.allure.Links;
 import mrs_elements.loggedmainpage.CreateNewProjectDialog;
 import mrs_elements.loggedmainpage.ImportLocalProjectsView;
 import mrs_elements.loggedmainpage.LoggedMainPage;
 import mrs_elements.loggedmainpage.SelectedProjectSideView;
+import mrs_elements.loggedmainpage.selectedProjectSideView.ObjectivesListView;
 import mrs_elements.screenkeyboards.ScreenKeyboard;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LoggedMainPageTests extends TestsStarter {
@@ -44,23 +47,28 @@ public class LoggedMainPageTests extends TestsStarter {
     public void clickingOnSearchInputFieldOpensOnScreenKeyboardTest() {
         loggedMainPage.clickOnInputFieldSearch();
         screenKeyboard = new ScreenKeyboard(driver);
-        result = screenKeyboard.ScreenKeyboardIsOpen();
+        result = screenKeyboard.screenKeyboardIsOpen();
         screenKeyboard.clickHideKeyboardButton();
         assertTrue(result);
     }
 
     @Test
     @DisplayName("Нажатие на проект открывает окно-меню проекта и меняется текст кнопки «Создать новый»")
-    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1443")
-    public void clickOnProjectTest() {
-        loggedMainPage.findProjectAndClickThem("For Autotests");
+    @Links(value = {@Link(name = "Ссылка на тест-кейс №1", url = "https://app.qase.io/case/MRS-1443"),
+                    @Link(name = "Ссылка на тест-кейс №2", url = "https://app.qase.io/case/MRS-2040")})
+    public void clickOnProjectTest() throws InterruptedException {
+        loggedMainPage.findProjectAndClickThem("BRIO-Test");
+        sleep(500);
         actTxt = loggedMainPage.getTextOpenOrCreateProjectButton();
         selectedProjectSideView = new SelectedProjectSideView(driver);
+        ObjectivesListView objectivesListView = new ObjectivesListView(driver);
         result = selectedProjectSideView.selectedProjectSideViewIsOpen();
-        loggedMainPage.findProjectAndClickThem("For Autotests");
+        boolean anResult = objectivesListView.projectHasNotObjectives();
+        loggedMainPage.findProjectAndClickThem("BRIO-Test");
         assertAll(
                 () -> assertEquals("Открыть проект", actTxt),
-                () -> assertTrue(result)
+                () -> assertTrue(result),
+                () -> assertTrue(anResult)
         );
     }
 
