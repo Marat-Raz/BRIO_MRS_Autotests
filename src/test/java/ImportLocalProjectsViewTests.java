@@ -23,7 +23,7 @@ public class ImportLocalProjectsViewTests extends TestsStarter {
     public void createProjectFromFolderTest() throws InterruptedException {
         loggedMainPage.clickOnCreateProjectsFromFoldersButton();
         importLocalProjectsView.waitOpenImportLocalProjectsView();
-        importLocalProjectsView.clickOnProjectImportLocalProjectsViewTests();
+        importLocalProjectsView.moveToElementAndClickOnProject("ImportLocalProjectsViewTests");
         resultOne = importLocalProjectsView.projectImportLocalProjectsViewTestsIsChecked();
         importLocalProjectsView.clickOnCreateButton();
         loggedMainPage.waitOpenLoggedMainPage();

@@ -1,7 +1,9 @@
 import io.qameta.allure.Link;
 import io.qameta.allure.Links;
+import mrs_elements.loggedmainpage.ImportLocalProjectsView;
 import mrs_elements.loggedmainpage.LoggedMainPage;
 import mrs_elements.loggedmainpage.SelectedProjectSideView;
+import mrs_elements.loggedmainpage.selectedProjectSideView.DeleteProjectDialog;
 import mrs_elements.loggedmainpage.selectedProjectSideView.MainPageObjectiveEditorView;
 import mrs_elements.loggedmainpage.selectedProjectSideView.ObjectivesListView;
 import mrs_elements.screenkeyboards.ScreenKeyboard;
@@ -14,12 +16,42 @@ import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ObjectivesListViewTests extends TestsStarter {
-    LoggedMainPage loggedMainPage = new LoggedMainPage(driver);
+    static LoggedMainPage loggedMainPage = new LoggedMainPage(driver);
     ObjectivesListView objectivesListView = new ObjectivesListView(driver);
-    SelectedProjectSideView selectedProjectSideView = new SelectedProjectSideView(driver);
+    static SelectedProjectSideView selectedProjectSideView = new SelectedProjectSideView(driver);
     ScreenKeyboard screenKeyboard = new ScreenKeyboard(driver);
+    static ImportLocalProjectsView importLocalProjectsView = new ImportLocalProjectsView(driver);
+    static DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(driver);
     String[] objectives, objectivesBeforeSort, objectivesAfterSort, objectivesForEqual;
     boolean result, oldValue, newValue;
+
+// todo нужно вначале тестов создать задачи в проекте
+
+    @BeforeAll
+    public static void uploadProjects() throws InterruptedException {
+        if (!loggedMainPage.desiredProjectIsDisplayed("For Autotests")) {
+            loggedMainPage.clickOnCreateProjectsFromFoldersButton();
+            importLocalProjectsView.waitOpenImportLocalProjectsView();
+            importLocalProjectsView.moveToElementAndClickOnProject("For Autotests");
+            importLocalProjectsView.clickOnCreateButton();
+            loggedMainPage.waitOpenLoggedMainPage();
+            sleep(1000);
+        }
+    }
+
+    @AfterAll
+    @DisplayName("Удалить проект оставив локальные файлы (чек бокс «Оставить локальные файлы» выбран)")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1460")
+    public static void deleteProjects () throws InterruptedException {
+        if (loggedMainPage.desiredProjectIsDisplayed("For Autotests")) {
+            loggedMainPage.findProjectAndClickThem("For Autotests");
+            selectedProjectSideView.waitOpenSelectedProjectSideView();
+            sleep(1000);
+            selectedProjectSideView.selectMenuItemDeleteProjectItem();
+            deleteProjectDialog.selectCheckBoxLeaveLocalFiles();
+            deleteProjectDialog.clickOnDeleteButton();
+        }
+    }
 
     @BeforeEach
     public void clickOnProject() throws InterruptedException {

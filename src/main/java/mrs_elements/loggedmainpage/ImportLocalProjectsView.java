@@ -6,6 +6,7 @@ import mrs_elements.MethodsForElements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -19,7 +20,6 @@ import java.util.List;
 
 public class ImportLocalProjectsView {
     public static AppiumDriver driver;
-    //public static final By IMPORT_LOCAL_PROJECTS_VIEW = By.className("ImportLocalProjectsView");
     public static final By IMPORT_LOCAL_PROJECTS_VIEW = By.xpath("//TextBlock[@Text='Выберите папки для создания проектов']");
     public static final By SELECT_OR_RESET_ALL_CHECKBOX =
             By.xpath("//CheckBox[.//TextBlock[@Text='Выбрать/Сбросить всё']]");
@@ -27,7 +27,7 @@ public class ImportLocalProjectsView {
             By.xpath("//CheckBox[.//TextBlock[@Text='For Autotests']]");
     public static final By PROJECT_IMPORTLOCALPROJECTSVIEWTESTS_CHECKBOX =
             By.xpath("//CheckBox[.//TextBlock[@Text='ImportLocalProjectsViewTests']]");
-    public static final By INCREASE_BUTTON_SCROLL = By.name("IncreaseButton"); // LineDownButton
+    public static final By INCREASE_BUTTON_SCROLL = By.name("LineDownButton"); // LineDownButton
     public static final By CREATE_BUTTON =
             By.xpath("//Button[.//TextBlock[@Text='Создать']]");
     public static final By CANCEL_BUTTON =
@@ -36,17 +36,13 @@ public class ImportLocalProjectsView {
             By.xpath("//ImportLocalProjectsView./StackPanel/descendant::TextBlock");
     MethodsForElements methodsForElements;
 
-    String oldName = "C:\\Users\\User\\Documents\\Brio MRS\\Database";
-    String newName = "_new_name";
-
-
     public ImportLocalProjectsView(AppiumDriver driver) {
         methodsForElements = new MethodsForElements(driver);
         this.driver = driver;
     }
 
     public static void waitOpenImportLocalProjectsView() {
-        (new WebDriverWait(driver, Duration.ofSeconds(3)))
+        (new WebDriverWait(driver, Duration.ofSeconds(5)))
                 .until(ExpectedConditions.visibilityOfElementLocated(IMPORT_LOCAL_PROJECTS_VIEW));
     }
 
@@ -66,34 +62,13 @@ public class ImportLocalProjectsView {
         return methodsForElements.switchEnabled(SELECT_OR_RESET_ALL_CHECKBOX);
     }
 
-    @Step("Считываем состояние чекбокса выбранного проекта «For AutoTests»")
-    public boolean projectForAutoTestsIsChecked() {
-        return methodsForElements.switchEnabled(PROJECT_FOR_AUTO_TESTS_CHECKBOX);
-    }
-
-    @Step("Нажимаем на чекбокс выбранного проекта «For AutoTests»")
-    public void clickOnProjectForAutoTests() {
+    @Step("Нажимаем на чекбокс выбранного проекта")
+    public void moveToElementAndClickOnProject(String projectName) {
         waitOpenImportLocalProjectsView();
-        moveToElement(PROJECT_FOR_AUTO_TESTS_CHECKBOX);
-        // (new WebDriverWait(driver, Duration.ofSeconds(3)))
-        //       .until(ExpectedConditions.elementToBeClickable(PROJECT_FOR_AUTO_TESTS_CHECKBOX));
-        //driver.findElement(PROJECT_FOR_AUTO_TESTS_CHECKBOX).click();
-        driver.findElement(PROJECT_FOR_AUTO_TESTS_CHECKBOX).click();
-        driver.findElement(PROJECT_FOR_AUTO_TESTS_CHECKBOX).click();
-
-        // fixme по факту нажатия не происходит, когда нужно выбрать элемент в конце списка
-        //  или сделать прокрутку на другую страницу
-    }
-
-    @Step("Нажимаем на чекбокс выбранного проекта «ImportLocalProjectsViewTests»")
-    public void clickOnProjectImportLocalProjectsViewTests() {
-        waitOpenImportLocalProjectsView();
-        moveToElement(PROJECT_IMPORTLOCALPROJECTSVIEWTESTS_CHECKBOX);
-        driver.findElement(PROJECT_IMPORTLOCALPROJECTSVIEWTESTS_CHECKBOX).click();
-        driver.findElement(PROJECT_IMPORTLOCALPROJECTSVIEWTESTS_CHECKBOX).click();
-
-        // fixme по факту нажатия не происходит, когда нужно выбрать элемент в конце списка
-        //  или сделать прокрутку на другую страницу
+        WebElement project = driver.findElement(By.xpath("//CheckBox[.//TextBlock[@Text='" + projectName + "']]"));
+        Actions actions = new Actions(driver);
+        actions.scrollToElement(project);
+        project.click();
     }
 
     @Step("Считываем состояние чекбокса выбранного проекта «ImportLocalProjectsViewTests»")
@@ -105,15 +80,6 @@ public class ImportLocalProjectsView {
     public void clickOnIncreaseButtonScroll() {
         waitOpenImportLocalProjectsView();
         driver.findElement(INCREASE_BUTTON_SCROLL).click();
-    }
-
-    @Step("Нажимать на кнопку вниз полосы прокрутки")
-    public void moveToElement(By by) {
-        waitOpenImportLocalProjectsView();
-        while (!driver.findElement(by).isDisplayed()) ;
-        {
-            clickOnIncreaseButtonScroll();
-        }
     }
 
     @Step("Нажать на кнопку «Создать»")
@@ -147,15 +113,18 @@ public class ImportLocalProjectsView {
         return numberOfProjects;
     }
 
+    String oldName = "C:\\Users\\User\\Documents\\Brio MRS\\Database";
+    String newName = "_new_name";
+
     @Step("Переименовать папку Database в проводнике")
     public void renameFolderDatabase() {
         Path sourcePath = Paths.get(oldName);
         Path destinationPath = Paths.get(oldName + newName);
         try {
             Files.move(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
-            System.out.println("Успех! Файл был переименован.");
+            System.out.println("Успех! Папка была переименована.");
         } catch (IOException e) {
-            System.out.println("Ошибка! Возникло исключение: " + e.getMessage());
+            System.out.println("Ошибка! Возникло исключение при переименовании папки: " + e.getMessage());
         }
     }
 

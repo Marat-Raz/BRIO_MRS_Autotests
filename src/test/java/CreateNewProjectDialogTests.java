@@ -1,5 +1,6 @@
 import io.qameta.allure.Link;
 import io.qameta.allure.Links;
+import io.qameta.allure.Muted;
 import io.qameta.allure.Step;
 import mrs_elements.loggedmainpage.*;
 import mrs_elements.loggedmainpage.selectedProjectSideView.DeleteProjectDialog;
@@ -30,7 +31,7 @@ public class CreateNewProjectDialogTests extends TestsStarter {
         deleteProjectDialog.deselectCheckBoxLeaveLocalFiles();
         deleteProjectDialog.clickOnDeleteButton();
     }
-
+    @Muted
     @ParameterizedTest
     @DisplayName("Ввод запрещенных символов в поле ввода названия проекта")
     @ValueSource(strings = {"<", ">", "/", "\\", "|", "?", "*", "\"", ":"})

@@ -49,7 +49,7 @@ public class RestartMRSTests extends TestsStarter {
     @Test
     @DisplayName("Нажать на «Закрыть приложение» и в запросе нажать на «Да»")
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1792")
-    public void clickOnCloseApplicationButtonTest() throws InterruptedException {
+    public void clickOnCloseApplicationButtonTest() {
         menuWindow.clickOnCloseApplicationButton();
         closeApp = new CloseAppMassage(driver);
         try {

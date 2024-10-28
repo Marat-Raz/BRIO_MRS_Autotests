@@ -4,6 +4,7 @@ import mrs_elements.loggedmainpage.CreateNewProjectDialog;
 import mrs_elements.loggedmainpage.ImportLocalProjectsView;
 import mrs_elements.loggedmainpage.LoggedMainPage;
 import mrs_elements.loggedmainpage.SelectedProjectSideView;
+import mrs_elements.loggedmainpage.selectedProjectSideView.DeleteProjectDialog;
 import mrs_elements.loggedmainpage.selectedProjectSideView.ObjectivesListView;
 import mrs_elements.screenkeyboards.ScreenKeyboard;
 import org.junit.jupiter.api.DisplayName;
@@ -18,6 +19,7 @@ public class LoggedMainPageTests extends TestsStarter {
     CreateNewProjectDialog createNewProjectDialog = new CreateNewProjectDialog(driver);
     ScreenKeyboard screenKeyboard;
     SelectedProjectSideView selectedProjectSideView;
+    DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(driver);
     boolean result;
     String actTxt;
 
@@ -57,6 +59,14 @@ public class LoggedMainPageTests extends TestsStarter {
     @Links(value = {@Link(name = "Ссылка на тест-кейс №1", url = "https://app.qase.io/case/MRS-1443"),
                     @Link(name = "Ссылка на тест-кейс №2", url = "https://app.qase.io/case/MRS-2040")})
     public void clickOnProjectTest() throws InterruptedException {
+        if (!loggedMainPage.desiredProjectIsDisplayed("BRIO-Test")) {
+            loggedMainPage.clickOnCreateProjectsFromFoldersButton();
+            importLocalProjectsView.waitOpenImportLocalProjectsView();
+            importLocalProjectsView.moveToElementAndClickOnProject("BRIO-Test");
+            importLocalProjectsView.clickOnCreateButton();
+            loggedMainPage.waitOpenLoggedMainPage();
+            sleep(1000);
+        }
         loggedMainPage.findProjectAndClickThem("BRIO-Test");
         sleep(500);
         actTxt = loggedMainPage.getTextOpenOrCreateProjectButton();
@@ -65,6 +75,14 @@ public class LoggedMainPageTests extends TestsStarter {
         result = selectedProjectSideView.selectedProjectSideViewIsOpen();
         boolean anResult = objectivesListView.projectHasNotObjectives();
         loggedMainPage.findProjectAndClickThem("BRIO-Test");
+        if (loggedMainPage.desiredProjectIsDisplayed("BRIO-Test")) {
+            loggedMainPage.findProjectAndClickThem("BRIO-Test");
+            selectedProjectSideView.waitOpenSelectedProjectSideView();
+            sleep(1000);
+            selectedProjectSideView.selectMenuItemDeleteProjectItem();
+            deleteProjectDialog.selectCheckBoxLeaveLocalFiles();
+            deleteProjectDialog.clickOnDeleteButton();
+        }
         assertAll(
                 () -> assertEquals("Открыть проект", actTxt),
                 () -> assertTrue(result),

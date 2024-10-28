@@ -84,7 +84,7 @@ public class ObjectivesListView {
     }
 
     @Step("Зажать на первой задаче")
-    public void clickAndHoldOnFirstListBoxItem() { // todo реализовать метод долгого нажатия на кнопку или задаче
+    public void clickAndHoldOnFirstListBoxItem() {
         WebElement listBoxItem = driver.findElement(FIRST_LIST_BOX_ITEM);
         new Actions(driver)
                 .clickAndHold(listBoxItem)

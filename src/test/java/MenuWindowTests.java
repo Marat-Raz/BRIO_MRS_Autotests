@@ -95,7 +95,6 @@ public class MenuWindowTests extends TestsStarter {
     @DisplayName("Нажатие на кнопку «Выйти из аккаунта»")
     @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-424")
     public void clickOnLogOutAccountButtonAndLogInTest() {
-        // todo приспособить под новое меню
         menuWindow.clickOnLogOutAccountButton();
         LoginWindow loginWindow = new LoginWindow(driver);
         result = loginWindow.loginWindowIsOpen();
@@ -116,7 +115,6 @@ public class MenuWindowTests extends TestsStarter {
         menuWindow.waitOpenMenuWindow();
         assertTrue(result);
     }
-
 
     @Test
     @DisplayName("Открыть окно «Настройки CV»")

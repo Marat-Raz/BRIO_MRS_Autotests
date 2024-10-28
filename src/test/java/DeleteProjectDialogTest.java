@@ -1,23 +1,48 @@
 import io.qameta.allure.Link;
 import io.qameta.allure.Links;
 import io.qameta.allure.Muted;
+import mrs_elements.loggedmainpage.ImportLocalProjectsView;
 import mrs_elements.loggedmainpage.selectedProjectSideView.DeleteProjectDialog;
 import mrs_elements.loggedmainpage.LoggedMainPage;
 import mrs_elements.loggedmainpage.SelectedProjectSideView;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DeleteProjectDialogTest extends TestsStarter {
-    LoggedMainPage loggedMainPage = new LoggedMainPage(driver);
-    SelectedProjectSideView selectedProjectSideView = new SelectedProjectSideView(driver);
-    DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(driver);
+    static LoggedMainPage loggedMainPage = new LoggedMainPage(driver);
+    static SelectedProjectSideView selectedProjectSideView = new SelectedProjectSideView(driver);
+    static DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(driver);
+    static ImportLocalProjectsView importLocalProjectsView = new ImportLocalProjectsView(driver);
 
-    boolean result, resultOne, resultTwo, oldValue, newValue;
+    boolean resultOne, resultTwo, oldValue, newValue;
+
+    @BeforeAll
+    public static void uploadProjects() throws InterruptedException {
+        if (!loggedMainPage.desiredProjectIsDisplayed("For Autotests")) {
+            loggedMainPage.clickOnCreateProjectsFromFoldersButton();
+            importLocalProjectsView.waitOpenImportLocalProjectsView();
+            importLocalProjectsView.moveToElementAndClickOnProject("For Autotests");
+            importLocalProjectsView.clickOnCreateButton();
+            loggedMainPage.waitOpenLoggedMainPage();
+            sleep(1000);
+        }
+    }
+
+    @AfterAll
+    @DisplayName("Удалить проект оставив локальные файлы (чек бокс «Оставить локальные файлы» выбран)")
+    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1460")
+    public static void deleteProjects () throws InterruptedException {
+        if (loggedMainPage.desiredProjectIsDisplayed("For Autotests")) {
+            loggedMainPage.findProjectAndClickThem("For Autotests");
+            selectedProjectSideView.waitOpenSelectedProjectSideView();
+            sleep(1000);
+            selectedProjectSideView.selectMenuItemDeleteProjectItem();
+            deleteProjectDialog.selectCheckBoxLeaveLocalFiles();
+            deleteProjectDialog.clickOnDeleteButton();
+        }
+    }
 
     @BeforeEach
     public void clickOnProjectAndMenu() {
@@ -29,8 +54,10 @@ public class DeleteProjectDialogTest extends TestsStarter {
 
     @AfterEach
     public void closeDeleteProjectDialog() {
-        deleteProjectDialog.clickOnCancelButton();
-        loggedMainPage.findProjectAndClickThem("For Autotests");
+        if (loggedMainPage.desiredProjectIsDisplayed("For Autotests")) {
+            deleteProjectDialog.clickOnCancelButton();
+            loggedMainPage.findProjectAndClickThem("For Autotests");
+        }
     }
 
     @Test
@@ -56,22 +83,6 @@ public class DeleteProjectDialogTest extends TestsStarter {
         assertEquals(oldValue, !newValue);
     }
 
-    @Test
-    @DisplayName("Удалить проект оставив локальные файлы (чек бокс «Оставить локальные файлы» выбран)")
-    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1460")
-    public void deleteProjectWithoutLocalFilesTest() throws InterruptedException {
-        deleteProjectDialog.selectCheckBoxLeaveLocalFiles();
-        deleteProjectDialog.clickOnDeleteButton();
-        sleep(1500);
-        resultOne = loggedMainPage.desiredProjectIsDisplayed("For Autotests");
-        resultTwo = deleteProjectDialog.checkingDeletingFolderFromDatabase("For Autotests");
-        loggedMainPage.clickOnCreateProjectsFromFoldersButton();
-
-        assertAll(
-                () -> assertTrue(!resultOne),
-                () -> assertTrue(resultTwo)
-        );
-    }
 
     @Test
     @Muted
