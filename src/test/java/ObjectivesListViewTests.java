@@ -16,11 +16,11 @@ import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ObjectivesListViewTests extends TestsStarter {
-    static LoggedMainPage loggedMainPage = new LoggedMainPage(driver);
+    static LoggedMainPage loggedMainPage;
     ObjectivesListView objectivesListView = new ObjectivesListView(driver);
     static SelectedProjectSideView selectedProjectSideView = new SelectedProjectSideView(driver);
     ScreenKeyboard screenKeyboard = new ScreenKeyboard(driver);
-    static ImportLocalProjectsView importLocalProjectsView = new ImportLocalProjectsView(driver);
+    static ImportLocalProjectsView importLocalProjectsView;
     static DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(driver);
     String[] objectives, objectivesBeforeSort, objectivesAfterSort, objectivesForEqual;
     boolean result, oldValue, newValue;
@@ -29,8 +29,10 @@ public class ObjectivesListViewTests extends TestsStarter {
 
     @BeforeAll
     public static void uploadProjects() throws InterruptedException {
+        loggedMainPage = new LoggedMainPage(driver);
         if (!loggedMainPage.desiredProjectIsDisplayed("For Autotests")) {
             loggedMainPage.clickOnCreateProjectsFromFoldersButton();
+            importLocalProjectsView = new ImportLocalProjectsView(driver);
             importLocalProjectsView.waitOpenImportLocalProjectsView();
             importLocalProjectsView.moveToElementAndClickOnProject("For Autotests");
             importLocalProjectsView.clickOnCreateButton();

@@ -3,7 +3,6 @@ package mrs_elements.toppanel.menu.settings;
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
 import mrs_elements.MethodsForElements;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -183,7 +182,7 @@ public class InterfaceWindow {
     }
 
     @Step("Закрываем окно «Интерфейс», нажав на кнопку Х")
-    public void clickOnXButton() {
+    public static void clickOnXButton() {
         waitOpenInterfaceWindow();
         driver.findElement(INTERFACE_X_BUTTON).click();
     }

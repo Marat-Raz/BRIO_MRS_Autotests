@@ -9,8 +9,8 @@ import java.time.Duration;
 
 public class ExplorerView {
     public static AppiumDriver driver;
-    public static final By EXPLORER_VIEW =
-            By.xpath("//ExplorerView//*[starts-with(@Text,'Выберите модели для загрузки')]/parent::*");
+    public static final By EXPLORER_VIEW = By.xpath("//ExplorerView");
+            //By.xpath("//ExplorerView//*[starts-with(@Text,'Выберите модели для загрузки')]/parent::*");
     public static final By EXPLORER_GO_BACK_BTN = By.name("explorerGoBackBtn");
 
     public ExplorerView(AppiumDriver driver) {
@@ -30,4 +30,6 @@ public class ExplorerView {
     public void clickOnBackButton() {
         driver.findElement(EXPLORER_GO_BACK_BTN).click();
     }
+
+
 }

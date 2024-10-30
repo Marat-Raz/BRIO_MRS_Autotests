@@ -7,7 +7,7 @@ import mrs_elements.loggedmainpage.LoadModelsOpenedLastTimeDialog;
 import mrs_elements.loggedmainpage.LoggedMainPage;
 import mrs_elements.loggedmainpage.SelectedProjectSideView;
 import mrs_elements.loggedmainpage.selectedProjectSideView.DeleteProjectDialog;
-import mrs_elements.scene.modelview.BimViewerView;
+import mrs_elements.scene.bim_viewer_view.BimViewerView;
 import mrs_elements.toppanel.MenuWindow;
 import mrs_elements.toppanel.TopPanel;
 import org.junit.jupiter.api.DisplayName;
@@ -132,6 +132,4 @@ public class OpenProjectTests extends TestsStarter {
         deleteProjects("BRIO-Test");
         assertTrue(result);
     }
-
-
 }
