@@ -1,8 +1,15 @@
+import static java.lang.Thread.sleep;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import io.qameta.allure.Link;
 import io.qameta.allure.Links;
 import io.qameta.allure.Muted;
 import io.qameta.allure.Step;
-import mrs_elements.loggedmainpage.*;
+import mrs_elements.loggedmainpage.CreateNewProjectDialog;
+import mrs_elements.loggedmainpage.LoggedMainPage;
+import mrs_elements.loggedmainpage.SelectedProjectSideView;
 import mrs_elements.loggedmainpage.selectedProjectSideView.DeleteProjectDialog;
 import mrs_elements.screenkeyboards.ScreenKeyboard;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -11,136 +18,137 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static java.lang.Thread.sleep;
-import static org.junit.jupiter.api.Assertions.*;
-
 public class CreateNewProjectDialogTests extends TestsStarter {
-    LoggedMainPage loggedMainPage = new LoggedMainPage(driver);
-    CreateNewProjectDialog createNewProjectDialog = new CreateNewProjectDialog(driver);
-    DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(driver);
-    ScreenKeyboard screenKeyboard;
-    SelectedProjectSideView selectedProjectSideView = new SelectedProjectSideView(driver);
 
-    boolean result;
-    String actTxt;
+  LoggedMainPage loggedMainPage = new LoggedMainPage(driver);
+  CreateNewProjectDialog createNewProjectDialog = new CreateNewProjectDialog(driver);
+  DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(driver);
+  ScreenKeyboard screenKeyboard;
+  SelectedProjectSideView selectedProjectSideView = new SelectedProjectSideView(driver);
 
-    @Step("Удалить проект")
-    public void deleteProject(String project) {
-        loggedMainPage.findProjectAndClickThem(project);
-        selectedProjectSideView.selectMenuItemDeleteProjectItem();
-        deleteProjectDialog.deselectCheckBoxLeaveLocalFiles();
-        deleteProjectDialog.clickOnDeleteButton();
-    }
-    @Muted
-    @ParameterizedTest
-    @DisplayName("Ввод запрещенных символов в поле ввода названия проекта")
-    @ValueSource(strings = {"<", ">", "/", "\\", "|", "?", "*", "\"", ":"})
-    @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
-    public void enterProhibitedCharactersInProjectNameFieldTest(String prohibitedChar) {
-        loggedMainPage.clickOnOpenOrCreateProjectButton();
-        createNewProjectDialog.waitOpenCreateNewProjectDialog();
-        createNewProjectDialog.clickOnTextBox();
-        screenKeyboard = new ScreenKeyboard(driver);
-        screenKeyboard.waitOpenScreenKeyboard();
-        screenKeyboard.enterTextToScreenKeyboardInput(prohibitedChar);
-        screenKeyboard.clickHideKeyboardButton();
-        createNewProjectDialog.clickOnCreateButton();
-        result = createNewProjectDialog.errorMessageIsDisplayed();
-        actTxt = createNewProjectDialog.getTextErrorMessage();
-        createNewProjectDialog.clickOnCancelButton();
-        assertAll(
-                () -> assertTrue(result),
-                () -> assertEquals("#Имя проекта не должно содержать символ \"" + prohibitedChar + "\"", actTxt)
-        );
-    }
+  boolean result;
+  String actTxt;
 
-    @Test
-    @DisplayName("Ввод 151 символов в поле ввода названия проекта")
-    @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
-    public void enterLongLineInProjectNameFieldTest() {
-        loggedMainPage.clickOnOpenOrCreateProjectButton();
-        createNewProjectDialog.waitOpenCreateNewProjectDialog();
-        createNewProjectDialog.clickOnTextBox();
-        screenKeyboard = new ScreenKeyboard(driver);
-        screenKeyboard.waitOpenScreenKeyboard();
-        String longTxt = RandomStringUtils.randomAlphabetic(151);
-        screenKeyboard.enterTextToScreenKeyboardInput(longTxt);
-        screenKeyboard.clickHideKeyboardButton();
-        createNewProjectDialog.clickOnCreateButton();
-        result = createNewProjectDialog.errorMessageIsDisplayed();
-        actTxt = createNewProjectDialog.getTextErrorMessage();
-        createNewProjectDialog.clickOnCancelButton();
-        assertAll(
-                () -> assertTrue(result),
-                () -> assertEquals("#Название проекта слишком длинное", actTxt)
-        );
-    }
+  @Step("Удалить проект")
+  public void deleteProject(String project) {
+    loggedMainPage.findProjectAndClickThem(project);
+    selectedProjectSideView.selectMenuItemDeleteProjectItem();
+    deleteProjectDialog.deselectCheckBoxLeaveLocalFiles();
+    deleteProjectDialog.clickOnDeleteButton();
+  }
 
-    @Test
-    @DisplayName("Создать проект с кнопкой «Создать новый», а также проверить счетчик проектов на увеличение и уменьшение")
-    @Links(value = {@Link(name = "Ссылка на тест-кейс №1", url = "https://app.qase.io/case/MRS-1355"),
-                    @Link(name = "Ссылка на тест-кейс №2", url = "https://app.qase.io/case/MRS-1469"),
-                    @Link(name = "Ссылка на тест-кейс №3", url = "https://app.qase.io/case/MRS-1470"),
-                    @Link(name = "Ссылка на тест-кейс №3", url = "https://app.qase.io/case/MRS-1459")})
-    public void createProjectWithCreateNewButtonTest() throws InterruptedException {
-        String newProject = "createProjectTest - Delete me";
-        int numberOfProjects = loggedMainPage.getNumberOfProjectsFromHeaderProjects();
-        loggedMainPage.clickOnOpenOrCreateProjectButton();
-        createNewProjectDialog.waitOpenCreateNewProjectDialog();
-        createNewProjectDialog.clickOnTextBox();
-        screenKeyboard = new ScreenKeyboard(driver);
-        screenKeyboard.waitOpenScreenKeyboard();
-        screenKeyboard.enterTextToScreenKeyboardInput(newProject);
-        screenKeyboard.clickHideKeyboardButton();
-        createNewProjectDialog.clickOnCreateButton();
-        loggedMainPage.waitOpenLoggedMainPage();
-        int numberOfProjectsPlus1 = loggedMainPage.getNumberOfProjectsFromHeaderProjects();
-        sleep(1000);
-        result = loggedMainPage.desiredProjectIsDisplayed(newProject); // fixme не находит проект по xpath
-        deleteProject(newProject);
-        boolean otherResult = deleteProjectDialog.checkingDeletingFolderFromDatabase(newProject);
-        int numberOfProjectsMinus1 = loggedMainPage.getNumberOfProjectsFromHeaderProjects();
-        assertAll(
-                () -> assertEquals(numberOfProjects + 1, numberOfProjectsPlus1),
-                () -> assertEquals(numberOfProjectsPlus1 - 1, numberOfProjectsMinus1),
-                () -> assertTrue(result),
-                () -> assertTrue(!otherResult)
-        );
-    }
+  @Muted
+  @ParameterizedTest
+  @DisplayName("Ввод запрещенных символов в поле ввода названия проекта")
+  @ValueSource(strings = {"<", ">", "/", "\\", "|", "?", "*", "\"", ":"})
+  @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
+  public void enterProhibitedCharactersInProjectNameFieldTest(String prohibitedChar) {
+    loggedMainPage.clickOnOpenOrCreateProjectButton();
+    createNewProjectDialog.waitOpenCreateNewProjectDialog();
+    createNewProjectDialog.clickOnTextBox();
+    screenKeyboard = new ScreenKeyboard(driver);
+    screenKeyboard.waitOpenScreenKeyboard();
+    screenKeyboard.enterTextToScreenKeyboardInput(prohibitedChar);
+    screenKeyboard.clickHideKeyboardButton();
+    createNewProjectDialog.clickOnCreateButton();
+    result = createNewProjectDialog.errorMessageIsDisplayed();
+    actTxt = createNewProjectDialog.getTextErrorMessage();
+    createNewProjectDialog.clickOnCancelButton();
+    assertAll(
+        () -> assertTrue(result),
+        () -> assertEquals("#Имя проекта не должно содержать символ \"" + prohibitedChar + "\"",
+            actTxt)
+    );
+  }
 
-    @Test
-    @DisplayName("Создать проект с уже существующим именем")
-    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1705")
-    public void createProjectWithAnExistingNameTest() {
-        String duplicateName = "duplicateNameTest - Delete me";
-        loggedMainPage.clickOnOpenOrCreateProjectButton();
-        createNewProjectDialog.waitOpenCreateNewProjectDialog();
-        createNewProjectDialog.clickOnTextBox();
-        screenKeyboard = new ScreenKeyboard(driver);
-        screenKeyboard.waitOpenScreenKeyboard();
-        screenKeyboard.enterTextToScreenKeyboardInput(duplicateName);
-        screenKeyboard.clickHideKeyboardButton();
-        createNewProjectDialog.clickOnCreateButton();
+  @Test
+  @DisplayName("Ввод 151 символов в поле ввода названия проекта")
+  @Link(name = "Ссылка на тест-кейс отсутствует", url = "")
+  public void enterLongLineInProjectNameFieldTest() {
+    loggedMainPage.clickOnOpenOrCreateProjectButton();
+    createNewProjectDialog.waitOpenCreateNewProjectDialog();
+    createNewProjectDialog.clickOnTextBox();
+    screenKeyboard = new ScreenKeyboard(driver);
+    screenKeyboard.waitOpenScreenKeyboard();
+    String longTxt = RandomStringUtils.randomAlphabetic(151);
+    screenKeyboard.enterTextToScreenKeyboardInput(longTxt);
+    screenKeyboard.clickHideKeyboardButton();
+    createNewProjectDialog.clickOnCreateButton();
+    result = createNewProjectDialog.errorMessageIsDisplayed();
+    actTxt = createNewProjectDialog.getTextErrorMessage();
+    createNewProjectDialog.clickOnCancelButton();
+    assertAll(
+        () -> assertTrue(result),
+        () -> assertEquals("#Название проекта слишком длинное", actTxt)
+    );
+  }
 
-        loggedMainPage.clickOnOpenOrCreateProjectButton();
-        createNewProjectDialog.waitOpenCreateNewProjectDialog();
-        createNewProjectDialog.clickOnTextBox();
-        screenKeyboard = new ScreenKeyboard(driver);
-        screenKeyboard.waitOpenScreenKeyboard();
-        screenKeyboard.enterTextToScreenKeyboardInput(duplicateName);
-        screenKeyboard.clickHideKeyboardButton();
-        createNewProjectDialog.clickOnCreateButton();
-        result = createNewProjectDialog.errorMessageIsDisplayed();
-        actTxt = createNewProjectDialog.getTextErrorMessage();
-        createNewProjectDialog.clickOnCancelButton();
+  @Test
+  @DisplayName("Создать проект с кнопкой «Создать новый», а также проверить счетчик проектов на увеличение и уменьшение")
+  @Links(value = {@Link(name = "Ссылка на тест-кейс №1", url = "https://app.qase.io/case/MRS-1355"),
+      @Link(name = "Ссылка на тест-кейс №2", url = "https://app.qase.io/case/MRS-1469"),
+      @Link(name = "Ссылка на тест-кейс №3", url = "https://app.qase.io/case/MRS-1470"),
+      @Link(name = "Ссылка на тест-кейс №3", url = "https://app.qase.io/case/MRS-1459")})
+  public void createProjectWithCreateNewButtonTest() throws InterruptedException {
+    String newProject = "createProjectTest - Delete me";
+    int numberOfProjects = loggedMainPage.getNumberOfProjectsFromHeaderProjects();
+    loggedMainPage.clickOnOpenOrCreateProjectButton();
+    createNewProjectDialog.waitOpenCreateNewProjectDialog();
+    createNewProjectDialog.clickOnTextBox();
+    screenKeyboard = new ScreenKeyboard(driver);
+    screenKeyboard.waitOpenScreenKeyboard();
+    screenKeyboard.enterTextToScreenKeyboardInput(newProject);
+    screenKeyboard.clickHideKeyboardButton();
+    createNewProjectDialog.clickOnCreateButton();
+    loggedMainPage.waitOpenLoggedMainPage();
+    int numberOfProjectsPlus1 = loggedMainPage.getNumberOfProjectsFromHeaderProjects();
+    sleep(1000);
+    result = loggedMainPage.desiredProjectIsDisplayed(
+        newProject); // fixme не находит проект по xpath
+    deleteProject(newProject);
+    boolean otherResult = deleteProjectDialog.checkingDeletingFolderFromDatabase(newProject);
+    int numberOfProjectsMinus1 = loggedMainPage.getNumberOfProjectsFromHeaderProjects();
+    assertAll(
+        () -> assertEquals(numberOfProjects + 1, numberOfProjectsPlus1),
+        () -> assertEquals(numberOfProjectsPlus1 - 1, numberOfProjectsMinus1),
+        () -> assertTrue(result),
+        () -> assertTrue(!otherResult)
+    );
+  }
 
-        deleteProject(duplicateName);
-        assertAll(
-                () -> assertTrue(result),
-                () -> assertEquals("#Проект с заданным именем уже существует", actTxt)
-        );
+  @Test
+  @DisplayName("Создать проект с уже существующим именем")
+  @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1705")
+  public void createProjectWithAnExistingNameTest() {
+    String duplicateName = "duplicateNameTest - Delete me";
+    loggedMainPage.clickOnOpenOrCreateProjectButton();
+    createNewProjectDialog.waitOpenCreateNewProjectDialog();
+    createNewProjectDialog.clickOnTextBox();
+    screenKeyboard = new ScreenKeyboard(driver);
+    screenKeyboard.waitOpenScreenKeyboard();
+    screenKeyboard.enterTextToScreenKeyboardInput(duplicateName);
+    screenKeyboard.clickHideKeyboardButton();
+    createNewProjectDialog.clickOnCreateButton();
 
-    }
+    loggedMainPage.clickOnOpenOrCreateProjectButton();
+    createNewProjectDialog.waitOpenCreateNewProjectDialog();
+    createNewProjectDialog.clickOnTextBox();
+    screenKeyboard = new ScreenKeyboard(driver);
+    screenKeyboard.waitOpenScreenKeyboard();
+    screenKeyboard.enterTextToScreenKeyboardInput(duplicateName);
+    screenKeyboard.clickHideKeyboardButton();
+    createNewProjectDialog.clickOnCreateButton();
+    result = createNewProjectDialog.errorMessageIsDisplayed();
+    actTxt = createNewProjectDialog.getTextErrorMessage();
+    createNewProjectDialog.clickOnCancelButton();
+
+    deleteProject(duplicateName);
+    assertAll(
+        () -> assertTrue(result),
+        () -> assertEquals("#Проект с заданным именем уже существует", actTxt)
+    );
+
+  }
 
 
 }

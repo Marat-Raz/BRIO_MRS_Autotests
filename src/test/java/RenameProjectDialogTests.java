@@ -1,3 +1,8 @@
+import static java.lang.Thread.sleep;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import io.qameta.allure.Link;
 import io.qameta.allure.Links;
 import mrs_elements.loggedmainpage.ImportLocalProjectsView;
@@ -7,152 +12,152 @@ import mrs_elements.loggedmainpage.selectedProjectSideView.DeleteProjectDialog;
 import mrs_elements.loggedmainpage.selectedProjectSideView.RenameProjectDialog;
 import mrs_elements.screenkeyboards.ScreenKeyboard;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static java.lang.Thread.sleep;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+public class RenameProjectDialogTests extends TestsStarter {
 
-public class RenameProjectDialogTests extends TestsStarter{
+  static LoggedMainPage loggedMainPage = new LoggedMainPage(driver);
+  static ImportLocalProjectsView importLocalProjectsView = new ImportLocalProjectsView(driver);
+  RenameProjectDialog renameProjectDialog = new RenameProjectDialog(driver);
+  ScreenKeyboard screenKeyboard;
+  static DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(driver);
+  static SelectedProjectSideView selectedProjectSideView = new SelectedProjectSideView(driver);
 
-    static LoggedMainPage loggedMainPage = new LoggedMainPage(driver);
-    static ImportLocalProjectsView importLocalProjectsView = new ImportLocalProjectsView(driver);
-    RenameProjectDialog renameProjectDialog = new RenameProjectDialog(driver);
-    ScreenKeyboard screenKeyboard;
-    static DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(driver);
-    static SelectedProjectSideView selectedProjectSideView = new SelectedProjectSideView(driver);
+  boolean result;
+  String actTxt;
 
-    boolean result;
-    String actTxt;
-
-    @BeforeAll
-    public static void uploadProjects() throws InterruptedException {
-        if (!loggedMainPage.desiredProjectIsDisplayed("For Autotests"))
-        {
-            loggedMainPage.clickOnCreateProjectsFromFoldersButton();
-            importLocalProjectsView.waitOpenImportLocalProjectsView();
-            importLocalProjectsView.moveToElementAndClickOnProject("For Autotests");
-            importLocalProjectsView.clickOnCreateButton();
-            loggedMainPage.waitOpenLoggedMainPage();
-            sleep(1000);
-        }
+  @BeforeAll
+  public static void uploadProjects() throws InterruptedException {
+    if (!loggedMainPage.desiredProjectIsDisplayed("For Autotests")) {
+      loggedMainPage.clickOnCreateProjectsFromFoldersButton();
+      importLocalProjectsView.waitOpenImportLocalProjectsView();
+      importLocalProjectsView.moveToElementAndClickOnProject("For Autotests");
+      importLocalProjectsView.clickOnCreateButton();
+      loggedMainPage.waitOpenLoggedMainPage();
+      sleep(1000);
     }
+  }
 
-    @AfterAll
-    @DisplayName("Удалить проект оставив локальные файлы (чек бокс «Оставить локальные файлы» выбран)")
-    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1460")
-    public static void deleteProjects () throws InterruptedException {
-        if (loggedMainPage.desiredProjectIsDisplayed("For Autotests"))
-        {
-            loggedMainPage.findProjectAndClickThem("For Autotests");
-            selectedProjectSideView.waitOpenSelectedProjectSideView();
-            sleep(1000);
-            selectedProjectSideView.selectMenuItemDeleteProjectItem();
-            deleteProjectDialog.selectCheckBoxLeaveLocalFiles();
-            deleteProjectDialog.clickOnDeleteButton();
-        }
+  @AfterAll
+  @DisplayName("Удалить проект оставив локальные файлы (чек бокс «Оставить локальные файлы» выбран)")
+  @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1460")
+  public static void deleteProjects() throws InterruptedException {
+    if (loggedMainPage.desiredProjectIsDisplayed("For Autotests")) {
+      loggedMainPage.findProjectAndClickThem("For Autotests");
+      selectedProjectSideView.waitOpenSelectedProjectSideView();
+      sleep(1000);
+      selectedProjectSideView.selectMenuItemDeleteProjectItem();
+      deleteProjectDialog.selectCheckBoxLeaveLocalFiles();
+      deleteProjectDialog.clickOnDeleteButton();
     }
-    @BeforeEach
-    public void clickOnProjectAndMenu() {
-        loggedMainPage.findProjectAndClickThem("For Autotests");
-        selectedProjectSideView.waitOpenSelectedProjectSideView();
-        selectedProjectSideView.clickOnMenuItemButton();
-        selectedProjectSideView.selectMenuItemRenameProjectItem();
+  }
+
+  @BeforeEach
+  public void clickOnProjectAndMenu() {
+    loggedMainPage.findProjectAndClickThem("For Autotests");
+    selectedProjectSideView.waitOpenSelectedProjectSideView();
+    selectedProjectSideView.clickOnMenuItemButton();
+    selectedProjectSideView.selectMenuItemRenameProjectItem();
+  }
+
+  @AfterEach
+  public void closeDeleteProjectDialog() {
+    if (renameProjectDialog.RenameProjectDialogIsOpen()) {
+      renameProjectDialog.clickOnCancelButton();
     }
+    loggedMainPage.findProjectAndClickThem("For Autotests");
+  }
 
-    @AfterEach
-    public void closeDeleteProjectDialog() {
-        if (renameProjectDialog.RenameProjectDialogIsOpen())
-        {
-            renameProjectDialog.clickOnCancelButton();
-        }
-        loggedMainPage.findProjectAndClickThem("For Autotests");
-    }
+  @Test
+  @DisplayName("Открыть диалог переименования, но не переименовывать проект")
+  @Links(value = {@Link(name = "Ссылка на тест-кейс №1", url = "https://app.qase.io/case/MRS-1454"),
+      @Link(name = "Ссылка на тест-кейс №1", url = "https://app.qase.io/case/MRS-1455"),
+      @Link(name = "Ссылка на тест-кейс №2", url = "https://app.qase.io/case/MRS-1706")})
+  public void createProjectWithAnExistingNameTest() {
+    // todo изменить тест после изменения поведения при сохранении старого имени
+    renameProjectDialog.clickOnRenameButton();
+    result = renameProjectDialog.errorMessageIsDisplayed();
+    actTxt = renameProjectDialog.getTextErrorMessage();
+    assertAll(
+        () -> assertTrue(result),
+        () -> assertEquals("#Проект с заданным именем уже существует", actTxt)
+    );
+  }
 
-    @Test
-    @DisplayName("Открыть диалог переименования, но не переименовывать проект")
-    @Links(value = {@Link(name = "Ссылка на тест-кейс №1", url = "https://app.qase.io/case/MRS-1454"),
-                    @Link(name = "Ссылка на тест-кейс №1", url = "https://app.qase.io/case/MRS-1455"),
-                    @Link(name = "Ссылка на тест-кейс №2", url = "https://app.qase.io/case/MRS-1706")})
-    public void createProjectWithAnExistingNameTest() {
-        // todo изменить тест после изменения поведения при сохранении старого имени
-        renameProjectDialog.clickOnRenameButton();
-        result = renameProjectDialog.errorMessageIsDisplayed();
-        actTxt = renameProjectDialog.getTextErrorMessage();
-        assertAll(
-                () -> assertTrue(result),
-                () -> assertEquals("#Проект с заданным именем уже существует", actTxt)
-        );
-    }
+  @Test
+  @DisplayName("Переименовать проект")
+  @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1612")
+  public void renameProjectTest() throws InterruptedException {
+    String newName = "newName";
+    renameProjectDialog.clickOnInputBox();
+    screenKeyboard = new ScreenKeyboard(driver);
+    screenKeyboard.waitOpenScreenKeyboard();
+    screenKeyboard.enterTextToScreenKeyboardInput(newName);
+    screenKeyboard.clickHideKeyboardButton();
+    renameProjectDialog.clickOnRenameButton();
+    sleep(3000);
+    result = loggedMainPage.desiredProjectIsDisplayed(newName);
 
-    @Test
-    @DisplayName("Переименовать проект")
-    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1612")
-    public void renameProjectTest() throws InterruptedException {
-        String newName = "newName";
-        renameProjectDialog.clickOnInputBox();
-        screenKeyboard = new ScreenKeyboard(driver);
-        screenKeyboard.waitOpenScreenKeyboard();
-        screenKeyboard.enterTextToScreenKeyboardInput(newName);
-        screenKeyboard.clickHideKeyboardButton();
-        renameProjectDialog.clickOnRenameButton();
-        sleep(3000);
-        result = loggedMainPage.desiredProjectIsDisplayed(newName);
+    loggedMainPage.findProjectAndClickThem(newName);
+    selectedProjectSideView.waitOpenSelectedProjectSideView();
+    selectedProjectSideView.clickOnMenuItemButton();
+    selectedProjectSideView.selectMenuItemRenameProjectItem();
+    renameProjectDialog.clickOnInputBox();
+    screenKeyboard = new ScreenKeyboard(driver);
+    screenKeyboard.waitOpenScreenKeyboard();
+    screenKeyboard.enterTextToScreenKeyboardInput("For Autotests");
+    screenKeyboard.clickHideKeyboardButton();
+    renameProjectDialog.clickOnRenameButton();
+    sleep(3000);
+    clickOnProjectAndMenu();
 
-        loggedMainPage.findProjectAndClickThem(newName);
-        selectedProjectSideView.waitOpenSelectedProjectSideView();
-        selectedProjectSideView.clickOnMenuItemButton();
-        selectedProjectSideView.selectMenuItemRenameProjectItem();
-        renameProjectDialog.clickOnInputBox();
-        screenKeyboard = new ScreenKeyboard(driver);
-        screenKeyboard.waitOpenScreenKeyboard();
-        screenKeyboard.enterTextToScreenKeyboardInput("For Autotests");
-        screenKeyboard.clickHideKeyboardButton();
-        renameProjectDialog.clickOnRenameButton();
-        sleep(3000);
-        clickOnProjectAndMenu();
+    assertTrue(result);
+  }
 
-        assertTrue(result);
-    }
+  @ParameterizedTest
+  @DisplayName("Ввод запрещенных символов в поле ввода названия проекта")
+  @ValueSource(strings = {"<", ">", "/", "\\", "|", "?", "*", "\"", ":"})
+  @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1707")
+  public void enterProhibitedCharactersInProjectNameFieldTest(String prohibitedChar) {
+    renameProjectDialog.clickOnInputBox();
+    screenKeyboard = new ScreenKeyboard(driver);
+    screenKeyboard.waitOpenScreenKeyboard();
+    screenKeyboard.enterTextToScreenKeyboardInput(prohibitedChar);
+    screenKeyboard.clickHideKeyboardButton();
+    renameProjectDialog.clickOnRenameButton();
+    result = renameProjectDialog.errorMessageIsDisplayed();
+    actTxt = renameProjectDialog.getTextErrorMessage();
+    assertAll(
+        () -> assertTrue(result),
+        () -> assertEquals("#Имя проекта не должно содержать символ \"" + prohibitedChar + "\"",
+            actTxt)
+    );
+  }
 
-    @ParameterizedTest
-    @DisplayName("Ввод запрещенных символов в поле ввода названия проекта")
-    @ValueSource(strings = {"<", ">", "/", "\\", "|", "?", "*", "\"", ":"})
-    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1707")
-    public void enterProhibitedCharactersInProjectNameFieldTest(String prohibitedChar) {
-        renameProjectDialog.clickOnInputBox();
-        screenKeyboard = new ScreenKeyboard(driver);
-        screenKeyboard.waitOpenScreenKeyboard();
-        screenKeyboard.enterTextToScreenKeyboardInput(prohibitedChar);
-        screenKeyboard.clickHideKeyboardButton();
-        renameProjectDialog.clickOnRenameButton();
-        result = renameProjectDialog.errorMessageIsDisplayed();
-        actTxt = renameProjectDialog.getTextErrorMessage();
-        assertAll(
-                () -> assertTrue(result),
-                () -> assertEquals("#Имя проекта не должно содержать символ \"" + prohibitedChar + "\"", actTxt)
-        );
-    }
-
-    @Test
-    @DisplayName("Ввод 151 символов в поле ввода названия проекта")
-    @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1708")
-    public void enterLongLineInProjectNameFieldTest() {
-        renameProjectDialog.clickOnInputBox();
-        screenKeyboard = new ScreenKeyboard(driver);
-        screenKeyboard.waitOpenScreenKeyboard();
-        String longTxt = RandomStringUtils.randomAlphabetic(151);
-        screenKeyboard.enterTextToScreenKeyboardInput(longTxt);
-        screenKeyboard.clickHideKeyboardButton();
-        renameProjectDialog.clickOnRenameButton();
-        result = renameProjectDialog.errorMessageIsDisplayed();
-        actTxt = renameProjectDialog.getTextErrorMessage();
-        assertAll(
-                () -> assertTrue(result),
-                () -> assertEquals("#Название проекта слишком длинное", actTxt)
-        );
-    }
+  @Test
+  @DisplayName("Ввод 151 символов в поле ввода названия проекта")
+  @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1708")
+  public void enterLongLineInProjectNameFieldTest() {
+    renameProjectDialog.clickOnInputBox();
+    screenKeyboard = new ScreenKeyboard(driver);
+    screenKeyboard.waitOpenScreenKeyboard();
+    String longTxt = RandomStringUtils.randomAlphabetic(151);
+    screenKeyboard.enterTextToScreenKeyboardInput(longTxt);
+    screenKeyboard.clickHideKeyboardButton();
+    renameProjectDialog.clickOnRenameButton();
+    result = renameProjectDialog.errorMessageIsDisplayed();
+    actTxt = renameProjectDialog.getTextErrorMessage();
+    assertAll(
+        () -> assertTrue(result),
+        () -> assertEquals("#Название проекта слишком длинное", actTxt)
+    );
+  }
 
 }

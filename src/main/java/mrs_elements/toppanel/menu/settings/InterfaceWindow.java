@@ -1,195 +1,225 @@
 package mrs_elements.toppanel.menu.settings;
 
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.DISPLAY_TASK_OUT_OF_SIGHT_TOGGLE_BUTTON;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.FAR_CLIPPING_PLANE_OUTPUT;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.FAR_CLIPPING_PLANE_SLIDER;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.GO_BACK_INTERFACE_BUTTON;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.INTERFACE_LANGUAGE_TOGGLE_BUTTON;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.INTERFACE_SIDE_POPUP_LEFT;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.INTERFACE_SIDE_POPUP_RIGHT;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.INTERFACE_SIDE_TOGGLE_BUTTON;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.INTERFACE_WINDOW;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.INTERFACE_X_BUTTON;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.LANGUAGE_POPUP_ENGLISH;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.LANGUAGE_POPUP_RUSSIAN;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.MAXIMUM_RENDERING_DISTANCE_LABELS_OUTPUT;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.MAXIMUM_RENDERING_DISTANCE_LABELS_SLIDER;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.RENDERING_LEVEL_OF_DETAIL_OUTPUT;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.RENDERING_LEVEL_OF_DETAIL_SLIDER;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.SCROLL_BAR_INCREASE_BUTTON;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.SHOW_LOCATION_ON_MAP_TOGGLE_BUTTON;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.SHOW_MAP_PANE_BUTTON_TOGGLE_BUTTON;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.SHOW_MINIMAP_TOGGLE_BUTTON;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.SHOW_VIEW_CUBE_TOGGLE_BUTTON;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.STICKING_TAPE_MEASURE_TO_CORNERS_OF_MODEL_TOGGLE_BUTTON;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.USE_DRAW_DISTANCE_TOGGLE_BUTTON;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.VISIBILITY_RANGE_OF_OBJECTS_OUTPUT;
+import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.VISIBILITY_RANGE_OF_OBJECTS_SLIDER;
+
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
+import java.time.Duration;
 import mrs_elements.MethodsForElements;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.*;
-
 public class InterfaceWindow {
-    public static AppiumDriver driver;
-    MethodsForElements methodsForElements;
-    public InterfaceWindow(AppiumDriver driver) {
-        this.driver = driver;
-        methodsForElements = new MethodsForElements(driver);
-    }
 
-    public static void waitOpenInterfaceWindow() {
-        (new WebDriverWait(driver, Duration.ofSeconds(3)))
-                .until(ExpectedConditions.visibilityOfElementLocated(INTERFACE_WINDOW));
-    }
+  public static AppiumDriver driver;
+  MethodsForElements methodsForElements;
 
-    public boolean interfaceWindowIsOpen() {
-        waitOpenInterfaceWindow();
-        return driver.findElement(INTERFACE_WINDOW).isDisplayed();
-    }
+  public InterfaceWindow(AppiumDriver driver) {
+    this.driver = driver;
+    methodsForElements = new MethodsForElements(driver);
+  }
 
-    @Step("Нажимаем на кнопку «<Интерфейс»")
-    public static void clickOnGoBackButton() {
-        waitOpenInterfaceWindow();
-        driver.findElement(GO_BACK_INTERFACE_BUTTON).click();
-    }
+  public static void waitOpenInterfaceWindow() {
+    (new WebDriverWait(driver, Duration.ofSeconds(3)))
+        .until(ExpectedConditions.visibilityOfElementLocated(INTERFACE_WINDOW));
+  }
 
-    @Step("Считываем язык системы")
-    public String systemLanguageIs() {
-        String systemLanguage = driver.findElement(INTERFACE_LANGUAGE_TOGGLE_BUTTON).getText();
-        return systemLanguage;
-    }
+  public boolean interfaceWindowIsOpen() {
+    waitOpenInterfaceWindow();
+    return driver.findElement(INTERFACE_WINDOW).isDisplayed();
+  }
 
-    @Step("Выбор элемента «Русский» выпадающего списка «Язык»")
-    public void selectLanguageRussian() {
-        methodsForElements.clickingOnListAndSelectListItem(INTERFACE_LANGUAGE_TOGGLE_BUTTON, LANGUAGE_POPUP_RUSSIAN);
-    }
+  @Step("Нажимаем на кнопку «<Интерфейс»")
+  public static void clickOnGoBackButton() {
+    waitOpenInterfaceWindow();
+    driver.findElement(GO_BACK_INTERFACE_BUTTON).click();
+  }
 
-    @Step("Выбор элемента «English (US)» выпадающего списка «Язык»")
-    public void selectLanguageEnglish() {
-        methodsForElements.clickingOnListAndSelectListItem(INTERFACE_LANGUAGE_TOGGLE_BUTTON, LANGUAGE_POPUP_ENGLISH);
-    }
+  @Step("Считываем язык системы")
+  public String systemLanguageIs() {
+    String systemLanguage = driver.findElement(INTERFACE_LANGUAGE_TOGGLE_BUTTON).getText();
+    return systemLanguage;
+  }
 
-    @Step("Считываем сторону интерфейса")
-    public String interfaceSideIs() {
-        String interfaceSide = driver.findElement(INTERFACE_SIDE_TOGGLE_BUTTON).getText();
-        return interfaceSide;
-    }
+  @Step("Выбор элемента «Русский» выпадающего списка «Язык»")
+  public void selectLanguageRussian() {
+    methodsForElements.clickingOnListAndSelectListItem(INTERFACE_LANGUAGE_TOGGLE_BUTTON,
+        LANGUAGE_POPUP_RUSSIAN);
+  }
 
-    @Step("Выбор элемента «Левая» выпадающего списка «Сторона интерфейса»")
-    public void selectInterfaceSideLeft() {
-        methodsForElements.clickingOnListAndSelectListItem(INTERFACE_SIDE_TOGGLE_BUTTON, INTERFACE_SIDE_POPUP_LEFT);
-    }
+  @Step("Выбор элемента «English (US)» выпадающего списка «Язык»")
+  public void selectLanguageEnglish() {
+    methodsForElements.clickingOnListAndSelectListItem(INTERFACE_LANGUAGE_TOGGLE_BUTTON,
+        LANGUAGE_POPUP_ENGLISH);
+  }
 
-    @Step("Выбор элемента «Правая» выпадающего списка «Сторона интерфейса»")
-    public void selectInterfaceSideRight() {
-        methodsForElements.clickingOnListAndSelectListItem(INTERFACE_SIDE_TOGGLE_BUTTON, INTERFACE_SIDE_POPUP_RIGHT);
-    }
+  @Step("Считываем сторону интерфейса")
+  public String interfaceSideIs() {
+    String interfaceSide = driver.findElement(INTERFACE_SIDE_TOGGLE_BUTTON).getText();
+    return interfaceSide;
+  }
 
-    @Step("Считываем состояние переключателя «Показывать видовой куб»")
-    public boolean showViewCubeToggleButtonIsEnabled() {
-        return methodsForElements.switchEnabled(SHOW_VIEW_CUBE_TOGGLE_BUTTON);
-    }
+  @Step("Выбор элемента «Левая» выпадающего списка «Сторона интерфейса»")
+  public void selectInterfaceSideLeft() {
+    methodsForElements.clickingOnListAndSelectListItem(INTERFACE_SIDE_TOGGLE_BUTTON,
+        INTERFACE_SIDE_POPUP_LEFT);
+  }
 
-    @Step("Нажимаем на переключатель «Показывать видовой куб»")
-    public static void clickOnShowViewCubeToggleButton() {
-        driver.findElement(SHOW_VIEW_CUBE_TOGGLE_BUTTON).click();
-    }
+  @Step("Выбор элемента «Правая» выпадающего списка «Сторона интерфейса»")
+  public void selectInterfaceSideRight() {
+    methodsForElements.clickingOnListAndSelectListItem(INTERFACE_SIDE_TOGGLE_BUTTON,
+        INTERFACE_SIDE_POPUP_RIGHT);
+  }
 
-    @Step("Считываем состояние переключателя «Показывать миникарту»")
-    public boolean showMinimapToggleButtonIsEnabled() {
-        return methodsForElements.switchEnabled(SHOW_MINIMAP_TOGGLE_BUTTON);
-    }
+  @Step("Считываем состояние переключателя «Показывать видовой куб»")
+  public boolean showViewCubeToggleButtonIsEnabled() {
+    return methodsForElements.switchEnabled(SHOW_VIEW_CUBE_TOGGLE_BUTTON);
+  }
 
-    @Step("Нажимаем на переключатель «Показывать миникарту»")
-    public static void clickOnShowMinimapToggleButton() {
-        driver.findElement(SHOW_MINIMAP_TOGGLE_BUTTON).click();
-    }
+  @Step("Нажимаем на переключатель «Показывать видовой куб»")
+  public static void clickOnShowViewCubeToggleButton() {
+    driver.findElement(SHOW_VIEW_CUBE_TOGGLE_BUTTON).click();
+  }
 
-    @Step("Считываем состояние переключателя «Показывать местоположение на карте»")
-    public boolean showLocationOnTheMapToggleButtonIsEnabled() {
-        return methodsForElements.switchEnabled(SHOW_LOCATION_ON_MAP_TOGGLE_BUTTON);
-    }
+  @Step("Считываем состояние переключателя «Показывать миникарту»")
+  public boolean showMinimapToggleButtonIsEnabled() {
+    return methodsForElements.switchEnabled(SHOW_MINIMAP_TOGGLE_BUTTON);
+  }
 
-    @Step("Нажимаем на переключатель «Показывать местоположение на карте»")
-    public static void clickOnShowLocationOnTheMapToggleButton() {
-        driver.findElement(SHOW_LOCATION_ON_MAP_TOGGLE_BUTTON).click();
-    }
+  @Step("Нажимаем на переключатель «Показывать миникарту»")
+  public static void clickOnShowMinimapToggleButton() {
+    driver.findElement(SHOW_MINIMAP_TOGGLE_BUTTON).click();
+  }
 
-    @Step("Считываем состояние переключателя «Показывать кнопку панели карт»")
-    public boolean showShowMapPaneButtonToggleButtonIsEnabled() {
-        return methodsForElements.switchEnabled(SHOW_MAP_PANE_BUTTON_TOGGLE_BUTTON);
-    }
+  @Step("Считываем состояние переключателя «Показывать местоположение на карте»")
+  public boolean showLocationOnTheMapToggleButtonIsEnabled() {
+    return methodsForElements.switchEnabled(SHOW_LOCATION_ON_MAP_TOGGLE_BUTTON);
+  }
 
-    @Step("Нажимаем на переключатель «Показывать кнопку панели карт»")
-    public static void clickOnShowMapPaneButtonToggleButton() {
-        driver.findElement(SHOW_MAP_PANE_BUTTON_TOGGLE_BUTTON).click();
-    }
+  @Step("Нажимаем на переключатель «Показывать местоположение на карте»")
+  public static void clickOnShowLocationOnTheMapToggleButton() {
+    driver.findElement(SHOW_LOCATION_ON_MAP_TOGGLE_BUTTON).click();
+  }
 
-    @Step("Считываем состояние переключателя «Прилипание рулетки к углам модели»")
-    public boolean stickingTapeMeasureToCornersOfModelToggleButtonIsEnabled() {
-        return methodsForElements.switchEnabled(STICKING_TAPE_MEASURE_TO_CORNERS_OF_MODEL_TOGGLE_BUTTON);
-    }
+  @Step("Считываем состояние переключателя «Показывать кнопку панели карт»")
+  public boolean showShowMapPaneButtonToggleButtonIsEnabled() {
+    return methodsForElements.switchEnabled(SHOW_MAP_PANE_BUTTON_TOGGLE_BUTTON);
+  }
 
-    @Step("Нажимаем на переключатель «Прилипание рулетки к углам модели»")
-    public static void clickOnStickingTapeMeasureToCornersOfModelToggleButton() {
-        driver.findElement(STICKING_TAPE_MEASURE_TO_CORNERS_OF_MODEL_TOGGLE_BUTTON).click();
-    }
+  @Step("Нажимаем на переключатель «Показывать кнопку панели карт»")
+  public static void clickOnShowMapPaneButtonToggleButton() {
+    driver.findElement(SHOW_MAP_PANE_BUTTON_TOGGLE_BUTTON).click();
+  }
 
-    @Step("Считываем состояние переключателя «Отображать метки задач, находящихся вне поля зрения»")
-    public boolean displayTaskOutOfSightToggleButtonIsEnabled() {
-        return methodsForElements.switchEnabled(DISPLAY_TASK_OUT_OF_SIGHT_TOGGLE_BUTTON);
-    }
+  @Step("Считываем состояние переключателя «Прилипание рулетки к углам модели»")
+  public boolean stickingTapeMeasureToCornersOfModelToggleButtonIsEnabled() {
+    return methodsForElements.switchEnabled(
+        STICKING_TAPE_MEASURE_TO_CORNERS_OF_MODEL_TOGGLE_BUTTON);
+  }
 
-    @Step("Нажимаем на переключатель «Отображать метки задач, находящихся вне поля зрения»")
-    public static void clickOnDisplayTaskOutOfSightToggleButton() {
-        driver.findElement(DISPLAY_TASK_OUT_OF_SIGHT_TOGGLE_BUTTON).click();
-    }
+  @Step("Нажимаем на переключатель «Прилипание рулетки к углам модели»")
+  public static void clickOnStickingTapeMeasureToCornersOfModelToggleButton() {
+    driver.findElement(STICKING_TAPE_MEASURE_TO_CORNERS_OF_MODEL_TOGGLE_BUTTON).click();
+  }
 
-    @Step("Двигаем слайдер «Дальность видимости объектов»")
-    public void moveSliderVisibilityRangeOfObjectsSlider(int percent) {
-        WebElement slider = driver.findElement(VISIBILITY_RANGE_OF_OBJECTS_SLIDER);
-        methodsForElements.moveSliderToPercent(slider, percent);
-    }
+  @Step("Считываем состояние переключателя «Отображать метки задач, находящихся вне поля зрения»")
+  public boolean displayTaskOutOfSightToggleButtonIsEnabled() {
+    return methodsForElements.switchEnabled(DISPLAY_TASK_OUT_OF_SIGHT_TOGGLE_BUTTON);
+  }
 
-    @Step("Считываем состояние слайдера «Дальность видимости объектов»")
-    public String readValueOfVisibilityRangeOfObjectsField() {
-        return driver.findElement(VISIBILITY_RANGE_OF_OBJECTS_OUTPUT).getText();
-    }
+  @Step("Нажимаем на переключатель «Отображать метки задач, находящихся вне поля зрения»")
+  public static void clickOnDisplayTaskOutOfSightToggleButton() {
+    driver.findElement(DISPLAY_TASK_OUT_OF_SIGHT_TOGGLE_BUTTON).click();
+  }
 
-    @Step("Двигаем слайдер «Уровень детализации отрисовки»")
-    public void moveSliderRenderingLevelOfDetail(int percent) {
-        WebElement slider = driver.findElement(RENDERING_LEVEL_OF_DETAIL_SLIDER);
-        methodsForElements.moveSliderToPercent(slider, percent);
-    }
+  @Step("Двигаем слайдер «Дальность видимости объектов»")
+  public void moveSliderVisibilityRangeOfObjectsSlider(int percent) {
+    WebElement slider = driver.findElement(VISIBILITY_RANGE_OF_OBJECTS_SLIDER);
+    methodsForElements.moveSliderToPercent(slider, percent);
+  }
 
-    @Step("Считываем состояние слайдера «Уровень детализации отрисовки»")
-    public String readValueRenderingLevelOfDetail() {
-        return driver.findElement(RENDERING_LEVEL_OF_DETAIL_OUTPUT).getText();
-    }
+  @Step("Считываем состояние слайдера «Дальность видимости объектов»")
+  public String readValueOfVisibilityRangeOfObjectsField() {
+    return driver.findElement(VISIBILITY_RANGE_OF_OBJECTS_OUTPUT).getText();
+  }
 
-    @Step("Двигаем слайдер «Дальняя отсекающая плоскость»")
-    public void moveSliderFarClippingPlane(int percent) {
-        WebElement slider = driver.findElement(FAR_CLIPPING_PLANE_SLIDER);
-        methodsForElements.moveSliderToPercent(slider, percent);
-    }
+  @Step("Двигаем слайдер «Уровень детализации отрисовки»")
+  public void moveSliderRenderingLevelOfDetail(int percent) {
+    WebElement slider = driver.findElement(RENDERING_LEVEL_OF_DETAIL_SLIDER);
+    methodsForElements.moveSliderToPercent(slider, percent);
+  }
 
-    @Step("Считываем состояние слайдера «Дальняя отсекающая плоскость»")
-    public String readValueFarClippingPlane() {
-        return driver.findElement(FAR_CLIPPING_PLANE_OUTPUT).getText();
-    }
+  @Step("Считываем состояние слайдера «Уровень детализации отрисовки»")
+  public String readValueRenderingLevelOfDetail() {
+    return driver.findElement(RENDERING_LEVEL_OF_DETAIL_OUTPUT).getText();
+  }
 
-    @Step("Двигаем слайдер «Максимальная дальность отрисовки меток»")
-    public void moveSliderMaximumRenderingDistanceLabels(int percent) {
-        WebElement slider = driver.findElement(MAXIMUM_RENDERING_DISTANCE_LABELS_SLIDER);
-        methodsForElements.moveSliderToPercent(slider, percent);
-    }
+  @Step("Двигаем слайдер «Дальняя отсекающая плоскость»")
+  public void moveSliderFarClippingPlane(int percent) {
+    WebElement slider = driver.findElement(FAR_CLIPPING_PLANE_SLIDER);
+    methodsForElements.moveSliderToPercent(slider, percent);
+  }
 
-    @Step("Считываем состояние слайдера «Максимальная дальность отрисовки меток»")
-    public String readValueOfMaximumRenderingDistanceLabelsField() {
-        return driver.findElement(MAXIMUM_RENDERING_DISTANCE_LABELS_OUTPUT).getText();
-    }
+  @Step("Считываем состояние слайдера «Дальняя отсекающая плоскость»")
+  public String readValueFarClippingPlane() {
+    return driver.findElement(FAR_CLIPPING_PLANE_OUTPUT).getText();
+  }
 
-    @Step("Нажимаем на переключатель «Отображать метки задач, находящихся вне поля зрения»")
-    public static void clickOnUseDrawDistanceToggleButton() {
-        driver.findElement(USE_DRAW_DISTANCE_TOGGLE_BUTTON).click();
-    }
+  @Step("Двигаем слайдер «Максимальная дальность отрисовки меток»")
+  public void moveSliderMaximumRenderingDistanceLabels(int percent) {
+    WebElement slider = driver.findElement(MAXIMUM_RENDERING_DISTANCE_LABELS_SLIDER);
+    methodsForElements.moveSliderToPercent(slider, percent);
+  }
 
-    @Step("Считываем состояние переключателя «Отображать метки задач, находящихся вне поля зрения»")
-    public boolean useDrawDistanceToggleButtonIsEnabled() {
-        return methodsForElements.switchEnabled(USE_DRAW_DISTANCE_TOGGLE_BUTTON);
-    }
+  @Step("Считываем состояние слайдера «Максимальная дальность отрисовки меток»")
+  public String readValueOfMaximumRenderingDistanceLabelsField() {
+    return driver.findElement(MAXIMUM_RENDERING_DISTANCE_LABELS_OUTPUT).getText();
+  }
 
-    @Step("Закрываем окно «Интерфейс», нажав на кнопку Х")
-    public static void clickOnXButton() {
-        waitOpenInterfaceWindow();
-        driver.findElement(INTERFACE_X_BUTTON).click();
-    }
+  @Step("Нажимаем на переключатель «Отображать метки задач, находящихся вне поля зрения»")
+  public static void clickOnUseDrawDistanceToggleButton() {
+    driver.findElement(USE_DRAW_DISTANCE_TOGGLE_BUTTON).click();
+  }
 
-    @Step("Нажимаем на кнопку полосы прокрутки для прокрутки страницы")
-    public void clickOnScrollBarIncreaseButton() {
-        waitOpenInterfaceWindow();
-        driver.findElement(SCROLL_BAR_INCREASE_BUTTON).click();
-    }
+  @Step("Считываем состояние переключателя «Отображать метки задач, находящихся вне поля зрения»")
+  public boolean useDrawDistanceToggleButtonIsEnabled() {
+    return methodsForElements.switchEnabled(USE_DRAW_DISTANCE_TOGGLE_BUTTON);
+  }
+
+  @Step("Закрываем окно «Интерфейс», нажав на кнопку Х")
+  public static void clickOnXButton() {
+    waitOpenInterfaceWindow();
+    driver.findElement(INTERFACE_X_BUTTON).click();
+  }
+
+  @Step("Нажимаем на кнопку полосы прокрутки для прокрутки страницы")
+  public void clickOnScrollBarIncreaseButton() {
+    waitOpenInterfaceWindow();
+    driver.findElement(SCROLL_BAR_INCREASE_BUTTON).click();
+  }
 }
