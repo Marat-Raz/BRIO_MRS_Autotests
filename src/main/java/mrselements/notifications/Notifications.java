@@ -1,4 +1,4 @@
-package mrs_elements.notifications;
+package mrselements.notifications;
 
 import io.appium.java_client.AppiumDriver;
 import java.time.Duration;

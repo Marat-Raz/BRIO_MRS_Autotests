@@ -1,3 +1,4 @@
+import static generaldatatests.GeneralDataTests.projectsForTests;
 import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -5,10 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.qameta.allure.Link;
 import io.qameta.allure.Links;
-import mrs_elements.loggedmainpage.ImportLocalProjectsView;
-import mrs_elements.loggedmainpage.LoggedMainPage;
-import mrs_elements.loggedmainpage.SelectedProjectSideView;
-import mrs_elements.loggedmainpage.selectedProjectSideView.DeleteProjectDialog;
+import mrselements.loggedmainpage.ImportLocalProjectsView;
+import mrselements.loggedmainpage.LoggedMainPage;
+import mrselements.loggedmainpage.SelectedProjectSideView;
+import mrselements.loggedmainpage.selectedprojectsideview.DeleteProjectDialog;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -26,15 +27,16 @@ public class ImportLocalProjectsViewTests extends TestsStarter {
   @Links(value = {@Link(name = "Ссылка на тест-кейс №1", url = "https://app.qase.io/case/MRS-1463"),
       @Link(name = "Ссылка на тест-кейс №2", url = "https://app.qase.io/case/MRS-1702")})
   public void createProjectFromFolderTest() throws InterruptedException {
+    String project = projectsForTests.get(1);
     loggedMainPage.clickOnCreateProjectsFromFoldersButton();
     importLocalProjectsView.waitOpenImportLocalProjectsView();
-    importLocalProjectsView.moveToElementAndClickOnProject("ImportLocalProjectsViewTests");
-    resultOne = importLocalProjectsView.projectIsChecked("ImportLocalProjectsViewTests");
+    importLocalProjectsView.moveToElementAndClickOnProject(project);
+    resultOne = importLocalProjectsView.projectIsChecked(project);
     importLocalProjectsView.clickOnCreateButton();
     loggedMainPage.waitOpenLoggedMainPage();
     sleep(1000);
-    resultTwo = loggedMainPage.desiredProjectIsDisplayed("ImportLocalProjectsViewTests");
-    loggedMainPage.findProjectAndClickThem("ImportLocalProjectsViewTests");
+    resultTwo = loggedMainPage.desiredProjectIsDisplayed(project);
+    loggedMainPage.findProjectAndClickThem(project);
     selectedProjectSideView.waitOpenSelectedProjectSideView();
     sleep(1000);
     selectedProjectSideView.selectMenuItemDeleteProjectItem();
@@ -65,10 +67,15 @@ public class ImportLocalProjectsViewTests extends TestsStarter {
   @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1569")
   public void folderDatabaseMissingTest() {
     importLocalProjectsView.renameFolderDatabase();
+    loggedMainPage.waitOpenLoggedMainPage();
     loggedMainPage.clickOnCreateProjectsFromFoldersButton();
-    importLocalProjectsView.waitOpenImportLocalProjectsView();
-    int numberOfProjects = importLocalProjectsView.getListOfAvailableProjects();
-    importLocalProjectsView.returnNameFolderDatabase();
+    int numberOfProjects;
+    try {
+      importLocalProjectsView.waitOpenImportLocalProjectsView();
+      numberOfProjects = importLocalProjectsView.getListOfAvailableProjects();
+    } finally {
+      importLocalProjectsView.returnNameFolderDatabase();
+    }
     importLocalProjectsView.clickOnCancelButton();
     assertEquals(0, numberOfProjects);
   }

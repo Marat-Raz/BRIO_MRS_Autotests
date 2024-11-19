@@ -7,11 +7,11 @@ import io.qameta.allure.Link;
 import io.qameta.allure.Links;
 import io.qameta.allure.Muted;
 import io.qameta.allure.Step;
-import mrs_elements.loggedmainpage.CreateNewProjectDialog;
-import mrs_elements.loggedmainpage.LoggedMainPage;
-import mrs_elements.loggedmainpage.SelectedProjectSideView;
-import mrs_elements.loggedmainpage.selectedProjectSideView.DeleteProjectDialog;
-import mrs_elements.screenkeyboards.ScreenKeyboard;
+import mrselements.loggedmainpage.CreateNewProjectDialog;
+import mrselements.loggedmainpage.LoggedMainPage;
+import mrselements.loggedmainpage.SelectedProjectSideView;
+import mrselements.loggedmainpage.selectedprojectsideview.DeleteProjectDialog;
+import mrselements.screenkeyboards.ScreenKeyboard;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -103,8 +103,8 @@ public class CreateNewProjectDialogTests extends TestsStarter {
     loggedMainPage.waitOpenLoggedMainPage();
     int numberOfProjectsPlus1 = loggedMainPage.getNumberOfProjectsFromHeaderProjects();
     sleep(1000);
-    result = loggedMainPage.desiredProjectIsDisplayed(
-        newProject); // fixme не находит проект по xpath
+    result = loggedMainPage.desiredProjectIsDisplayed(newProject);
+    // fixme не находит проект по xpath
     deleteProject(newProject);
     boolean otherResult = deleteProjectDialog.checkingDeletingFolderFromDatabase(newProject);
     int numberOfProjectsMinus1 = loggedMainPage.getNumberOfProjectsFromHeaderProjects();

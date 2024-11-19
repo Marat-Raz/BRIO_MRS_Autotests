@@ -1,59 +1,59 @@
+import static generaldatatests.GeneralDataTests.projectsForTests;
 import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.qameta.allure.Link;
-import mrs_elements.explorer_view.ExplorerView;
-import mrs_elements.loggedmainpage.ImportLocalProjectsView;
-import mrs_elements.loggedmainpage.LoadModelsOpenedLastTimeDialog;
-import mrs_elements.loggedmainpage.LoggedMainPage;
-import mrs_elements.scene.MrsCvView;
-import mrs_elements.scene.bim_viewer_view.BimViewerView;
-import mrs_elements.scene.bim_viewer_view.toolbar.FloorMapListView;
-import mrs_elements.scene.bim_viewer_view.toolbar.MarkersListView;
-import mrs_elements.scene.bim_viewer_view.toolbar.ObjectivesListPanelView;
-import mrs_elements.scene.bim_viewer_view.toolbar.ToolsSidePanelView;
-import mrs_elements.scene.bim_viewer_view.toolbar.TopicsPanelView;
-import mrs_elements.toppanel.MenuWindow;
-import mrs_elements.toppanel.TopPanel;
-import mrs_elements.toppanel.menu.SettingsWindow;
-import mrs_elements.toppanel.menu.settings.InterfaceWindow;
-import org.junit.jupiter.api.BeforeAll;
+import mrselements.explorerview.ExplorerView;
+import mrselements.loggedmainpage.LoadModelsOpenedLastTimeDialog;
+import mrselements.loggedmainpage.LoggedMainPage;
+import mrselements.scene.MrsCvView;
+import mrselements.scene.bimviewerview.BimViewerView;
+import mrselements.scene.bimviewerview.toolbar.*;
+import mrselements.toppanel.MenuWindow;
+import mrselements.toppanel.TopPanel;
+import mrselements.toppanel.menu.SettingsWindow;
+import mrselements.toppanel.menu.settings.InterfaceWindow;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class BimViewerViewTests extends TestsStarter {
 
-  static LoggedMainPage loggedMainPage;
-  static ImportLocalProjectsView importLocalProjectsView;
-  static LoadModelsOpenedLastTimeDialog loadModelsOpenedLastTimeDialog;
+  LoggedMainPage loggedMainPage = new LoggedMainPage(driver);
+  LoadModelsOpenedLastTimeDialog loadModelsOpenedLastTimeDialog =
+      new LoadModelsOpenedLastTimeDialog(driver);
+  TopPanel topPanel = new TopPanel(driver);
+  MenuWindow menuWindow = new MenuWindow(driver);
   BimViewerView bimViewerView = new BimViewerView(driver);
   MrsCvView mrsCvView = new MrsCvView(driver);
   MarkersListView markersListView = new MarkersListView(driver);
+  ExplorerView explorerView = new ExplorerView(driver);
 
-  static String project = "For Autotests";
+
+  static String project = projectsForTests.get(1);
   boolean result, resultOne, resultTwo;
 
-  @BeforeAll
-  public static void uploadProject() throws InterruptedException {
-    loggedMainPage = new LoggedMainPage(driver);
-    loggedMainPage.waitOpenLoggedMainPage();
-    if (!loggedMainPage.desiredProjectIsDisplayed(project)) {
-      loggedMainPage.clickOnCreateProjectsFromFoldersButton();
-      importLocalProjectsView = new ImportLocalProjectsView(driver);
-      importLocalProjectsView.waitOpenImportLocalProjectsView();
-      importLocalProjectsView.moveToElementAndClickOnProject(project);
-      importLocalProjectsView.clickOnCreateButton();
-      loggedMainPage.waitOpenLoggedMainPage();
-      sleep(1000);
-    }
+  @BeforeEach // todo заменить реализацию
+  public void uploadProject() throws InterruptedException {
     loggedMainPage.findProjectAndClickThem(project);
     loggedMainPage.clickOnOpenOrCreateProjectButton();
-    loadModelsOpenedLastTimeDialog = new LoadModelsOpenedLastTimeDialog(driver);
+    if (explorerView.explorerViewIsOpen()) {
+      explorerView.clickOnBackButton();
+    }
     if (loadModelsOpenedLastTimeDialog.loadModelsOpenedLastTimeDialogIsOpen()) {
       loadModelsOpenedLastTimeDialog.clickOnYesButton();
     }
+  }
+
+  @AfterEach
+  public void deleteProject() {
+    topPanel.waitOpenTopPanel();
+    topPanel.clickOnMainMenuButton();
+    menuWindow.clickOnReturnToMainPageButton();
+    loggedMainPage.waitOpenLoggedMainPage();
   }
 
   @Test
@@ -96,7 +96,6 @@ public class BimViewerViewTests extends TestsStarter {
   @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1803")
   public void checkingModelsButtonTest() throws InterruptedException {
     bimViewerView.clickOnModelsBtn();
-    ExplorerView explorerView = new ExplorerView(driver);
     result = explorerView.explorerViewIsOpen();
     explorerView.clickOnBackButton();
     sleep(1000);
@@ -108,9 +107,7 @@ public class BimViewerViewTests extends TestsStarter {
   @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1804")
   public void checkingFloorMapPanelButtonTest() throws InterruptedException {
     if (!bimViewerView.floorMapPanelBtnIsVisible()) {
-      TopPanel topPanel = new TopPanel(driver);
       topPanel.clickOnMainMenuButton();
-      MenuWindow menuWindow = new MenuWindow(driver);
       menuWindow.clickOnSettingsButton();
       SettingsWindow settingsWindow = new SettingsWindow(driver);
       settingsWindow.clickOnInterfaceButton();

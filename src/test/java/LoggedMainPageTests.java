@@ -1,3 +1,4 @@
+import static generaldatatests.GeneralDataTests.projectsForTests;
 import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -5,13 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.qameta.allure.Link;
 import io.qameta.allure.Links;
-import mrs_elements.loggedmainpage.CreateNewProjectDialog;
-import mrs_elements.loggedmainpage.ImportLocalProjectsView;
-import mrs_elements.loggedmainpage.LoggedMainPage;
-import mrs_elements.loggedmainpage.SelectedProjectSideView;
-import mrs_elements.loggedmainpage.selectedProjectSideView.DeleteProjectDialog;
-import mrs_elements.loggedmainpage.selectedProjectSideView.ObjectivesListView;
-import mrs_elements.screenkeyboards.ScreenKeyboard;
+import mrselements.loggedmainpage.CreateNewProjectDialog;
+import mrselements.loggedmainpage.ImportLocalProjectsView;
+import mrselements.loggedmainpage.LoggedMainPage;
+import mrselements.loggedmainpage.SelectedProjectSideView;
+import mrselements.loggedmainpage.selectedprojectsideview.DeleteProjectDialog;
+import mrselements.loggedmainpage.selectedprojectsideview.ObjectivesListView;
+import mrselements.screenkeyboards.ScreenKeyboard;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -62,24 +63,25 @@ public class LoggedMainPageTests extends TestsStarter {
   @Links(value = {@Link(name = "Ссылка на тест-кейс №1", url = "https://app.qase.io/case/MRS-1443"),
       @Link(name = "Ссылка на тест-кейс №2", url = "https://app.qase.io/case/MRS-2040")})
   public void clickOnProjectTest() throws InterruptedException {
-    if (!loggedMainPage.desiredProjectIsDisplayed("BRIO-Test")) {
+    String project = projectsForTests.get(3);
+    if (!loggedMainPage.desiredProjectIsDisplayed(project)) {
       loggedMainPage.clickOnCreateProjectsFromFoldersButton();
       importLocalProjectsView.waitOpenImportLocalProjectsView();
-      importLocalProjectsView.moveToElementAndClickOnProject("BRIO-Test");
+      importLocalProjectsView.moveToElementAndClickOnProject(project);
       importLocalProjectsView.clickOnCreateButton();
       loggedMainPage.waitOpenLoggedMainPage();
       sleep(1000);
     }
-    loggedMainPage.findProjectAndClickThem("BRIO-Test");
+    loggedMainPage.findProjectAndClickThem(project);
     sleep(500);
     actTxt = loggedMainPage.getTextOpenOrCreateProjectButton();
     selectedProjectSideView = new SelectedProjectSideView(driver);
     ObjectivesListView objectivesListView = new ObjectivesListView(driver);
     result = selectedProjectSideView.selectedProjectSideViewIsOpen();
     boolean anResult = objectivesListView.projectHasNotObjectives();
-    loggedMainPage.findProjectAndClickThem("BRIO-Test");
-    if (loggedMainPage.desiredProjectIsDisplayed("BRIO-Test")) {
-      loggedMainPage.findProjectAndClickThem("BRIO-Test");
+    loggedMainPage.findProjectAndClickThem(project);
+    if (loggedMainPage.desiredProjectIsDisplayed(project)) {
+      loggedMainPage.findProjectAndClickThem(project);
       selectedProjectSideView.waitOpenSelectedProjectSideView();
       sleep(1000);
       selectedProjectSideView.selectMenuItemDeleteProjectItem();

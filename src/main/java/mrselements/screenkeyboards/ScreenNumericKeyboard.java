@@ -1,4 +1,4 @@
-package mrs_elements.screenkeyboards;
+package mrselements.screenkeyboards;
 
 import io.appium.java_client.AppiumDriver;
 import java.time.Duration;

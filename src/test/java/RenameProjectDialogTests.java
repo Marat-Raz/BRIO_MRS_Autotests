@@ -1,3 +1,4 @@
+import static generaldatatests.GeneralDataTests.projectsForTests;
 import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -5,40 +6,37 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.qameta.allure.Link;
 import io.qameta.allure.Links;
-import mrs_elements.loggedmainpage.ImportLocalProjectsView;
-import mrs_elements.loggedmainpage.LoggedMainPage;
-import mrs_elements.loggedmainpage.SelectedProjectSideView;
-import mrs_elements.loggedmainpage.selectedProjectSideView.DeleteProjectDialog;
-import mrs_elements.loggedmainpage.selectedProjectSideView.RenameProjectDialog;
-import mrs_elements.screenkeyboards.ScreenKeyboard;
+import mrselements.loggedmainpage.ImportLocalProjectsView;
+import mrselements.loggedmainpage.LoggedMainPage;
+import mrselements.loggedmainpage.SelectedProjectSideView;
+import mrselements.loggedmainpage.selectedprojectsideview.DeleteProjectDialog;
+import mrselements.loggedmainpage.selectedprojectsideview.RenameProjectDialog;
+import mrselements.screenkeyboards.ScreenKeyboard;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class RenameProjectDialogTests extends TestsStarter {
 
-  static LoggedMainPage loggedMainPage = new LoggedMainPage(driver);
-  static ImportLocalProjectsView importLocalProjectsView = new ImportLocalProjectsView(driver);
+  LoggedMainPage loggedMainPage = new LoggedMainPage(driver);
+  ImportLocalProjectsView importLocalProjectsView = new ImportLocalProjectsView(driver);
   RenameProjectDialog renameProjectDialog = new RenameProjectDialog(driver);
   ScreenKeyboard screenKeyboard;
-  static DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(driver);
-  static SelectedProjectSideView selectedProjectSideView = new SelectedProjectSideView(driver);
+  DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(driver);
+  SelectedProjectSideView selectedProjectSideView = new SelectedProjectSideView(driver);
 
   boolean result;
   String actTxt;
+  String project = projectsForTests.get(0);
 
   @BeforeAll
-  public static void uploadProjects() throws InterruptedException {
-    if (!loggedMainPage.desiredProjectIsDisplayed("For Autotests")) {
+  public void uploadProjects() throws InterruptedException {
+    if (!loggedMainPage.desiredProjectIsDisplayed(project)) {
       loggedMainPage.clickOnCreateProjectsFromFoldersButton();
       importLocalProjectsView.waitOpenImportLocalProjectsView();
-      importLocalProjectsView.moveToElementAndClickOnProject("For Autotests");
+      importLocalProjectsView.moveToElementAndClickOnProject(project);
       importLocalProjectsView.clickOnCreateButton();
       loggedMainPage.waitOpenLoggedMainPage();
       sleep(1000);
@@ -48,9 +46,9 @@ public class RenameProjectDialogTests extends TestsStarter {
   @AfterAll
   @DisplayName("Удалить проект оставив локальные файлы (чек бокс «Оставить локальные файлы» выбран)")
   @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1460")
-  public static void deleteProjects() throws InterruptedException {
-    if (loggedMainPage.desiredProjectIsDisplayed("For Autotests")) {
-      loggedMainPage.findProjectAndClickThem("For Autotests");
+  public void deleteProjects() throws InterruptedException {
+    if (loggedMainPage.desiredProjectIsDisplayed(project)) {
+      loggedMainPage.findProjectAndClickThem(project);
       selectedProjectSideView.waitOpenSelectedProjectSideView();
       sleep(1000);
       selectedProjectSideView.selectMenuItemDeleteProjectItem();
@@ -61,7 +59,7 @@ public class RenameProjectDialogTests extends TestsStarter {
 
   @BeforeEach
   public void clickOnProjectAndMenu() {
-    loggedMainPage.findProjectAndClickThem("For Autotests");
+    loggedMainPage.findProjectAndClickThem(project);
     selectedProjectSideView.waitOpenSelectedProjectSideView();
     selectedProjectSideView.clickOnMenuItemButton();
     selectedProjectSideView.selectMenuItemRenameProjectItem();
@@ -72,7 +70,7 @@ public class RenameProjectDialogTests extends TestsStarter {
     if (renameProjectDialog.RenameProjectDialogIsOpen()) {
       renameProjectDialog.clickOnCancelButton();
     }
-    loggedMainPage.findProjectAndClickThem("For Autotests");
+    loggedMainPage.findProjectAndClickThem(project);
   }
 
   @Test
@@ -112,7 +110,7 @@ public class RenameProjectDialogTests extends TestsStarter {
     renameProjectDialog.clickOnInputBox();
     screenKeyboard = new ScreenKeyboard(driver);
     screenKeyboard.waitOpenScreenKeyboard();
-    screenKeyboard.enterTextToScreenKeyboardInput("For Autotests");
+    screenKeyboard.enterTextToScreenKeyboardInput(project);
     screenKeyboard.clickHideKeyboardButton();
     renameProjectDialog.clickOnRenameButton();
     sleep(3000);

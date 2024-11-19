@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import io.qameta.allure.Link;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import mrs_elements.toppanel.MenuWindow;
-import mrs_elements.toppanel.NotificationsWindow;
-import mrs_elements.toppanel.SynchronizationWindow;
-import mrs_elements.toppanel.TopPanel;
+import mrselements.toppanel.MenuWindow;
+import mrselements.toppanel.NotificationsWindow;
+import mrselements.toppanel.SynchronizationWindow;
+import mrselements.toppanel.TopPanel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -72,7 +72,8 @@ public class TopPanelTests extends TestsStarter {
 
       }*/
   // FIXME
-  /*  @Test
+  /*
+  @Test
     @DisplayName("Нажатие кнопки «Уровни» открывает окно «Уровни»")
     @Link(name = "Ссылка на тест-кейс отсутствует", url = " ")
     public void clickOnHierarchyButtonTest() {

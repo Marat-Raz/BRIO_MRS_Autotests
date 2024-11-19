@@ -1,4 +1,4 @@
-package mrs_elements.scene.bim_viewer_view;
+package mrselements.scene.bimviewerview;
 
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;

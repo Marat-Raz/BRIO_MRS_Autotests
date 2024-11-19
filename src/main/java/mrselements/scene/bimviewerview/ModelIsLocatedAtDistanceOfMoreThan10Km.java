@@ -1,4 +1,4 @@
-package mrs_elements.scene.bim_viewer_view;
+package mrselements.scene.bimviewerview;
 
 public class ModelIsLocatedAtDistanceOfMoreThan10Km {
 //TextBlock[ends-with(@Text, 'Продолжить её загрузку?')]

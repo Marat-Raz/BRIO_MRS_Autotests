@@ -1,4 +1,4 @@
-package mrs_elements.screenkeyboards;
+package mrselements.screenkeyboards;
 
 import org.openqa.selenium.By;
 

@@ -1,9 +1,9 @@
-package mrs_elements.loggedmainpage.selectedProjectSideView;
+package mrselements.loggedmainpage.selectedprojectsideview;
 
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
 import java.util.List;
-import mrs_elements.MethodsForElements;
+import mrselements.MethodsForElements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;

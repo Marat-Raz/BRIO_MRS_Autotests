@@ -1,4 +1,4 @@
-package mrs_elements.loggedmainpage;
+package mrselements.loggedmainpage;
 
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.util.List;
-import mrs_elements.MethodsForElements;
+import mrselements.MethodsForElements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;

@@ -1,12 +1,12 @@
-package mrs_elements.loggedmainpage.selectedProjectSideView;
+package mrselements.loggedmainpage.selectedprojectsideview;
 
-import static mrs_elements.loggedmainpage.selectedProjectSideView.MainPageObjectiveEditorView_Locators.MAIN_PAGE_OBJECTIVE_EDITOR_VIEW;
-import static mrs_elements.loggedmainpage.selectedProjectSideView.MainPageObjectiveEditorView_Locators.X_BTN;
+import static mrselements.loggedmainpage.selectedprojectsideview.MainPageObjectiveEditorView_Locators.MAIN_PAGE_OBJECTIVE_EDITOR_VIEW;
+import static mrselements.loggedmainpage.selectedprojectsideview.MainPageObjectiveEditorView_Locators.X_BTN;
 
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
 import java.time.Duration;
-import mrs_elements.MethodsForElements;
+import mrselements.MethodsForElements;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 

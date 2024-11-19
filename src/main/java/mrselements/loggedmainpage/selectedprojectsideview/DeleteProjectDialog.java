@@ -1,10 +1,10 @@
-package mrs_elements.loggedmainpage.selectedProjectSideView;
+package mrselements.loggedmainpage.selectedprojectsideview;
 
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
 import java.io.File;
 import java.time.Duration;
-import mrs_elements.MethodsForElements;
+import mrselements.MethodsForElements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;

@@ -1,4 +1,4 @@
-package mrs_elements;
+package mrselements;
 
 import io.appium.java_client.AppiumDriver;
 import java.time.Duration;
@@ -48,7 +48,10 @@ public class MethodsForElements {
   public void clickingOnListAndSelectListItem(By list, By listItem) {
     driver.findElement(list).click();
     (new WebDriverWait(driver, Duration.ofSeconds(5)))
-        .until(ExpectedConditions.visibilityOfElementLocated(listItem));
+        .until(ExpectedConditions.elementToBeClickable(listItem));
+    if (!driver.findElement(listItem).isDisplayed()) {
+      driver.findElement(list).click();
+    }
     driver.findElement(listItem).click();
   }
 }

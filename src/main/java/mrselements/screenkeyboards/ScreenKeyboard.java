@@ -1,10 +1,6 @@
-package mrs_elements.screenkeyboards;
+package mrselements.screenkeyboards;
 
-import static mrs_elements.screenkeyboards.ScreenKeyboardLocators.ENTER_BUTTON;
-import static mrs_elements.screenkeyboards.ScreenKeyboardLocators.HIDE_KEYBOARD_BUTTON;
-import static mrs_elements.screenkeyboards.ScreenKeyboardLocators.SCREEN_KEYBOARD;
-import static mrs_elements.screenkeyboards.ScreenKeyboardLocators.SCREEN_KEYBOARD_INPUT;
-import static mrs_elements.screenkeyboards.ScreenKeyboardLocators.SCREEN_KEYBOARD_PART_ATTACHED_CLEAR_BUTTON;
+import static mrselements.screenkeyboards.ScreenKeyboardLocators.*;
 
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;

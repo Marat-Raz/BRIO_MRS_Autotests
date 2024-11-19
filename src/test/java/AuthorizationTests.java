@@ -1,48 +1,53 @@
+import static generaldatatests.GeneralDataTests.BRIO_CLOUD_PASSWORD;
+import static generaldatatests.GeneralDataTests.BRIO_CLOUD_USERNAME;
+import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import io.qameta.allure.Link;
-import mrs_elements.loggedmainpage.LoggedMainPage;
-import mrs_elements.login.LoginWindow;
-import mrs_elements.notifications.Notifications;
-import mrs_elements.screenkeyboards.ScreenKeyboard;
-import mrs_elements.toppanel.MenuWindow;
-import mrs_elements.toppanel.TopPanel;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import mrselements.loggedmainpage.LoggedMainPage;
+import mrselements.login.LoginWindow;
+import mrselements.notifications.Notifications;
+import mrselements.screenkeyboards.ScreenKeyboard;
+import mrselements.toppanel.MenuWindow;
+import mrselements.toppanel.TopPanel;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class AuthorizationTests extends TestsStarter {
 
-  static TopPanel topPanel;
-  static MenuWindow menuWindow;
-  static LoginWindow loginWindow;
-  static ScreenKeyboard screenKeyboard;
-  static LoggedMainPage loggedMainPage;
+  TopPanel topPanel = new TopPanel(driver);
+  MenuWindow menuWindow = new MenuWindow(driver);
+  LoginWindow loginWindow = new LoginWindow(driver);
+  ScreenKeyboard screenKeyboard;
+  LoggedMainPage loggedMainPage = new LoggedMainPage(driver);
   Notifications notifications = new Notifications(driver);
   String txt;
 
-  @BeforeAll
-  public static void logOut() {
-    topPanel = new TopPanel(driver);
+  @BeforeEach
+  public void logOut() throws InterruptedException {
     topPanel.waitOpenTopPanel();
     topPanel.clickOnMainMenuButton();
-    menuWindow = new MenuWindow(driver);
     menuWindow.clickOnLogOutAccountButton();
-    loginWindow = new LoginWindow(driver);
     loginWindow.waitOpenLoginWindow();
+    String lang = loginWindow.getTitleTextOfChangeLanguageButton();
+    while (!lang.equals("РУС")) {
+      loginWindow.clickChangeLanguageButton();
+      sleep(300);
+      lang = loginWindow.getTitleTextOfChangeLanguageButton();
+    }
     screenKeyboard = new ScreenKeyboard(driver);
   }
 
-  @AfterAll
-  public static void logIn() {
+  @AfterEach
+  public void logIn() {
     loginWindow.clickLoginInput();
-    screenKeyboard.enterTextToScreenKeyboardInput("Autotests");
+    screenKeyboard.enterTextToScreenKeyboardInput(BRIO_CLOUD_USERNAME);
     loginWindow.clickPasswordInput();
-    screenKeyboard.enterTextToScreenKeyboardInput("Autotests123456");
+    screenKeyboard.enterTextToScreenKeyboardInput(BRIO_CLOUD_PASSWORD);
     loginWindow.clickContinueButton();
-    loggedMainPage = new LoggedMainPage(driver);
     loggedMainPage.waitOpenLoggedMainPage();
   }
 
@@ -62,7 +67,7 @@ public class AuthorizationTests extends TestsStarter {
   @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-163")
   public void loginUsingOnlyYourLoginTest() {
     loginWindow.clickLoginInput();
-    screenKeyboard.enterTextToScreenKeyboardInput("Autotests");
+    screenKeyboard.enterTextToScreenKeyboardInput(BRIO_CLOUD_USERNAME);
     loginWindow.clickPasswordInput();
     screenKeyboard.clickClearButton();
     loginWindow.clickContinueButton();
@@ -77,7 +82,7 @@ public class AuthorizationTests extends TestsStarter {
   @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-161")
   public void logInWithCorrectUsernameAndWrongPassTest() {
     loginWindow.clickLoginInput();
-    screenKeyboard.enterTextToScreenKeyboardInput("Autotests");
+    screenKeyboard.enterTextToScreenKeyboardInput(BRIO_CLOUD_USERNAME);
     loginWindow.clickPasswordInput();
     screenKeyboard.enterTextToScreenKeyboardInput("1");
     loginWindow.clickContinueButton();
@@ -120,14 +125,16 @@ public class AuthorizationTests extends TestsStarter {
   @Test
   @DisplayName("Нажимаем на кнопку смены языка")
   @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-2036")
-  public void changeLanguageTest() {
+  public void changeLanguageTest() throws InterruptedException {
     String oldValue = loginWindow.getTitleTextOfChangeLanguageButton();
     loginWindow.clickChangeLanguageButton();
     String newValue = loginWindow.getTitleTextOfChangeLanguageButton();
-    if (newValue == "ENG") {
+    String value = "";
+    while (!value.equals("РУС")) {
       loginWindow.clickChangeLanguageButton();
+      sleep(300);
+      value = loginWindow.getTitleTextOfChangeLanguageButton();
     }
     assertNotEquals(oldValue, newValue);
   }
-
 }

@@ -1,16 +1,18 @@
+import static generaldatatests.GeneralDataTests.BRIO_CLOUD_PASSWORD;
+import static generaldatatests.GeneralDataTests.BRIO_CLOUD_USERNAME;
 import static java.lang.Thread.sleep;
-import static mrs_elements.login.LoginWindow.clickLoginInput;
+import static mrselements.login.LoginWindow.clickLoginInput;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.qameta.allure.Link;
-import mrs_elements.login.LoginWindow;
-import mrs_elements.screenkeyboards.ScreenKeyboard;
-import mrs_elements.toppanel.MenuWindow;
-import mrs_elements.toppanel.TopPanel;
-import mrs_elements.toppanel.menu.CloseAppMassage;
-import mrs_elements.toppanel.menu.SettingsWindow;
-import mrs_elements.toppanel.menu.settings.InterfaceWindow;
+import mrselements.login.LoginWindow;
+import mrselements.screenkeyboards.ScreenKeyboard;
+import mrselements.toppanel.MenuWindow;
+import mrselements.toppanel.TopPanel;
+import mrselements.toppanel.menu.CloseAppMassage;
+import mrselements.toppanel.menu.SettingsWindow;
+import mrselements.toppanel.menu.settings.InterfaceWindow;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -105,13 +107,12 @@ public class RestartMRSTests extends TestsStarter {
 
     clickLoginInput();
     screenKeyboard = new ScreenKeyboard(driver);
-    screenKeyboard.enterTextToScreenKeyboardInput("Autotests");
+    screenKeyboard.enterTextToScreenKeyboardInput(BRIO_CLOUD_USERNAME);
     loginWindow.clickPasswordInput();
-    screenKeyboard.enterTextToScreenKeyboardInput("Autotests123456");
+    screenKeyboard.enterTextToScreenKeyboardInput(BRIO_CLOUD_PASSWORD);
     loginWindow.clickContinueButton();
 
     assertTrue(result);
-
   }
 
   // todo добавить другие тесты связанные с закрытием приложения МРС

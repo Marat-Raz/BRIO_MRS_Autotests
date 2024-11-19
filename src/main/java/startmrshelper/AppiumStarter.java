@@ -1,3 +1,5 @@
+package startmrshelper;
+
 import java.io.IOException;
 
 public class AppiumStarter {

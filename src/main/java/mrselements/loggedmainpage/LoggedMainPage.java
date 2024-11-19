@@ -1,9 +1,12 @@
-package mrs_elements.loggedmainpage;
+package mrselements.loggedmainpage;
 
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
 import java.time.Duration;
-import mrs_elements.MethodsForElements;
+import mrselements.MethodsForElements;
+import mrselements.loggedmainpage.selectedprojectsideview.DeleteProjectDialog;
+import mrselements.toppanel.MenuWindow;
+import mrselements.toppanel.TopPanel;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -26,11 +29,21 @@ public class LoggedMainPage {
       By.xpath("//ListBoxItem[.//TextBlock[@Text='For Autotests']]");
   public static final By PROJECT_IMPORTLOCALPROJECTSVIEWTESTS =
       By.xpath("//ListBoxItem[.//TextBlock[@Text='ImportLocalProjectsViewTests']]");
+
   MethodsForElements methodsForElements;
+  ImportLocalProjectsView importLocalProjectsView;
+  LoadModelsOpenedLastTimeDialog loadModelsOpenedLastTimeDialog;
+  TopPanel topPanel;
+  MenuWindow menuWindow;
+  SelectedProjectSideView selectedProjectSideView;
+  DeleteProjectDialog deleteProjectDialog;
 
   public LoggedMainPage(AppiumDriver driver) {
-    methodsForElements = new MethodsForElements(driver);
     this.driver = driver;
+    methodsForElements = new MethodsForElements(driver);
+    importLocalProjectsView = new ImportLocalProjectsView(driver);
+    loadModelsOpenedLastTimeDialog = new LoadModelsOpenedLastTimeDialog(driver);
+    topPanel = new TopPanel(driver);
   }
 
   public static void waitOpenLoggedMainPage() {

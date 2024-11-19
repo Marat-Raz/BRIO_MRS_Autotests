@@ -1,3 +1,4 @@
+import static generaldatatests.GeneralDataTests.projectsForTests;
 import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -5,65 +6,57 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import io.qameta.allure.Link;
 import io.qameta.allure.Links;
 import io.qameta.allure.Muted;
-import mrs_elements.loggedmainpage.ImportLocalProjectsView;
-import mrs_elements.loggedmainpage.LoggedMainPage;
-import mrs_elements.loggedmainpage.SelectedProjectSideView;
-import mrs_elements.loggedmainpage.selectedProjectSideView.DeleteProjectDialog;
+import mrselements.loggedmainpage.ImportLocalProjectsView;
+import mrselements.loggedmainpage.LoggedMainPage;
+import mrselements.loggedmainpage.SelectedProjectSideView;
+import mrselements.loggedmainpage.selectedprojectsideview.DeleteProjectDialog;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class DeleteProjectDialogTest extends TestsStarter {
 
-  static LoggedMainPage loggedMainPage = new LoggedMainPage(driver);
-  static SelectedProjectSideView selectedProjectSideView = new SelectedProjectSideView(driver);
+  static LoggedMainPage loggedMainPage;
+  static SelectedProjectSideView selectedProjectSideView;
   static DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(driver);
-  static ImportLocalProjectsView importLocalProjectsView = new ImportLocalProjectsView(driver);
+  static ImportLocalProjectsView importLocalProjectsView;
+  static String project = projectsForTests.get(0);
 
   boolean resultOne, resultTwo, oldValue, newValue;
 
   @BeforeAll
   public static void uploadProjects() throws InterruptedException {
-    if (!loggedMainPage.desiredProjectIsDisplayed("For Autotests")) {
+    loggedMainPage = new LoggedMainPage(driver);
+    if (!loggedMainPage.desiredProjectIsDisplayed(project)) {
       loggedMainPage.clickOnCreateProjectsFromFoldersButton();
+      importLocalProjectsView = new ImportLocalProjectsView(driver);
       importLocalProjectsView.waitOpenImportLocalProjectsView();
-      importLocalProjectsView.moveToElementAndClickOnProject("For Autotests");
+      importLocalProjectsView.moveToElementAndClickOnProject(project);
       importLocalProjectsView.clickOnCreateButton();
       loggedMainPage.waitOpenLoggedMainPage();
       sleep(1000);
     }
+    loggedMainPage.findProjectAndClickThem(project);
+    selectedProjectSideView = new SelectedProjectSideView(driver);
+    selectedProjectSideView.waitOpenSelectedProjectSideView();
+    selectedProjectSideView.clickOnMenuItemButton();
+    selectedProjectSideView.selectMenuItemDeleteProjectItem();
   }
 
   @AfterAll
   @DisplayName("Удалить проект оставив локальные файлы (чек бокс «Оставить локальные файлы» выбран)")
   @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1460")
   public static void deleteProjects() throws InterruptedException {
-    if (loggedMainPage.desiredProjectIsDisplayed("For Autotests")) {
-      loggedMainPage.findProjectAndClickThem("For Autotests");
-      selectedProjectSideView.waitOpenSelectedProjectSideView();
-      sleep(1000);
+    deleteProjectDialog.clickOnCancelButton();
+    loggedMainPage.findProjectAndClickThem(project);
+    if (loggedMainPage.desiredProjectIsDisplayed(project)) {
+      loggedMainPage.findProjectAndClickThem(project);
+      selectedProjectSideView = new SelectedProjectSideView(driver);
+      sleep(500);
       selectedProjectSideView.selectMenuItemDeleteProjectItem();
       deleteProjectDialog.selectCheckBoxLeaveLocalFiles();
       deleteProjectDialog.clickOnDeleteButton();
-    }
-  }
-
-  @BeforeEach
-  public void clickOnProjectAndMenu() {
-    loggedMainPage.findProjectAndClickThem("For Autotests");
-    selectedProjectSideView.waitOpenSelectedProjectSideView();
-    selectedProjectSideView.clickOnMenuItemButton();
-    selectedProjectSideView.selectMenuItemDeleteProjectItem();
-  }
-
-  @AfterEach
-  public void closeDeleteProjectDialog() {
-    if (loggedMainPage.desiredProjectIsDisplayed("For Autotests")) {
-      deleteProjectDialog.clickOnCancelButton();
-      loggedMainPage.findProjectAndClickThem("For Autotests");
     }
   }
 
@@ -89,7 +82,6 @@ public class DeleteProjectDialogTest extends TestsStarter {
     deleteProjectDialog.clickOnCheckBoxLeaveLocalFiles();
     assertEquals(oldValue, !newValue);
   }
-
 
   @Test
   @Muted

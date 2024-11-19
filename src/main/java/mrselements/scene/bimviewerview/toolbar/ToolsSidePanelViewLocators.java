@@ -1,4 +1,4 @@
-package mrs_elements.scene.bim_viewer_view.toolbar;
+package mrselements.scene.bimviewerview.toolbar;
 
 import org.openqa.selenium.By;
 

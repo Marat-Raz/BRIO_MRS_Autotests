@@ -1,3 +1,4 @@
+import static generaldatatests.GeneralDataTests.projectsForTests;
 import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,15 +8,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import io.qameta.allure.Link;
 import io.qameta.allure.Links;
 import io.qameta.allure.Step;
-import mrs_elements.explorer_view.ExplorerView;
-import mrs_elements.loggedmainpage.ImportLocalProjectsView;
-import mrs_elements.loggedmainpage.LoadModelsOpenedLastTimeDialog;
-import mrs_elements.loggedmainpage.LoggedMainPage;
-import mrs_elements.loggedmainpage.SelectedProjectSideView;
-import mrs_elements.loggedmainpage.selectedProjectSideView.DeleteProjectDialog;
-import mrs_elements.scene.bim_viewer_view.BimViewerView;
-import mrs_elements.toppanel.MenuWindow;
-import mrs_elements.toppanel.TopPanel;
+import mrselements.explorerview.ExplorerView;
+import mrselements.loggedmainpage.ImportLocalProjectsView;
+import mrselements.loggedmainpage.LoadModelsOpenedLastTimeDialog;
+import mrselements.loggedmainpage.LoggedMainPage;
+import mrselements.loggedmainpage.SelectedProjectSideView;
+import mrselements.loggedmainpage.selectedprojectsideview.DeleteProjectDialog;
+import mrselements.scene.bimviewerview.BimViewerView;
+import mrselements.toppanel.MenuWindow;
+import mrselements.toppanel.TopPanel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -77,7 +78,7 @@ public class OpenProjectTests extends TestsStarter {
       @Link(name = "Ссылка на тест-кейс №3", url = "https://app.qase.io/case/MRS-1446"),
       @Link(name = "Ссылка на тест-кейс №4", url = "https://app.qase.io/case/MRS-1450")})
   public void doNotLoadModelsFromPreviousSessionTest() throws InterruptedException {
-    String project = "For Autotests";
+    String project = projectsForTests.get(0);
     uploadProject(project);
     sleep(1000);
     resultOne = loadModelsOpenedLastTimeDialog.loadModelsOpenedLastTimeDialogIsOpen();
@@ -102,7 +103,7 @@ public class OpenProjectTests extends TestsStarter {
       @Link(name = "Ссылка на тест-кейс №2", url = "https://app.qase.io/case/MRS-1450"),
       @Link(name = "Ссылка на тест-кейс №3", url = "https://app.qase.io/case/MRS-1449")})
   public void downloadModelsFromLastSessionTest() throws InterruptedException {
-    String project = "Офис Гладилова 38А (Казань)";
+    String project = projectsForTests.get(3);
     uploadProject(project);
     if (loadModelsOpenedLastTimeDialog.loadModelsOpenedLastTimeDialogIsOpen()) {
       loadModelsOpenedLastTimeDialog.clickOnYesButton();
@@ -123,7 +124,7 @@ public class OpenProjectTests extends TestsStarter {
   @DisplayName("Повторное открытие проекта")
   @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1719")
   public void reopenProjectTest() throws InterruptedException {
-    String project = "BRIO-Test";
+    String project = projectsForTests.get(2);
     uploadProject(project);
     if (loadModelsOpenedLastTimeDialog.loadModelsOpenedLastTimeDialogIsOpen()) {
       loadModelsOpenedLastTimeDialog.clickOnYesButton();

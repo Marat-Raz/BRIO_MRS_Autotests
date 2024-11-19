@@ -1,10 +1,10 @@
 import io.qameta.allure.Link;
-import mrs_elements.loggedmainpage.ImportLocalProjectsView;
-import mrs_elements.loggedmainpage.LoggedMainPage;
-import mrs_elements.loggedmainpage.SelectedProjectSideView;
-import mrs_elements.loggedmainpage.selectedProjectSideView.DeleteProjectDialog;
-import mrs_elements.scene.bim_viewer_view.toolbar.ObjectivesListPanelView;
-import mrs_elements.screenkeyboards.ScreenKeyboard;
+import mrselements.loggedmainpage.ImportLocalProjectsView;
+import mrselements.loggedmainpage.LoggedMainPage;
+import mrselements.loggedmainpage.SelectedProjectSideView;
+import mrselements.loggedmainpage.selectedprojectsideview.DeleteProjectDialog;
+import mrselements.scene.bimviewerview.toolbar.ObjectivesListPanelView;
+import mrselements.screenkeyboards.ScreenKeyboard;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -12,11 +12,11 @@ import org.junit.jupiter.api.Test;
 public class ObjectivesListPanelViewTests extends TestsStarter {
 
   ObjectivesListPanelView objectivesListPanelView = new ObjectivesListPanelView(driver);
-  static LoggedMainPage loggedMainPage = new LoggedMainPage(driver);
-  static SelectedProjectSideView selectedProjectSideView = new SelectedProjectSideView(driver);
+  LoggedMainPage loggedMainPage = new LoggedMainPage(driver);
+  SelectedProjectSideView selectedProjectSideView = new SelectedProjectSideView(driver);
   ScreenKeyboard screenKeyboard = new ScreenKeyboard(driver);
-  static ImportLocalProjectsView importLocalProjectsView = new ImportLocalProjectsView(driver);
-  static DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(driver);
+  ImportLocalProjectsView importLocalProjectsView = new ImportLocalProjectsView(driver);
+  DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(driver);
   String[] objectives, objectivesBeforeSort, objectivesAfterSort, objectivesForEqual;
   boolean result, oldValue, newValue;
 

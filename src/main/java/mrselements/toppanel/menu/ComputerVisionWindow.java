@@ -1,9 +1,9 @@
-package mrs_elements.toppanel.menu;
+package mrselements.toppanel.menu;
 
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
 import java.time.Duration;
-import mrs_elements.MethodsForElements;
+import mrselements.MethodsForElements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;

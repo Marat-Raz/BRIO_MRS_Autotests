@@ -1,19 +1,6 @@
-package mrs_elements.scene.bim_viewer_view.toolbar;
+package mrselements.scene.bimviewerview.toolbar;
 
-import static mrs_elements.scene.bim_viewer_view.toolbar.ToolsSidePanelViewLocators.MOVE_BTN_IN_SECTION_EDITOR;
-import static mrs_elements.scene.bim_viewer_view.toolbar.ToolsSidePanelViewLocators.PLACEMENT_BTN_IN_ANGLE_TOOL_VIEW;
-import static mrs_elements.scene.bim_viewer_view.toolbar.ToolsSidePanelViewLocators.PLACEMENT_BTN_IN_DISTANCE_TOOL;
-import static mrs_elements.scene.bim_viewer_view.toolbar.ToolsSidePanelViewLocators.PLACEMENT_BTN_IN_POSITION_TOOL_VIEW;
-import static mrs_elements.scene.bim_viewer_view.toolbar.ToolsSidePanelViewLocators.PLACEMENT_BTN_IN_RULER_TOOL_CONTROL;
-import static mrs_elements.scene.bim_viewer_view.toolbar.ToolsSidePanelViewLocators.PLACEMENT_BTN_IN_SECTION_EDITOR;
-import static mrs_elements.scene.bim_viewer_view.toolbar.ToolsSidePanelViewLocators.RESET_BTN_IN_ANGLE_TOOL_VIEW;
-import static mrs_elements.scene.bim_viewer_view.toolbar.ToolsSidePanelViewLocators.RESET_BTN_IN_DISTANCE_TOOL;
-import static mrs_elements.scene.bim_viewer_view.toolbar.ToolsSidePanelViewLocators.RESET_BTN_IN_POSITION_TOOL_VIEW;
-import static mrs_elements.scene.bim_viewer_view.toolbar.ToolsSidePanelViewLocators.RESET_BTN_IN_RULER_TOOL_CONTROL;
-import static mrs_elements.scene.bim_viewer_view.toolbar.ToolsSidePanelViewLocators.RESET_BTN_IN_SECTION_EDITOR;
-import static mrs_elements.scene.bim_viewer_view.toolbar.ToolsSidePanelViewLocators.TOOLS_SIDE_PANEL_VIEW;
-import static mrs_elements.scene.bim_viewer_view.toolbar.ToolsSidePanelViewLocators.TURN_BTN_IN_SECTION_EDITOR;
-import static mrs_elements.scene.bim_viewer_view.toolbar.ToolsSidePanelViewLocators.X_BTN;
+import static mrselements.scene.bimviewerview.toolbar.ToolsSidePanelViewLocators.*;
 
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;

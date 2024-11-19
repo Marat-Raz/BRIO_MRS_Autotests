@@ -7,20 +7,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import io.qameta.allure.Link;
 import io.qameta.allure.Links;
 import java.util.Arrays;
-import mrs_elements.loggedmainpage.ImportLocalProjectsView;
-import mrs_elements.loggedmainpage.LoggedMainPage;
-import mrs_elements.loggedmainpage.SelectedProjectSideView;
-import mrs_elements.loggedmainpage.selectedProjectSideView.DeleteProjectDialog;
-import mrs_elements.loggedmainpage.selectedProjectSideView.MainPageObjectiveEditorView;
-import mrs_elements.loggedmainpage.selectedProjectSideView.ObjectivesListView;
-import mrs_elements.screenkeyboards.ScreenKeyboard;
+import mrselements.loggedmainpage.ImportLocalProjectsView;
+import mrselements.loggedmainpage.LoggedMainPage;
+import mrselements.loggedmainpage.SelectedProjectSideView;
+import mrselements.loggedmainpage.selectedprojectsideview.DeleteProjectDialog;
+import mrselements.loggedmainpage.selectedprojectsideview.MainPageObjectiveEditorView;
+import mrselements.loggedmainpage.selectedprojectsideview.ObjectivesListView;
+import mrselements.screenkeyboards.ScreenKeyboard;
 import org.apache.commons.lang3.ArrayUtils;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 public class ObjectivesListViewTests extends TestsStarter {
 

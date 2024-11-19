@@ -1,4 +1,4 @@
-package mrs_elements.loggedmainpage.selectedProjectSideView;
+package mrselements.loggedmainpage.selectedprojectsideview;
 
 import org.openqa.selenium.By;
 

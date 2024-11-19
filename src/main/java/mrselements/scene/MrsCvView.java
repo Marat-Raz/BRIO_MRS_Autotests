@@ -1,4 +1,4 @@
-package mrs_elements.scene;
+package mrselements.scene;
 
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;

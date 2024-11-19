@@ -1,4 +1,4 @@
-package mrs_elements.toppanel.menu.settings;
+package mrselements.toppanel.menu.settings;
 
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;

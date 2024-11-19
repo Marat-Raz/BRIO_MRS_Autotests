@@ -5,11 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.qameta.allure.Link;
 import io.qameta.allure.Step;
-import mrs_elements.toppanel.MenuWindow;
-import mrs_elements.toppanel.TopPanel;
-import mrs_elements.toppanel.menu.ComputerVisionWindow;
-import mrs_elements.toppanel.menu.DeveloperMode;
-import mrs_elements.toppanel.menu.SettingsWindow;
+import mrselements.toppanel.MenuWindow;
+import mrselements.toppanel.TopPanel;
+import mrselements.toppanel.menu.ComputerVisionWindow;
+import mrselements.toppanel.menu.DeveloperMode;
+import mrselements.toppanel.menu.SettingsWindow;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

@@ -1,9 +1,10 @@
-package mrs_elements.loggedmainpage;
+package mrselements.loggedmainpage;
 
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
 import java.time.Duration;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -28,8 +29,11 @@ public class LoadModelsOpenedLastTimeDialog {
   }
 
   public boolean loadModelsOpenedLastTimeDialogIsOpen() {
-    waitOpenLoadModelsOpenedLastTimeDialog();
-    return driver.findElement(DIALOG).isDisplayed();
+    try {
+      return driver.findElement(DIALOG).isDisplayed();
+    } catch (NoSuchElementException e) {
+      return false;
+    }
   }
 
   @Step("Нажать на кнопку «Да»")

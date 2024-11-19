@@ -1,35 +1,11 @@
-package mrs_elements.toppanel.menu.settings;
+package mrselements.toppanel.menu.settings;
 
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.DISPLAY_TASK_OUT_OF_SIGHT_TOGGLE_BUTTON;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.FAR_CLIPPING_PLANE_OUTPUT;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.FAR_CLIPPING_PLANE_SLIDER;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.GO_BACK_INTERFACE_BUTTON;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.INTERFACE_LANGUAGE_TOGGLE_BUTTON;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.INTERFACE_SIDE_POPUP_LEFT;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.INTERFACE_SIDE_POPUP_RIGHT;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.INTERFACE_SIDE_TOGGLE_BUTTON;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.INTERFACE_WINDOW;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.INTERFACE_X_BUTTON;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.LANGUAGE_POPUP_ENGLISH;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.LANGUAGE_POPUP_RUSSIAN;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.MAXIMUM_RENDERING_DISTANCE_LABELS_OUTPUT;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.MAXIMUM_RENDERING_DISTANCE_LABELS_SLIDER;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.RENDERING_LEVEL_OF_DETAIL_OUTPUT;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.RENDERING_LEVEL_OF_DETAIL_SLIDER;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.SCROLL_BAR_INCREASE_BUTTON;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.SHOW_LOCATION_ON_MAP_TOGGLE_BUTTON;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.SHOW_MAP_PANE_BUTTON_TOGGLE_BUTTON;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.SHOW_MINIMAP_TOGGLE_BUTTON;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.SHOW_VIEW_CUBE_TOGGLE_BUTTON;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.STICKING_TAPE_MEASURE_TO_CORNERS_OF_MODEL_TOGGLE_BUTTON;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.USE_DRAW_DISTANCE_TOGGLE_BUTTON;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.VISIBILITY_RANGE_OF_OBJECTS_OUTPUT;
-import static mrs_elements.toppanel.menu.settings.InterfaceWindowLocators.VISIBILITY_RANGE_OF_OBJECTS_SLIDER;
+import static mrselements.toppanel.menu.settings.InterfaceWindowLocators.*;
 
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
 import java.time.Duration;
-import mrs_elements.MethodsForElements;
+import mrselements.MethodsForElements;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;

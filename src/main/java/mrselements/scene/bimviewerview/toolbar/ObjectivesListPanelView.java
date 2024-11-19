@@ -1,9 +1,9 @@
-package mrs_elements.scene.bim_viewer_view.toolbar;
+package mrselements.scene.bimviewerview.toolbar;
 
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
 import java.time.Duration;
-import mrs_elements.loggedmainpage.selectedProjectSideView.ObjectivesListView;
+import mrselements.loggedmainpage.selectedprojectsideview.ObjectivesListView;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;

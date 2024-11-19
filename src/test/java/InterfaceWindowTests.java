@@ -3,10 +3,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.qameta.allure.Link;
-import mrs_elements.toppanel.MenuWindow;
-import mrs_elements.toppanel.TopPanel;
-import mrs_elements.toppanel.menu.SettingsWindow;
-import mrs_elements.toppanel.menu.settings.InterfaceWindow;
+import mrselements.toppanel.MenuWindow;
+import mrselements.toppanel.TopPanel;
+import mrselements.toppanel.menu.SettingsWindow;
+import mrselements.toppanel.menu.settings.InterfaceWindow;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

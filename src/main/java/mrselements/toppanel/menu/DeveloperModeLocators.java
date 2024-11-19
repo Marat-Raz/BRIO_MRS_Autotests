@@ -1,4 +1,4 @@
-package mrs_elements.toppanel.menu;
+package mrselements.toppanel.menu;
 
 import org.openqa.selenium.By;
 

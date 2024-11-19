@@ -1,4 +1,4 @@
-package mrs_elements.login;
+package mrselements.login;
 
 import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
@@ -11,9 +11,8 @@ public class LoginWindow {
 
   public static AppiumDriver driver;
   private static final By LOGIN_WINDOW = By.xpath(
-      "//TextBlock[@Text='Войти в систему' or @Text='Login into system']/parent::*");
-  private static final By LOGIN_WINDOW_HEADER = By.xpath(
-      "//TextBlock[@Text='Войти в систему' or @Text='Login into system']");
+      "//AnonymousMainPageView");
+  private static final By LOGIN_WINDOW_HEADER = By.name("loginPageTitle");
   private static final By LOGIN_INPUT = By.name("loginBox");
   private static final By PASSWORD_INPUT = By.name("passBox");
   private static final By CONTINUE_BUTTON = By.name("loginBtn");
