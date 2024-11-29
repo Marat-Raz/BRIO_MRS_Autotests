@@ -19,43 +19,26 @@ import org.junit.jupiter.api.*;
 
 public class ObjectivesListViewTests extends TestsStarter {
 
-  static LoggedMainPage loggedMainPage;
+  LoggedMainPage loggedMainPage = new LoggedMainPage(driver);
   ObjectivesListView objectivesListView = new ObjectivesListView(driver);
-  static SelectedProjectSideView selectedProjectSideView = new SelectedProjectSideView(driver);
+  SelectedProjectSideView selectedProjectSideView = new SelectedProjectSideView(driver);
   ScreenKeyboard screenKeyboard = new ScreenKeyboard(driver);
-  static ImportLocalProjectsView importLocalProjectsView;
-  static DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(driver);
+  ImportLocalProjectsView importLocalProjectsView;
+  DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(driver);
   String[] objectives, objectivesBeforeSort, objectivesAfterSort, objectivesForEqual;
   boolean result, oldValue, newValue;
 
-// todo нужно вначале тестов создать задачи в проекте
 
   @BeforeAll
-  public static void uploadProjects() throws InterruptedException {
-    loggedMainPage = new LoggedMainPage(driver);
-    if (!loggedMainPage.desiredProjectIsDisplayed("For Autotests")) {
-      loggedMainPage.clickOnCreateProjectsFromFoldersButton();
-      importLocalProjectsView = new ImportLocalProjectsView(driver);
-      importLocalProjectsView.waitOpenImportLocalProjectsView();
-      importLocalProjectsView.moveToElementAndClickOnProject("For Autotests");
-      importLocalProjectsView.clickOnCreateButton();
-      loggedMainPage.waitOpenLoggedMainPage();
-      sleep(1000);
-    }
+  public void uploadProjects() {
+    // todo нужно вначале тестов создать задачи в проекте
   }
 
   @AfterAll
   @DisplayName("Удалить проект оставив локальные файлы (чек бокс «Оставить локальные файлы» выбран)")
   @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1460")
-  public static void deleteProjects() throws InterruptedException {
-    if (loggedMainPage.desiredProjectIsDisplayed("For Autotests")) {
-      loggedMainPage.findProjectAndClickThem("For Autotests");
-      selectedProjectSideView.waitOpenSelectedProjectSideView();
-      sleep(1000);
-      selectedProjectSideView.selectMenuItemDeleteProjectItem();
-      deleteProjectDialog.selectCheckBoxLeaveLocalFiles();
-      deleteProjectDialog.clickOnDeleteButton();
-    }
+  public void deleteProjects() throws InterruptedException {
+    // todo нужно ли удалить задачи с базы?
   }
 
   @BeforeEach

@@ -45,6 +45,12 @@ public class ExplorerView {
         + project + "']")).click();
   }
 
+  @Step("Нажать на проект в списке проектов")
+  public void findModelCubeAndClickThem() {
+    waitOpenExplorerView();
+    driver.findElement(By.xpath("//ExplorerFileControl//TextBlock[@Text='Куб_.ifc']")).click();
+  }
+
   @Step("Нажать на кнопку «Добавить на сцену»")
   public void clickOnAddToSceneButton() {
     driver.findElement(EXPLORER_ADD_TO_SCENE_BUTTON).click();

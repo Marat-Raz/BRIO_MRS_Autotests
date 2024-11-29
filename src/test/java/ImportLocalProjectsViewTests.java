@@ -1,4 +1,3 @@
-import static generaldatatests.GeneralDataTests.projectsForTests;
 import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,7 +26,7 @@ public class ImportLocalProjectsViewTests extends TestsStarter {
   @Links(value = {@Link(name = "Ссылка на тест-кейс №1", url = "https://app.qase.io/case/MRS-1463"),
       @Link(name = "Ссылка на тест-кейс №2", url = "https://app.qase.io/case/MRS-1702")})
   public void createProjectFromFolderTest() throws InterruptedException {
-    String project = projectsForTests.get(1);
+    String project = "ImportLocalProjectsViewTests";
     loggedMainPage.clickOnCreateProjectsFromFoldersButton();
     importLocalProjectsView.waitOpenImportLocalProjectsView();
     importLocalProjectsView.moveToElementAndClickOnProject(project);

@@ -33,7 +33,7 @@ public class BimViewerViewTests extends TestsStarter {
   ExplorerView explorerView = new ExplorerView(driver);
 
 
-  static String project = projectsForTests.get(1);
+  static String project = projectsForTests.get(0);
   boolean result, resultOne, resultTwo;
 
   @BeforeEach // todo заменить реализацию
@@ -41,7 +41,10 @@ public class BimViewerViewTests extends TestsStarter {
     loggedMainPage.findProjectAndClickThem(project);
     loggedMainPage.clickOnOpenOrCreateProjectButton();
     if (explorerView.explorerViewIsOpen()) {
-      explorerView.clickOnBackButton();
+      explorerView.findModelCubeAndClickThem();
+      explorerView.clickOnAddToSceneButton();
+      //explorerView.clickOnBackButton();
+      bimViewerView.waitOpenBimViewerView();
     }
     if (loadModelsOpenedLastTimeDialog.loadModelsOpenedLastTimeDialogIsOpen()) {
       loadModelsOpenedLastTimeDialog.clickOnYesButton();

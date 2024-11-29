@@ -16,7 +16,7 @@ public class DocumentManagementApp {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    Thread.sleep(1000);
+    Thread.sleep(3000);
   }
 
   public static void documentManagementDestroy() {

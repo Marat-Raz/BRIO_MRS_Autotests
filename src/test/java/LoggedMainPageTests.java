@@ -63,15 +63,7 @@ public class LoggedMainPageTests extends TestsStarter {
   @Links(value = {@Link(name = "Ссылка на тест-кейс №1", url = "https://app.qase.io/case/MRS-1443"),
       @Link(name = "Ссылка на тест-кейс №2", url = "https://app.qase.io/case/MRS-2040")})
   public void clickOnProjectTest() throws InterruptedException {
-    String project = projectsForTests.get(3);
-    if (!loggedMainPage.desiredProjectIsDisplayed(project)) {
-      loggedMainPage.clickOnCreateProjectsFromFoldersButton();
-      importLocalProjectsView.waitOpenImportLocalProjectsView();
-      importLocalProjectsView.moveToElementAndClickOnProject(project);
-      importLocalProjectsView.clickOnCreateButton();
-      loggedMainPage.waitOpenLoggedMainPage();
-      sleep(1000);
-    }
+    String project = projectsForTests.get(2);
     loggedMainPage.findProjectAndClickThem(project);
     sleep(500);
     actTxt = loggedMainPage.getTextOpenOrCreateProjectButton();

@@ -1,63 +1,42 @@
 import static generaldatatests.GeneralDataTests.projectsForTests;
-import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.qameta.allure.Link;
 import io.qameta.allure.Links;
 import io.qameta.allure.Muted;
-import mrselements.loggedmainpage.ImportLocalProjectsView;
 import mrselements.loggedmainpage.LoggedMainPage;
 import mrselements.loggedmainpage.SelectedProjectSideView;
 import mrselements.loggedmainpage.selectedprojectsideview.DeleteProjectDialog;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class DeleteProjectDialogTest extends TestsStarter {
 
-  static LoggedMainPage loggedMainPage;
-  static SelectedProjectSideView selectedProjectSideView;
-  static DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(driver);
-  static ImportLocalProjectsView importLocalProjectsView;
-  static String project = projectsForTests.get(0);
+  LoggedMainPage loggedMainPage = new LoggedMainPage(driver);
+  SelectedProjectSideView selectedProjectSideView = new SelectedProjectSideView(driver);
+
+  DeleteProjectDialog deleteProjectDialog = new DeleteProjectDialog(driver);
+  String project = projectsForTests.get(0);
 
   boolean resultOne, resultTwo, oldValue, newValue;
 
-  @BeforeAll
-  public static void uploadProjects() throws InterruptedException {
-    loggedMainPage = new LoggedMainPage(driver);
-    if (!loggedMainPage.desiredProjectIsDisplayed(project)) {
-      loggedMainPage.clickOnCreateProjectsFromFoldersButton();
-      importLocalProjectsView = new ImportLocalProjectsView(driver);
-      importLocalProjectsView.waitOpenImportLocalProjectsView();
-      importLocalProjectsView.moveToElementAndClickOnProject(project);
-      importLocalProjectsView.clickOnCreateButton();
-      loggedMainPage.waitOpenLoggedMainPage();
-      sleep(1000);
-    }
+  @BeforeEach
+  public void uploadProjects() {
     loggedMainPage.findProjectAndClickThem(project);
-    selectedProjectSideView = new SelectedProjectSideView(driver);
     selectedProjectSideView.waitOpenSelectedProjectSideView();
     selectedProjectSideView.clickOnMenuItemButton();
     selectedProjectSideView.selectMenuItemDeleteProjectItem();
   }
 
-  @AfterAll
+  @AfterEach
   @DisplayName("Удалить проект оставив локальные файлы (чек бокс «Оставить локальные файлы» выбран)")
   @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1460")
-  public static void deleteProjects() throws InterruptedException {
+  public void deleteProjects() {
     deleteProjectDialog.clickOnCancelButton();
     loggedMainPage.findProjectAndClickThem(project);
-    if (loggedMainPage.desiredProjectIsDisplayed(project)) {
-      loggedMainPage.findProjectAndClickThem(project);
-      selectedProjectSideView = new SelectedProjectSideView(driver);
-      sleep(500);
-      selectedProjectSideView.selectMenuItemDeleteProjectItem();
-      deleteProjectDialog.selectCheckBoxLeaveLocalFiles();
-      deleteProjectDialog.clickOnDeleteButton();
-    }
   }
 
   @Test

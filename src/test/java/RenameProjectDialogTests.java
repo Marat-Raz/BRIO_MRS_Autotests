@@ -31,7 +31,7 @@ public class RenameProjectDialogTests extends TestsStarter {
   String actTxt;
   String project = projectsForTests.get(0);
 
-  @BeforeAll
+  @BeforeAll // todo заменить BeforeAll
   public void uploadProjects() throws InterruptedException {
     if (!loggedMainPage.desiredProjectIsDisplayed(project)) {
       loggedMainPage.clickOnCreateProjectsFromFoldersButton();

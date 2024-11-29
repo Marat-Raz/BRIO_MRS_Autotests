@@ -42,8 +42,6 @@ public class TestsStarter {
         new AllureRestAssured());
     DocumentManagementApp.startDocumentManagement(MRS_START_FOLDER);
     createUserAndAddProjects();
-    // todo создать пользователя c типом Brio-Cloud
-    // todo загрузить проекты для данного пользователя, нужные для тестов
     AppiumStarter.startAppiumServerUsingCommandPrompt();
     AltTesterDesktopStartEnd.altTesterDesktopStarter();
     startNewMRS();

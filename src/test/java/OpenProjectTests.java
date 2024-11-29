@@ -36,32 +36,8 @@ public class OpenProjectTests extends TestsStarter {
   boolean result, resultOne, resultTwo;
   String actTxt;
 
-  @Step("Загрузить проект для теста")
-  public void uploadProject(String project) throws InterruptedException {
-    if (!loggedMainPage.desiredProjectIsDisplayed(project)) {
-      loggedMainPage.clickOnCreateProjectsFromFoldersButton();
-      importLocalProjectsView.waitOpenImportLocalProjectsView();
-      importLocalProjectsView.moveToElementAndClickOnProject(project);
-      importLocalProjectsView.clickOnCreateButton();
-      loggedMainPage.waitOpenLoggedMainPage();
-      sleep(1000);
-    }
-    loggedMainPage.findProjectAndClickThem(project);
-    loggedMainPage.clickOnOpenOrCreateProjectButton();
-  }
-
-  @Step("Удалить проект после прохождения теста")
-  public void deleteProjects(String project) throws InterruptedException {
-    if (loggedMainPage.desiredProjectIsDisplayed(project)) {
-      loggedMainPage.findProjectAndClickThem(project);
-      selectedProjectSideView.waitOpenSelectedProjectSideView();
-      sleep(1000);
-      selectedProjectSideView.selectMenuItemDeleteProjectItem();
-      deleteProjectDialog.selectCheckBoxLeaveLocalFiles();
-      deleteProjectDialog.clickOnDeleteButton();
-      sleep(1000);
-    }
-  }
+  // todo реализовать поведение, при котором модель ранее не была загружена и
+  //  при открытии файла открывается страница проводника
 
   @Step("Вернутся в главное меню")
   public void returnToMainMenu() {
@@ -79,7 +55,7 @@ public class OpenProjectTests extends TestsStarter {
       @Link(name = "Ссылка на тест-кейс №4", url = "https://app.qase.io/case/MRS-1450")})
   public void doNotLoadModelsFromPreviousSessionTest() throws InterruptedException {
     String project = projectsForTests.get(0);
-    uploadProject(project);
+    loggedMainPage.openProject(project);
     sleep(1000);
     resultOne = loadModelsOpenedLastTimeDialog.loadModelsOpenedLastTimeDialogIsOpen();
     loadModelsOpenedLastTimeDialog.clickOnNoButton();
@@ -88,7 +64,6 @@ public class OpenProjectTests extends TestsStarter {
     returnToMainMenu();
     String background = loggedMainPage.getBorderBackgroundOfProject(project);
     String data = loggedMainPage.getDataOfProject(project);
-    deleteProjects(project);
     assertAll(
         () -> assertTrue(resultOne),
         () -> assertTrue(resultTwo),
@@ -103,8 +78,9 @@ public class OpenProjectTests extends TestsStarter {
       @Link(name = "Ссылка на тест-кейс №2", url = "https://app.qase.io/case/MRS-1450"),
       @Link(name = "Ссылка на тест-кейс №3", url = "https://app.qase.io/case/MRS-1449")})
   public void downloadModelsFromLastSessionTest() throws InterruptedException {
-    String project = projectsForTests.get(3);
-    uploadProject(project);
+    String project = projectsForTests.get(1);
+    loggedMainPage.openProject(project);
+    sleep(1000);
     if (loadModelsOpenedLastTimeDialog.loadModelsOpenedLastTimeDialogIsOpen()) {
       loadModelsOpenedLastTimeDialog.clickOnYesButton();
     }
@@ -112,7 +88,6 @@ public class OpenProjectTests extends TestsStarter {
     resultTwo = bimViewerView.bimViewerViewIsOpen();
     returnToMainMenu();
     actTxt = loggedMainPage.getModelNameFromProject(project);
-    deleteProjects(project);
     assertAll(
         () -> assertTrue(resultOne),
         () -> assertNotEquals("нет использованных моделей", actTxt),
@@ -124,8 +99,9 @@ public class OpenProjectTests extends TestsStarter {
   @DisplayName("Повторное открытие проекта")
   @Link(name = "Ссылка на тест-кейс", url = "https://app.qase.io/case/MRS-1719")
   public void reopenProjectTest() throws InterruptedException {
-    String project = projectsForTests.get(2);
-    uploadProject(project);
+    String project = projectsForTests.get(1);
+    loggedMainPage.openProject(project);
+    sleep(1000);
     if (loadModelsOpenedLastTimeDialog.loadModelsOpenedLastTimeDialogIsOpen()) {
       loadModelsOpenedLastTimeDialog.clickOnYesButton();
     }
@@ -135,7 +111,6 @@ public class OpenProjectTests extends TestsStarter {
     loggedMainPage.clickOnOpenOrCreateProjectButton();
     result = bimViewerView.bimViewerViewIsOpen();
     returnToMainMenu();
-    deleteProjects(project);
     assertTrue(result);
   }
 }

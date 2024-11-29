@@ -4,8 +4,6 @@ import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
 import java.time.Duration;
 import mrselements.MethodsForElements;
-import mrselements.loggedmainpage.selectedprojectsideview.DeleteProjectDialog;
-import mrselements.toppanel.MenuWindow;
 import mrselements.toppanel.TopPanel;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -25,18 +23,11 @@ public class LoggedMainPage {
   public static final By PROJECTS =
       By.xpath("//*[starts-with(@Text,'Проекты')]");
   public static final By OPEN_OR_CREATE_PROJECT_BUTTON = By.name("openOrCreateProjectBtn");
-  public static final By PROJECT_FOR_AUTO_TESTS =
-      By.xpath("//ListBoxItem[.//TextBlock[@Text='For Autotests']]");
-  public static final By PROJECT_IMPORTLOCALPROJECTSVIEWTESTS =
-      By.xpath("//ListBoxItem[.//TextBlock[@Text='ImportLocalProjectsViewTests']]");
 
   MethodsForElements methodsForElements;
   ImportLocalProjectsView importLocalProjectsView;
   LoadModelsOpenedLastTimeDialog loadModelsOpenedLastTimeDialog;
   TopPanel topPanel;
-  MenuWindow menuWindow;
-  SelectedProjectSideView selectedProjectSideView;
-  DeleteProjectDialog deleteProjectDialog;
 
   public LoggedMainPage(AppiumDriver driver) {
     this.driver = driver;
@@ -118,7 +109,7 @@ public class LoggedMainPage {
     driver.findElement(By.xpath("//ListBoxItem[.//TextBlock[@Text='" + project + "']]")).click();
   }
 
-  @Step("Нажать на проект в списке проектов")
+  @Step("Получить фоновый цвет в названии проекта")
   public String getBorderBackgroundOfProject(String project) {
     waitOpenLoggedMainPage();
     return driver.findElement(By.xpath("//TextBlock[@Text='" + project +
@@ -126,18 +117,24 @@ public class LoggedMainPage {
         .getAttribute("Background");
   }
 
-  @Step("Нажать на проект в списке проектов")
+  @Step("Получить дату из названия проекта")
   public String getDataOfProject(String project) {
     waitOpenLoggedMainPage();
     return driver.findElement(By.xpath("//TextBlock[@Text='" + project +
         "']/ancestor::Border/Grid/TextBlock")).getText();
   }
 
-  @Step("Нажать на проект в списке проектов")
+  @Step("Получить название модели в названии проекта")
   public String getModelNameFromProject(String project) {
     waitOpenLoggedMainPage();
     return driver.findElement(By.xpath("//TextBlock[@Text='" + project +
         "']/parent::*/following-sibling::TextBlock")).getText();
+  }
+
+  @Step("Открыть проект")
+  public void openProject(String project) {
+    findProjectAndClickThem(project);
+    clickOnOpenOrCreateProjectButton();
   }
 
 }

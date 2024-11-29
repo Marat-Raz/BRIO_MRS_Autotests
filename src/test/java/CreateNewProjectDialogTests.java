@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.qameta.allure.Link;
 import io.qameta.allure.Links;
-import io.qameta.allure.Muted;
 import io.qameta.allure.Step;
 import mrselements.loggedmainpage.CreateNewProjectDialog;
 import mrselements.loggedmainpage.LoggedMainPage;
@@ -37,7 +36,6 @@ public class CreateNewProjectDialogTests extends TestsStarter {
     deleteProjectDialog.clickOnDeleteButton();
   }
 
-  @Muted
   @ParameterizedTest
   @DisplayName("Ввод запрещенных символов в поле ввода названия проекта")
   @ValueSource(strings = {"<", ">", "/", "\\", "|", "?", "*", "\"", ":"})
@@ -141,7 +139,7 @@ public class CreateNewProjectDialogTests extends TestsStarter {
     result = createNewProjectDialog.errorMessageIsDisplayed();
     actTxt = createNewProjectDialog.getTextErrorMessage();
     createNewProjectDialog.clickOnCancelButton();
-
+// fixme проект дубликат не удаляется после тестов
     deleteProject(duplicateName);
     assertAll(
         () -> assertTrue(result),

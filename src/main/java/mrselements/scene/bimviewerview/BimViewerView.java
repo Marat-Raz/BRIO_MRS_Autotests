@@ -39,7 +39,6 @@ public class BimViewerView {
   }
 
   public boolean bimViewerViewIsOpen() {
-    waitOpenBimViewerView();
     return driver.findElement(BIM_VIEWER_VIEW).isDisplayed();
   }
 
